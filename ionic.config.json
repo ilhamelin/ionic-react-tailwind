@@ -1,0 +1,7 @@
+{
+  "name": "ionic-react-tailwind",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
