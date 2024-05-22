@@ -54,6 +54,17 @@ module.exports = {
       Blanco:'#FFFFFF',
       Negro:'#000000',
       Plata:'#Bcbcbc',
+      Gris_paloma:'#737373',
+      Mercurio:'#e8e8e8',
+      PapayaWhip:'#fff2d9',
+      
+      Anochecer:'#171523',
+      Grafito:'#1C1C1C',
+      Ebano:'#160D08',
+      Dark_Jade:'#10220D',
+      Escarlata:'#240000',
+      
+
     },
     extend: {
       fontFamily: {

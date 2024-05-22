@@ -1,5 +1,15 @@
-import React from 'react';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
+import React from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonSearchbar,
+  IonTitle,
+  IonToggle,
+  IonToolbar,
+} from "@ionic/react";
+
+import { RiNotification3Line } from "react-icons/ri";
+import { searchCircle, trashBin } from "ionicons/icons";
 
 const CuentaPage = () => (
   <>
@@ -11,10 +21,10 @@ const CuentaPage = () => (
     <IonContent>
       <div
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
         }}
       >
         Cuenta

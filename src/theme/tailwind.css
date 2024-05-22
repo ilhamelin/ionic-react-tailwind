@@ -4,3 +4,40 @@
 @tailwind components;
 @tailwind utilities;
 
+
+ion-toggle {
+    padding: 10px;
+
+    --track-background: #ddd;
+    --track-background-checked: #ddd;
+
+    --handle-background: #eb7769;
+    --handle-background-checked: #95c34e;
+
+    --handle-width: 28px;
+    --handle-height: 25px;
+    --handle-max-height: auto;
+    --handle-spacing: 2px;
+
+    --handle-border-radius: 100%;
+    --handle-box-shadow: none;
+}
+
+ion-toggle::part(track) {
+    height: 30px;
+    width: 60px;
+
+    /* Required for iOS handle to overflow the height of the track */
+    overflow: visible;
+}
+
+.link-text {
+    color: inherit;
+    /* Hereda el color del texto de su contenedor */
+    text-decoration: none;
+    /* Evita el subrayado por defecto en los enlaces */
+}
+
+
+
+
