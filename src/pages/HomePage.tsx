@@ -92,6 +92,10 @@ const HomePage: React.FC = () => {
     history.push("/vistaProducto_1")
   }
 
+  const handleProducto1 = () => {
+    history.push("/vistaProducto_2")
+  }
+
   const [searchText, setSearchText] = useState("");
 
   const handleSearchChange = (event: {
@@ -403,7 +407,7 @@ const HomePage: React.FC = () => {
           </div>
 
           <div className="md:flex md:flex-row-reverse mb-3 mt-3 mb:ml-2 ">
-            <div className="flex justify-center">
+            <div className="flex justify-center " onClick={handleProducto1}>
               <img
                 className="rounded-xl object-cover h-[190px] w-[414px] l:w-[360px] x:w-[410px] md:w-[410px] xm:w-[470px] g:w-[310px]"
                 src={oferta2}

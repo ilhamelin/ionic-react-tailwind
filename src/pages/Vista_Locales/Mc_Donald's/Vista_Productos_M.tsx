@@ -5,22 +5,22 @@ import { FaStar, FaCircle, FaAngleRight, FaUserPlus } from "react-icons/fa6";
 
 import { AiOutlineLike, AiOutlinePlus, AiFillTag } from "react-icons/ai";
 
-import Portada from "../../../img/Portada_Señor_de_los_Bajones.png";
+import Portada_M from "../../../img/Mc_Macdonals/Portada.png";
 import Promo from "../../../img/DonutUberOne@3x.png";
 
-import Favorito_1 from "../../../img/El_Señor_De_Los_Bajones/Duo_Sandwich.png";
-import Favorito_2 from "../../../img/El_Señor_De_Los_Bajones/Papas_Fritas.png";
-import Favorito_3 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_italiana.png";
-import Favorito_4 from "../../../img/El_Señor_De_Los_Bajones/Papas_boromir.png";
-import Favorito_5 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_italiana_grande.webp";
-import Favorito_6 from "../../../img/El_Señor_De_Los_Bajones/Papas_Aragon.png";
-import Favorito_7 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_completo.png"
+import Favorito_1 from "../../../img/Mc_Macdonals/Doble_Cuarto_Libra.png";
+import Favorito_2 from "../../../img/Mc_Macdonals/Nuggets.png";
+import Favorito_3 from "../../../img/Mc_Macdonals/Cuarto_Libra.png";
+import Favorito_4 from "../../../img/Mc_Macdonals/Gran_Big_Mac.png";
+import Favorito_5 from "../../../img/Mc_Macdonals/Bacon_Cheddar_McMelt_2_Carnes.png";
+import Favorito_6 from "../../../img/Mc_Macdonals/Family_box_uber.png";
+import Favorito_7 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_completo.png";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 
-const Vista_Productos: React.FC = () => {
+const Vista_Productos_M: React.FC = () => {
   // Aquí puedes utilizar ofertaId para cargar la información de la oferta seleccionada
   const [isChecked, setIsChecked] = useState(false);
 
@@ -33,20 +33,22 @@ const Vista_Productos: React.FC = () => {
       <IonContent fullscreen={true}>
         <div className="flex flex-col">
           <div>
-            <img src={Portada} className="object-cover h-[140px] w-full" />
+            <img src={Portada_M} className="object-cover x:h-[155px] w-full" />
           </div>
           <div className="font-font-family-light font-medium x:text-[21px] text-center x:mt-2">
-            El Señor De Los Bajones
+            McDonald's
           </div>
-          <div className="flex items-center justify-center space-x-5 ">
+          <div className="flex items-center justify-center x:space-x-8 ">
             <div className="flex-col ">
               <div className="flex font-font-family-light font-normal items-center justify-center x:text-[13px]">
-                4.6
-                <FaStar className="text-[11px] mx-[4px]" />
+                4.4
+                <FaStar className="text-[11px] x:mx-[4px]" />
                 <span className="flex items-center font-font-family-light font-light">
-                  (89)
-                  <FaCircle className="mx-[4px] text-[2.7px]" />
-                  Costo de envio: CLP 1800
+                  (25,000+)
+                  <FaCircle className="x:mx-[4px] text-[2.7px]" />
+                  <span className="text-Joya_del_Chelsea font-medium">
+                    Uber One
+                  </span>
                   <FaCircle className="mx-[4px] text-[2.7px]" />
                 </span>
               </div>
@@ -96,12 +98,12 @@ const Vista_Productos: React.FC = () => {
           <div className="flex justify-center x:space-x-10 border border-Gris_muy_claro rounded-md x:mt-4 x:mx-5 x:py-4 font-font-family-light ">
             <div className="flex flex-col text-center x:pr-10 border-r border-Gris_muy_claro">
               <div className="font-medium x:text-[12px]">
-                Costos de envio: CLP 1800
+                Costos de envio: CLP 4000
               </div>
               <div className="font-light x:text-[11px]">Precios y Tarifa</div>
             </div>
             <div className="flex flex-col text-center">
-              <div className="font-medium x:text-[12px]">30-45 min</div>
+              <div className="font-medium x:text-[12px]">40-55 min</div>
               <div className="font-light x:text-[11px]">Tiempo de entrega</div>
             </div>
           </div>
@@ -126,8 +128,8 @@ const Vista_Productos: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col mt-5  border-b border-b-Gris_muy_claro">
-            <div className="font-font-family-light font-bold x:text-[25px] ml-5">
+          <div className="flex flex-col x:mt-5  border-b border-b-Gris_muy_claro">
+            <div className="font-font-family-light font-bold x:text-[25px] x:ml-5">
               Articulos destacados
             </div>
             <div>
@@ -150,27 +152,20 @@ const Vista_Productos: React.FC = () => {
                           #1 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[120px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[95px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
-                    <div className="mt-1 px-4">
+                    <div className="x:mt-1 x:px-4">
                       <div className="flex">
                         <div className="flex flex-col text-[15px] font-font-family-light font-semibold">
-                          Duo Sandwich
-                          <span className="">Churrasco</span>
-                          <span className="">Italiano</span>
+                          McCombo
+                          <span className="">Grande Doble</span>
+                          <span className="">Cuarto de Libra</span>
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light leading-5 g:text-[11px]">
-                        <div className="flex items-center">
-                          CLP 10,700
-                          <FaCircle className="mx-[4px] text-[2.7px]" />
-                        </div>
-                        <span className="flex items-center font-font-family-light font-light text-[11px]">
-                          <AiOutlineLike className="mr-[2.5px]" />
-                          90% (41)
-                        </span>
+                        <div className="flex items-center">CLP 8,900</div>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -185,25 +180,18 @@ const Vista_Productos: React.FC = () => {
                           #2 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[75px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[50px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
                     <div className="mt-1 px-4">
                       <div className="flex">
                         <div className="text-[15px] font-font-family-light font-semibold">
-                          Papas clasicas
+                          McNuggets x10
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light leading-5 g:text-[11px]">
-                        <div className="flex items-center">
-                          CLP 6,200
-                          <FaCircle className="mx-[4px] text-[2.7px]" />
-                        </div>
-                        <span className="flex items-center font-font-family-light font-light text-[11px]">
-                          <AiOutlineLike className="mr-[2.5px]" />
-                          88% (325)
-                        </span>
+                        <div className="flex items-center">CLP 4,500</div>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -214,29 +202,23 @@ const Vista_Productos: React.FC = () => {
                         src={Favorito_3}
                       />
                       <div className="flex absolute ">
-                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px] rounded-md px-1.5 text-[12px] items-center text-white x:mr-4">
+                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px]  rounded-md px-1.5 text-[12px] items-center text-white x:mr-4">
                           #3 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[75px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[95px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
                     <div className="mt-1 px-4">
                       <div className="flex">
                         <div className="flex flex-col text-[15px] font-font-family-light font-semibold">
-                          Vienesa italiana
+                          McCombo
+                          <span>Grande Cuarto de libra</span>
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light leading-5 g:text-[11px]">
-                        <div className="flex items-center">
-                          CLP 5,500
-                          <FaCircle className="mx-[4px] text-[2.7px]" />
-                        </div>
-                        <span className="flex items-center font-font-family-light font-light text-[11px]">
-                          <AiOutlineLike className="mr-[2.5px]" />
-                          94% (147)
-                        </span>
+                        <div className="flex items-center">CLP 5,500</div>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -258,18 +240,12 @@ const Vista_Productos: React.FC = () => {
                     <div className="mt-1 px-4">
                       <div className="flex">
                         <div className="flex flex-col text-[15px] font-font-family-light font-semibold">
-                          Papas Boromir
+                          McCombo
+                          <span>Grande Big Mac</span>
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light leading-5  g:text-[11px]">
-                        <div className="flex items-center">
-                          CLP 4,800
-                          <FaCircle className="mx-[4px] text-[2.7px]" />
-                        </div>
-                        <span className="flex items-center font-font-family-light font-light text-[11px]">
-                          <AiOutlineLike className="mr-[2.5px]" />
-                          93% (590)
-                        </span>
+                        <div className="flex items-center">CLP 4,800</div>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -291,18 +267,18 @@ const Vista_Productos: React.FC = () => {
                     <div className="mt-1 px-4">
                       <div className="flex">
                         <div className="flex flex-col text-[15px] font-font-family-light font-semibold">
-                          Vienesa Italiana
-                          <span>Gigante</span>
+                          McCombo Bacon
+                          <span>Cheddar McMelt</span>
+                          <span>2 Carnes</span>
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light leading-5  g:text-[11px]">
-                        <div className="flex items-center">
-                          CLP 4,800
-                          <FaCircle className="mx-[4px] text-[2.7px]" />
+                        <div className="text-Cian_oscuro flex items-center">
+                          CLP 16,000
+                          <FaCircle className="text-Negro mx-[4px] text-[2.7px]" />
                         </div>
-                        <span className="flex items-center font-font-family-light font-light text-[11px]">
-                          <AiOutlineLike className="mr-[2.5px]" />
-                          81% (254)
+                        <span className=" line-through font-font-family-light font-light text-[11px]">
+                          CLP 20,800
                         </span>
                       </div>
                     </div>
@@ -312,8 +288,9 @@ const Vista_Productos: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col x:mt-5">
-            <div className="font-font-family-light font-bold x:text-[25px] x:ml-4 ">
-              Seleccionado para ti
+            <div className="flex items-center font-font-family-light font-bold x:text-[25px] x:ml-4 ">
+              <AiFillTag className="text-Verde x:mr-[2px] x:text-[30px]" />
+              Ahorros Exclusivos
             </div>
             <div className="flex flex-col gap-y-3 pt-2">
               <div className="flex gap-x-[120px] border-b border-b-Gris_muy_claro pb-3">
@@ -461,7 +438,9 @@ const Vista_Productos: React.FC = () => {
                 <div className="flex flex-col font-font-family-light font-light x:text-[11px]">
                   vienesa, tomate picante, palta y<span>mayonesa casera.</span>
                 </div>
-                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">Compra 1, llevate 1 extra</div>
+                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">
+                  Compra 1, llevate 1 extra
+                </div>
               </div>
               <div className="flex justify-center">
                 <img
@@ -485,9 +464,12 @@ const Vista_Productos: React.FC = () => {
                   <AiOutlineLike className="mr-[2.5px]" /> 100% (9)
                 </div>
                 <div className="flex flex-col font-font-family-light font-light x:text-[11px]">
-                  vienesa, chucrut, americana,<span>tomate y matonesa casera</span>
+                  vienesa, chucrut, americana,
+                  <span>tomate y matonesa casera</span>
                 </div>
-                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">Compra 1, llevate 1 extra</div>
+                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">
+                  Compra 1, llevate 1 extra
+                </div>
               </div>
               <div className="flex justify-center">
                 <img
@@ -506,4 +488,4 @@ const Vista_Productos: React.FC = () => {
   );
 };
 
-export default Vista_Productos;
+export default Vista_Productos_M;

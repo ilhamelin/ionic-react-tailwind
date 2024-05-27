@@ -11,6 +11,7 @@ import MapaPage from "./pages/MapaPage";
 import PromocionesPage from "./pages/PromocionesPage";
 import LocalPage from "./pages/Vista_Locales/LocalPage";
 import Vista_Productos from "./pages/Vista_Locales/El_Señor_De_Los_Bajones/Vista_Productos";
+import Vista_Productos_M from "./pages/Vista_Locales/Mc_Donald's/Vista_Productos_M";
 import Mapa from "./API/Mapa";
 
 /* Core CSS required for Ionic components to work properly */
@@ -85,6 +86,7 @@ const App: React.FC = () => (
             <Route path="/mapa" render={() => <MapaPage />} exact={true} />
             <Route path="/promociones" component={PromocionesPage} exact={true} />
             <Route path="/vistaProducto_1" component={Vista_Productos} exact={true} />
+            <Route path="/vistaProducto_2" component={Vista_Productos_M} exact={true} />
             
             
           </IonRouterOutlet>

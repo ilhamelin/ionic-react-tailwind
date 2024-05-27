@@ -57,6 +57,8 @@ module.exports = {
       Gris_paloma:'#737373',
       Mercurio:'#e8e8e8',
       PapayaWhip:'#fff2d9',
+      Verde:'#05944f',
+      Joya_del_Chelsea:'#9f6402',
       
       Anochecer:'#171523',
       Grafito:'#1C1C1C',
