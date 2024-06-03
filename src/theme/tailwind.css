@@ -38,6 +38,16 @@ ion-toggle::part(track) {
     /* Evita el subrayado por defecto en los enlaces */
 }
 
+.info-window {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #333;
+    text-align: center;
+    background-color: #fff;
+}
 
-
-
+.info-window img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }

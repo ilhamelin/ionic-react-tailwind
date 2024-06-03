@@ -12,6 +12,9 @@ import PromocionesPage from "./pages/PromocionesPage";
 import LocalPage from "./pages/Vista_Locales/LocalPage";
 import Vista_Productos from "./pages/Vista_Locales/El_Señor_De_Los_Bajones/Vista_Productos";
 import Vista_Productos_M from "./pages/Vista_Locales/Mc_Donald's/Vista_Productos_M";
+import Billetera from "./pages/CuentaPage-Opciones/PagoPage";
+import Favoritos from "./pages/CuentaPage-Opciones/Favoritos";
+import Pedidos from "./pages/CuentaPage-Opciones/Pedidos";
 import Mapa from "./API/Mapa";
 
 /* Core CSS required for Ionic components to work properly */
@@ -59,6 +62,7 @@ import { FaAppleWhole } from "react-icons/fa6";
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 
 import { InterruptorProvider } from "./API/InterruptorContext";
+import PagoPage from "./pages/CuentaPage-Opciones/PagoPage";
 
 setupIonicReact();
 
@@ -84,11 +88,25 @@ const App: React.FC = () => (
             />
             <Route path="/cuenta" render={() => <CuentaPage />} exact={true} />
             <Route path="/mapa" render={() => <MapaPage />} exact={true} />
-            <Route path="/promociones" component={PromocionesPage} exact={true} />
-            <Route path="/vistaProducto_1" component={Vista_Productos} exact={true} />
-            <Route path="/vistaProducto_2" component={Vista_Productos_M} exact={true} />
-            
-            
+            <Route path="/billetera" render={() => <PagoPage />} exact={true} />
+            <Route
+              path="/promociones"
+              component={PromocionesPage}
+              exact={true}
+            />
+            <Route
+              path="/vistaProducto_1"
+              component={Vista_Productos}
+              exact={true}
+            />
+            <Route
+              path="/vistaProducto_2"
+              component={Vista_Productos_M}
+              exact={true}
+            />
+            <Route path="/billetera" component={Billetera} exact={true} />
+            <Route path="/favoritos" component={Favoritos} exact={true} />
+            <Route path="/pedidos" component={Pedidos} exact={true} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="home" href="/home">

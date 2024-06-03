@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { IonContent } from "@ionic/react";
+import { IonContent, IonHeader } from "@ionic/react";
 
-import { FaStar, FaCircle, FaAngleRight, FaUserPlus } from "react-icons/fa6";
+import {
+  FaStar,
+  FaCircle,
+  FaAngleRight,
+  FaUserPlus,
+  FaArrowLeft,
+  FaRegHeart,
+  FaEllipsisVertical,
+} from "react-icons/fa6";
 
 import { AiOutlineLike, AiOutlinePlus, AiFillTag } from "react-icons/ai";
 
@@ -14,11 +22,13 @@ import Favorito_3 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_italiana.p
 import Favorito_4 from "../../../img/El_Señor_De_Los_Bajones/Papas_boromir.png";
 import Favorito_5 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_italiana_grande.webp";
 import Favorito_6 from "../../../img/El_Señor_De_Los_Bajones/Papas_Aragon.png";
-import Favorito_7 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_completo.png"
+import Favorito_7 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_completo.png";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { FaSearch } from "react-icons/fa";
+import { text } from "ionicons/icons";
 
 const Vista_Productos: React.FC = () => {
   // Aquí puedes utilizar ofertaId para cargar la información de la oferta seleccionada
@@ -30,6 +40,32 @@ const Vista_Productos: React.FC = () => {
 
   return (
     <>
+      <div className=" fixed top-0 left-0 w-full z-10 transition-transform duration-300">
+        <IonHeader
+          class="shadow-none"
+          className="bg-transparent flex justify-between items-center sticky top-0 transition duration-300"
+        >
+          <div className="x:mt-[5px] x:ml-2">
+            <button
+              className="bg-Negro px-[10px] py-[10px] rounded-full bg-opacity-50"
+              onClick={() => window.history.back()}
+            >
+              <FaArrowLeft className="text-Blanco" />
+            </button>
+          </div>
+          <div className="flex x:gap-x-5 x:px-4 items-center justify-center x:mt-[5px]">
+            <button className="bg-Negro x:px-[10px] x:py-[10px] rounded-full bg-opacity-50">
+              <FaRegHeart className=" text-Blanco text-[15px]" />
+            </button>
+            <button className="bg-Negro x:px-[10px] x:py-[10px] rounded-full bg-opacity-50">
+              <FaSearch className=" text-Blanco text-[15px]" />
+            </button>
+            <button className="bg-Negro x:px-[10px] x:py-[10px] rounded-full bg-opacity-50">
+              <FaEllipsisVertical className=" text-Blanco text-[15px]" />
+            </button>
+          </div>
+        </IonHeader>
+      </div>
       <IonContent fullscreen={true}>
         <div className="flex flex-col">
           <div>
@@ -105,6 +141,7 @@ const Vista_Productos: React.FC = () => {
               <div className="font-light x:text-[11px]">Tiempo de entrega</div>
             </div>
           </div>
+          
           <div className="flex justify-center border-none rounded-md x:mx-5 x:space-x-[86px] bg-PapayaWhip  x:mt-5 font-font-family-light">
             <div className="flex flex-col x:pt-2 x:pl-2 ">
               <span className="font-semibold x:text-[12px]">
@@ -131,7 +168,7 @@ const Vista_Productos: React.FC = () => {
               Articulos destacados
             </div>
             <div>
-              <div className="mb-4">
+              <div className="x:mb-4">
                 <Swiper
                   modules={[Navigation, Pagination, Scrollbar, A11y]}
                   spaceBetween={0}
@@ -140,17 +177,17 @@ const Vista_Productos: React.FC = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                 >
                   <SwiperSlide>
-                    <div className="flex justify-center px-4">
+                    <div className="flex justify-center px-4 relative">
                       <img
                         className="rounded-xl object-cover h-auto w-auto x:h-[140px] drop-shadow-md"
                         src={Favorito_1}
                       />
-                      <div className="absolute">
-                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px] rounded-md px-1.5 text-[12px] items-center text-white x:mr-4">
+                      <div className="absolute x:bottom-[115px] x:right-[19px]">
+                        <div className="bg-Cian_oscuro text-Blanco rounded-md px-1.5 text-[12px] items-center text-white x:mr-4 font-font-family-light">
                           #1 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[120px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[4px] x:right-[20px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
@@ -175,17 +212,17 @@ const Vista_Productos: React.FC = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex justify-center px-4 ">
+                    <div className="flex justify-center px-4 relative">
                       <img
                         className="rounded-xl object-cover h-auto w-auto x:h-[140px] drop-shadow-md "
                         src={Favorito_2}
                       />
-                      <div className="absolute">
-                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px] rounded-lg px-1.5 text-[12px] items-center text-white x:mr-4">
+                      <div className="absolute x:bottom-[115px] x:right-[19px]">
+                        <div className="bg-Cian_oscuro text-Blanco rounded-md px-1.5 text-[12px] items-center text-white x:mr-4 font-font-family-light">
                           #2 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[75px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[4px] x:right-[20px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
@@ -208,17 +245,17 @@ const Vista_Productos: React.FC = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex justify-center px-4">
+                    <div className="flex justify-center px-4 relative">
                       <img
                         className="rounded-xl object-cover h-auto w-auto x:h-[140px] drop-shadow-md "
                         src={Favorito_3}
                       />
-                      <div className="flex absolute ">
-                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px] rounded-md px-1.5 text-[12px] items-center text-white x:mr-4">
-                          #3 de tus favoritos
+                      <div className="absolute x:bottom-[115px] x:right-[19px]">
+                        <div className="bg-Cian_oscuro text-Blanco rounded-md px-1.5 text-[12px] items-center text-white x:mr-4 font-font-family-light">
+                          #2 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[75px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[4px] x:right-[20px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
@@ -241,17 +278,17 @@ const Vista_Productos: React.FC = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex justify-center px-4">
+                    <div className="flex justify-center px-4 relative">
                       <img
                         className="rounded-xl object-cover h-auto w-auto x:h-[140px] drop-shadow-md"
                         src={Favorito_4}
                       />
-                      <div className="flex absolute ">
-                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px] rounded-md px-1.5 text-[12px] items-center text-white x:mr-4">
-                          #4 de tus favoritos
+                      <div className="absolute x:bottom-[115px] x:right-[19px]">
+                        <div className="bg-Cian_oscuro text-Blanco rounded-md px-1.5 text-[12px] items-center text-white x:mr-4 font-font-family-light">
+                          #2 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[75px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[4px] x:right-[20px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
@@ -274,17 +311,17 @@ const Vista_Productos: React.FC = () => {
                     </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex justify-center px-4">
+                    <div className="flex justify-center px-4 relative">
                       <img
                         className="rounded-xl object-cover h-auto w-auto x:h-[140px] drop-shadow-md"
                         src={Favorito_5}
                       />
-                      <div className="flex absolute ">
-                        <div className="bg-Cian_oscuro text-Blanco mt-1 ml-[2px] rounded-md px-1.5 text-[12px] items-center text-white x:mr-4">
-                          #5 de tus favoritos
+                      <div className="absolute x:bottom-[115px] x:right-[19px]">
+                        <div className="bg-Cian_oscuro text-Blanco rounded-md px-1.5 text-[12px] items-center text-white x:mr-4 font-font-family-light">
+                          #2 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[100px] x:right-[20px] bg-Gris_muy_claro shadow-lg x:py-2 x:px-2 rounded-full">
+                      <button className="absolute x:bottom-[4px] x:right-[20px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
@@ -331,12 +368,12 @@ const Vista_Productos: React.FC = () => {
                     Dos churrascos, palta, tomate y<span>mayonesa casera.</span>
                   </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
                   <img
                     src={Favorito_1}
                     className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                   />
-                  <button className="absolute x:-bottom-[135px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                  <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                     <AiOutlinePlus className="x:text-[10px]" />
                   </button>
                 </div>
@@ -356,12 +393,12 @@ const Vista_Productos: React.FC = () => {
                     <span>mayonesa casera.</span>
                   </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
                   <img
                     src={Favorito_3}
                     className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                   />
-                  <button className="absolute x:-bottom-[250px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                  <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                     <AiOutlinePlus className="x:text-[10px]" />
                   </button>
                 </div>
@@ -381,12 +418,12 @@ const Vista_Productos: React.FC = () => {
                     <span>Cheddar, tomate y cebollin salteado...</span>
                   </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
                   <img
                     src={Favorito_4}
                     className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                   />
-                  <button className="absolute x:-bottom-[380px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                  <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                     <AiOutlinePlus className="x:text-[10px]" />
                   </button>
                 </div>
@@ -405,12 +442,12 @@ const Vista_Productos: React.FC = () => {
                     Porcion papas fritas mediana
                   </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
                   <img
                     src={Favorito_2}
                     className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                   />
-                  <button className="absolute x:-bottom-[505px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                  <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                     <AiOutlinePlus className="x:text-[10px]" />
                   </button>
                 </div>
@@ -430,12 +467,12 @@ const Vista_Productos: React.FC = () => {
                     <span>champiñon salteado y crema esp...</span>
                   </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
                   <img
                     src={Favorito_6}
                     className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                   />
-                  <button className="absolute x:-bottom-[630px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                  <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                     <AiOutlinePlus className="x:text-[10px]" />
                   </button>
                 </div>
@@ -461,14 +498,16 @@ const Vista_Productos: React.FC = () => {
                 <div className="flex flex-col font-font-family-light font-light x:text-[11px]">
                   vienesa, tomate picante, palta y<span>mayonesa casera.</span>
                 </div>
-                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">Compra 1, llevate 1 extra</div>
+                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">
+                  Compra 1, llevate 1 extra
+                </div>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center relative">
                 <img
                   src={Favorito_3}
                   className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                 />
-                <button className="absolute x:-bottom-[800px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                   <AiOutlinePlus className="x:text-[10px]" />
                 </button>
               </div>
@@ -485,16 +524,19 @@ const Vista_Productos: React.FC = () => {
                   <AiOutlineLike className="mr-[2.5px]" /> 100% (9)
                 </div>
                 <div className="flex flex-col font-font-family-light font-light x:text-[11px]">
-                  vienesa, chucrut, americana,<span>tomate y matonesa casera</span>
+                  vienesa, chucrut, americana,
+                  <span>tomate y matonesa casera</span>
                 </div>
-                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">Compra 1, llevate 1 extra</div>
+                <div className="font-font-family-light font-semibold x:text-[11px] text-Verde">
+                  Compra 1, llevate 1 extra
+                </div>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center relative">
                 <img
                   src={Favorito_7}
                   className="rounded-xl object-cover h-auto w-auto x:h-[90px] x:w-[110px] drop-shadow-md"
                 />
-                <button className="absolute x:-bottom-[923px] x:right-[12px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
+                <button className="absolute x:bottom-[4px] x:right-[4px] bg-Blanco shadow-lg x:py-2 x:px-2 rounded-full">
                   <AiOutlinePlus className="x:text-[10px]" />
                 </button>
               </div>

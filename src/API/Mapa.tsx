@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 const Mapa = () => {
@@ -35,7 +35,5 @@ const Mapa = () => {
 
 export default Mapa;
 
-
-
-
 // AIzaSyB9OZu4qBJUXoTZfyQKpY6Psk-mZIWi2TA
+
