@@ -45,23 +45,23 @@ const Vista_Productos: React.FC = () => {
           class="shadow-none"
           className="bg-transparent flex justify-between items-center sticky top-0 transition duration-300"
         >
-          <div className="x:mt-[5px] x:ml-2 l:mt-[3px] l:ml-1">
+          <div className="x:mt-2  x:ml-2  l:mt-1 l:ml-1 g:mt-2 g:ml-2">
             <button
-              className="bg-Negro x:px-[10px] x:py-[10px] l:px-[8px] l:py-[8px] rounded-full bg-opacity-50"
+              className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[8px] l:py-[8px] g:px-[10px] g:py-[10px]  rounded-full bg-opacity-50"
               onClick={() => window.history.back()}
             >
               <FaArrowLeft className="text-Blanco" />
             </button>
           </div>
-          <div className="flex x:gap-x-5 x:px-4 x:mt-[5px] l:gap-x-4 l:px-3 l:mt-[3px] items-center justify-center ">
-            <button className="bg-Negro x:px-[10px] x:py-[10px] l:px-[5px] l:py-[5px] rounded-full bg-opacity-50">
-              <FaRegHeart className=" text-Blanco x:text-[15px] l:text-[14px]" />
+          <div className="flex x:gap-x-5  x:px-4  x:mt-[5px]  l:gap-x-4 l:px-3 l:mt-[3px] g:gap-x-5 g:px-4 g:mt-[5px] items-center justify-center ">
+            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px] l:py-[5px] g:px-[10px] g:py-[10px] rounded-full bg-opacity-50">
+              <FaRegHeart className=" text-Blanco x:text-[15px]  l:text-[14px] g:text-[15px]" />
             </button>
-            <button className="bg-Negro x:px-[10px] x:py-[10px] l:px-[5px] l:py-[5px] rounded-full bg-opacity-50">
-              <FaSearch className=" text-Blanco x:text-[15px] l:text-[14px]" />
+            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px]  l:py-[5px] g:px-[10px] g:py-[10px] rounded-full bg-opacity-50">
+              <FaSearch className=" text-Blanco x:text-[15px] text-[15px] l:text-[14px]" />
             </button>
-            <button className="bg-Negro x:px-[10px] x:py-[10px] l:px-[5px] l:py-[5px] rounded-full bg-opacity-50">
-              <FaEllipsisVertical className=" text-Blanco x:text-[15px] l:text-[14px]" />
+            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px]  l:py-[5px] g:px-[10px] g:py-[10px] rounded-full bg-opacity-50">
+              <FaEllipsisVertical className=" text-Blanco x:text-[15px] text-[15px] l:text-[14px]" />
             </button>
           </div>
         </IonHeader>
@@ -71,34 +71,34 @@ const Vista_Productos: React.FC = () => {
           <div>
             <img
               src={Portada}
-              className="object-cover x:h-[140px] l:h-[130px] w-full"
+              className="object-cover x:h-[140px]  l:h-[130px] g:h-[140px] w-full"
             />
           </div>
-          <div className="font-font-family-light font-medium x:text-[21px] x:mt-2 l:text-[18px] l:mt-1 text-center">
+          <div className="font-font-family-light font-medium x:text-[21px]  x:mt-2  l:text-[18px] l:mt-1 g:text-[21px] g:mt-2 text-center">
             El Señor De Los Bajones
           </div>
-          <div className="flex items-center justify-center x:space-x-5 l:space-x-3">
+          <div className="flex items-center justify-center x:space-x-5  l:space-x-3 g:space-x-10">
             <div className="flex-col ">
-              <div className="flex font-font-family-light font-normal items-center justify-center x:text-[13px] l:text-[12px]">
+              <div className="flex font-font-family-light font-normal items-center justify-center x:text-[13px]  l:text-[12px] g:text-[11px]">
                 4.6
-                <FaStar className="x:text-[11px] x:mx-[4px] l:text-[8px] l:mx-[2px]" />
+                <FaStar className="x:text-[11px] x:mx-[4px]  l:text-[8px] l:mx-[2px] g:mx-[4px] g:text-[10px] " />
                 <span className="flex items-center font-font-family-light font-light">
                   (89)
-                  <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[2px] l:text-[2.7px]" />
+                  <FaCircle className="x:mx-[4px] mx-[4px] x:text-[2.7px]  l:mx-[2px] l:text-[2.7px] g:text-[2.7px]" />
                   Costo de envio: CLP 1800
-                  <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[2px] l:text-[2.7px]" />
+                  <FaCircle className="x:mx-[4px] mx-[4px] x:text-[2.7px]  l:mx-[2px] l:text-[2.7px] g:text-[2.7px]" />
                 </span>
               </div>
-              <div className="flex font-font-family-light font-light x:text-[13px] l:text-[12px] items-center justify-center">
-                <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[2px] l:text-[2.7px]" />
+              <div className="flex font-font-family-light font-light x:text-[13px]  l:text-[12px] g:text-[11px] items-center justify-center">
+                <FaCircle className="x:mx-[4px]  x:text-[2.7px] l:mx-[2px] l:text-[2.7px] g:mx-[4px] g:text-[2.7px]" />
                 4.7 km
               </div>
             </div>
             <div>
-              <FaAngleRight className="x:text-[10px] l:text-[7px]" />
+              <FaAngleRight className="x:text-[10px]  l:text-[7px] g:text-[10px]" />
             </div>
           </div>
-          <div className="flex x:mt-5 x:gap-x-10 l:mt-4 l:gap-x-5 items-center justify-center">
+          <div className="flex g:flex-col x:mt-5  x:gap-x-10  l:mt-4 l:gap-x-5 g:mt-5 g:gap-y-3 items-center justify-center mx-2">
             <div>
               <label className=" relative inline-flex cursor-pointer select-none items-center justify-center rounded-2xl bg-white px-1  bg-Gris_muy_claro">
                 <input
@@ -108,14 +108,14 @@ const Vista_Productos: React.FC = () => {
                   onChange={handleCheckboxChange}
                 />
                 <span
-                  className={`flex items-center x:space-x-[6px] l:space-x-[3px] rounded-2xl py-1 x:px-[18px] l:px-[14px]  my-1 text-sm font-font-family-light ${
+                  className={`flex items-center x:space-x-[6px] x:px-[18px] x:text-sm l:px-[14px] l:space-x-[3px] l:text-sm g:px-[18px] g:text-sm g:line py-1 my-1 rounded-2xl t font-font-family-light ${
                     !isChecked ? "text-Blanco bg-Anochecer" : "text-body-color"
                   }`}
                 >
                   Entrega
                 </span>
                 <span
-                  className={`lex items-center x:space-x-[6px] l:space-x-[3px] rounded-2xl py-1 x:px-[18px] l:px-[14px]  my-1 text-sm font-font-family-light ${
+                  className={`flex items-center x:space-x-[6px] x:px-[18px] x:text-sm l:px-[14px] l:space-x-[3px] l:text-sm g:px-[18px] g:text-sm g:line py-1 my-1 rounded-2xl t font-font-family-light ${
                     isChecked ? "text-Blanco bg-Anochecer" : "text-body-color"
                   }`}
                 >
@@ -123,44 +123,44 @@ const Vista_Productos: React.FC = () => {
                 </span>
               </label>
             </div>
-            <div className="flex items-center bg-Gris_muy_claro x:px-[9px] x:py-[9px] rounded-2xl space-x-2 l:px-[7px] l:py-[7px]">
+            <div className="flex items-center bg-Gris_muy_claro x:px-[9px] x:py-[9px]  rounded-2xl space-x-2 l:px-[7px] l:py-[7px] g:px-[9px] g:py-[9px]">
               <div>
                 <FaUserPlus />
               </div>
-              <div className="font-font-family-light font-normal x:text-[14px] l:text-[12px]">
+              <div className="font-font-family-light font-normal x:text-[14px] l:text-[12px] g:text-[13px] g:leading-4">
                 pedido grupal
               </div>
             </div>
           </div>
-          <div className="flex justify-center x:space-x-10 l:space-x-5 border border-Gris_muy_claro rounded-md x:mt-4 x:mx-5 x:py-4 l:mt-2 l:py-2 l:mx-2 font-font-family-light ">
-            <div className="flex flex-col text-center x:pr-10 l:pr-5 border-r border-Gris_muy_claro">
-              <div className="font-medium x:text-[12px] l:text-[11px]">
+          <div className="flex justify-center x:space-x-10  l:space-x-5 border border-Gris_muy_claro rounded-md x:mt-4 x:mx-5 x:py-4 l:mt-2 l:py-2 l:mx-2 g:space-x-4 g:mt-4 g:mx-5 g:py-4 font-font-family-light ">
+            <div className="flex flex-col text-center x:pr-10 l:pr-5 g:pr-4 border-r border-Gris_muy_claro">
+              <div className="font-medium x:text-[12px] l:text-[11px] g:text-[11px] g:leading-4">
                 Costos de envio: CLP 1800
               </div>
-              <div className="font-light x:text-[11px] l:text-[10px]">
+              <div className="font-light x:text-[11px] l:text-[10px] g:text-[10px] g:leading-4">
                 Precios y Tarifa
               </div>
             </div>
             <div className="flex flex-col text-center">
-              <div className="font-medium x:text-[12px] l:text-[11px]">
+              <div className="font-medium x:text-[12px] l:text-[11px] g:text-[11px] g:leading-4">
                 30-45 min
               </div>
-              <div className="font-light x:text-[11px] l:text-[10px]">
+              <div className="font-light x:text-[11px] l:text-[10px] g:text-[10px] g:leading-4">
                 Tiempo de entrega
               </div>
             </div>
           </div>
 
-          <div className="flex justify-center border-none rounded-md x:mx-5 l:mx-4 x:space-x-[86px] l:space-x-[80px] bg-PapayaWhip  x:mt-5 l:mt-4 font-font-family-light">
-            <div className="flex flex-col x:pt-2 x:pl-2 l:pt-2 l:pl-2 ">
-              <span className="font-semibold x:text-[12px] l:text-[11px]">
+          <div className="flex justify-center border-none rounded-md x:mx-5 x:mt-5 x:space-x-[86px] l:mt-4 l:mx-4  l:space-x-[80px] g:mx-5 g:mt-5 g:space-x-[32px] bg-PapayaWhip   font-font-family-light">
+            <div className="flex flex-col x:pt-2 x:pl-2 l:pt-2 l:pl-2 g:pl-2 g:pt-2">
+              <span className="font-semibold x:text-[12px] l:text-[11px] g:text-[10px] g:leading-3">
                 Sin Costo de envio y Hasta un 5%
               </span>
-              <span className="font-semibold x:text-[12px] l:text-[11px]">
+              <span className="font-semibold x:text-[12px] l:text-[11px] g:text-[10px] g:leading-4">
                 de Ahorro con uber One
               </span>
-              <div className="x:mt-4 l:mt-2 font-normal x:text-[13px] l:text-[12px] text-center">
-                <div className="bg-Blanco rounded-lg x:w-[120px] x:h-auto l:w-[110px] l:h-auto">
+              <div className="x:mt-4 l:mt-2  x:text-[13px] l:text-[12px] g:text-[11px] g:mt-4  text-center font-normal">
+                <div className="bg-Blanco rounded-lg x:w-[120px] x:h-auto l:w-[110px] l:h-auto g:w-[100px]">
                   1 mes sin costo
                 </div>
               </div>
@@ -168,16 +168,16 @@ const Vista_Productos: React.FC = () => {
             <div>
               <img
                 src={Promo}
-                className="object-cover x:h-[100px] x:w-[100px] l:h-[90px] l:w-[90px] rounded-r-md"
+                className="object-cover x:h-[100px] x:w-[100px] l:h-[90px] l:w-[90px] g:h-[80px] g:w-[80px] rounded-r-md"
               />
             </div>
           </div>
-          <div className="flex flex-col x:mt-5 l:mt-4  border-b border-b-Gris_muy_claro">
-            <div className="font-font-family-light font-bold x:text-[25px] x:ml-5 l:text-[23px] l:ml-4">
+          <div className="flex flex-col x:mt-5 l:mt-4 g:mt-4  border-b border-b-Gris_muy_claro">
+            <div className="font-font-family-light font-bold x:text-[25px] x:ml-5 l:text-[23px] l:ml-4 g:text-[20px] g:ml-5 ">
               Articulos destacados
             </div>
             <div>
-              <div className="x:mb-4 l:mb-3">
+              <div className="x:mb-4 l:mb-3 g:mb-3">
                 <Swiper
                   modules={[Navigation, Pagination, Scrollbar, A11y]}
                   spaceBetween={0}
@@ -186,35 +186,35 @@ const Vista_Productos: React.FC = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                 >
                   <SwiperSlide>
-                    <div className="flex justify-center x:px-4 l:px-3 relative">
+                    <div className="flex justify-center x:px-4 l:px-3 g:px-3 relative">
                       <img
-                        className="rounded-xl object-cover x:h-[140px] l:h-[100px] drop-shadow-md"
+                        className="rounded-xl object-cover x:h-[140px] l:h-[100px] g:h-[95px] drop-shadow-md"
                         src={Favorito_1}
                       />
-                      <div className="absolute x:bottom-[115px] x:right-[19px] l:bottom-[74px] l:right-[20px]">
-                        <div className="bg-Cian_oscuro text-Blanco rounded-md x:px-1.5 x:text-[12px] l:px-1.5 l:text-[11px] items-center text-white x:mr-4 l:mr-2 font-font-family-light">
+                      <div className="absolute x:bottom-[115px] x:right-[19px] l:bottom-[74px] l:right-[20px] g:bottom-[75px] g:right-0">
+                        <div className="bg-Cian_oscuro text-Blanco rounded-md x:px-1.5 x:mr-4  x:text-[12px] l:px-1.5 l:mr-2 l:text-[11px] g:px-1.5 g:mr-4 g:text-[10px] items-center text-white  font-font-family-light">
                           #1 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[4px] x:right-[20px] l:bottom-[4px] l:right-[15px] bg-Blanco shadow-lg x:py-2 x:px-2 l:py-1 l:px-1 rounded-full">
+                      <button className="absolute x:bottom-[4px] x:right-[20px] x:py-2 x:px-2 l:py-1 l:px-1 l:bottom-[4px] l:right-[15px] g:bottom-[4px] g:right-[20px] g:py-1 g:px-1 bg-Blanco shadow-lg   rounded-full">
                         <AiOutlinePlus />
                       </button>
                     </div>
-                    <div className="mt-1 x:px-4 l:px-3">
+                    <div className="mt-1 x:px-4 l:px-3 g:px-3">
                       <div className="flex">
-                        <div className="flex flex-col x:text-[15px] l:text-[13px] font-font-family-light font-semibold">
+                        <div className="flex flex-col x:text-[15px] l:text-[13px] g:text-[11px] g:leading-4 font-font-family-light font-semibold">
                           Duo Sandwich
                           <span>Churrasco</span>
                           <span>Italiano</span>
                         </div>
                       </div>
-                      <div className="flex flex-col font-font-family-light font-light x:leading-5 l:leading-4 x:text-[11px] l:text-[10px]">
+                      <div className="flex flex-col font-font-family-light font-light x:leading-5 l:leading-4 x:text-[11px] l:text-[10px] g:text-[9px] g:leading-4">
                         <div className="flex items-center">
                           CLP 10,700
-                          <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px]" />
+                          <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
                         </div>
-                        <span className="flex items-center font-font-family-light font-light x:text-[11px] l:text-[9px]">
-                          <AiOutlineLike className="x:mr-[2.5px] l:mr-[2.5px]" />
+                        <span className="flex items-center font-font-family-light font-light x:text-[11px] l:text-[9px] g:text-[9px]">
+                          <AiOutlineLike className="x:mr-[2.5px] l:mr-[2.5px] g:mr-[2.5px]" />
                           90% (41)
                         </span>
                       </div>
