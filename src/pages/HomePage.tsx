@@ -98,7 +98,7 @@ const HomePage: React.FC = () => {
                 Entregar ahora
               </span>
               <div className="font-font-family-light font-medium leading-5 g:text-[12px]">
-                Direccion: *****
+                Direccion: Hola
               </div>
             </div>
             <div className="flex flex-auto items-center justify-end">
