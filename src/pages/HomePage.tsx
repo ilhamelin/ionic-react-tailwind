@@ -65,8 +65,6 @@ import "../theme/tailwind.css";
 
 import Interruptor from "../components/Interruntor";
 
-// Funciones
-
 const HomePage: React.FC = () => {
   const history = useHistory();
 
@@ -139,7 +137,7 @@ const HomePage: React.FC = () => {
           </div>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent className="font-font-family-light">
         <div className="mt-2 items-center text-center ">
           <Swiper
             className="l:w-full x:w-full md:w-[800px] g:w-auto"
@@ -421,14 +419,14 @@ const HomePage: React.FC = () => {
         </div>
 
         <div className="border-b border-Plata/50">
-          <div className="ml-2 ">
+          <div className="ml-2">
             <h3 className="font-font-family font-bold leading-8 normal-nums text-[24px]">
               Ofertas de Hoy
             </h3>
           </div>
-          <div className="">
+          <div>
             <Swiper
-              className="px-4"
+              className="px-4 l:px-2 g:px-2"
               slidesPerView={1.5}
               spaceBetween={10}
               pagination={{
@@ -438,10 +436,10 @@ const HomePage: React.FC = () => {
               <SwiperSlide>
                 <div className="flex justify-center ">
                   <img
-                    className="rounded-xl object-cover h-auto w-[300px] x:h-[140px]"
+                    className="rounded-xl object-cover x:w-[300px] x:h-[140px] l:h-[140px]"
                     src={oferta3}
                   />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[105px] xm:gap-x-[140px] g:gap-x-[55px]">
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[105px]  xm:gap-x-[140px] g:gap-x-[45px] ">
                     <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white l:-ml-1">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
@@ -452,7 +450,7 @@ const HomePage: React.FC = () => {
                   </div>
                 </div>
                 <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0">
-                  <div className="flex gap-x-[150px] l:gap-x-[118px] x:gap-x-[150px] xm:gap-x-[190px] g:gap-x-[90px]">
+                  <div className="flex gap-x-[150px] l:gap-x-[120px] x:gap-x-[150px] xm:gap-x-[190px] g:gap-x-[80px]">
                     <div className="text-[15px] font-semibold">McDonald's</div>
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
                       4.6
@@ -472,7 +470,7 @@ const HomePage: React.FC = () => {
                     className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
                     src={oferta4}
                   />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[50px]">
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
                     <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
@@ -483,7 +481,7 @@ const HomePage: React.FC = () => {
                   </div>
                 </div>
                 <div className="mx-1 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
-                  <div className="flex gap-x-[100px] l:gap-x-[75px] x:gap-x-[90px] xm:gap-x-[130px] g:gap-x-[35px]">
+                  <div className="flex gap-x-[100px] l:gap-x-[65px] x:gap-x-[90px] xm:gap-x-[130px] g:gap-x-[29px]">
                     <div className=" text-[15px] g:text-[px] font-semibold">
                       Little Caesars Pizza
                     </div>
@@ -547,7 +545,7 @@ const HomePage: React.FC = () => {
                   </div>
                 </div>
                 <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
-                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[125px] x:gap-x-[145px] xm:gap-x-[180px] g:gap-x-[90px]">
+                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[120px] x:gap-x-[145px] xm:gap-x-[180px] g:gap-x-[85px]">
                     Burger King
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
                       4.3
