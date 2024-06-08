@@ -15,6 +15,7 @@ import Vista_Productos_M from "./pages/Vista_Locales/Mc_Donald's/Vista_Productos
 import Billetera from "./pages/CuentaPage-Opciones/PagoPage";
 import Favoritos from "./pages/CuentaPage-Opciones/Favoritos";
 import Pedidos from "./pages/CuentaPage-Opciones/Pedidos";
+import { FavoritesProvider } from "./API/FavoritesContext";
 import Mapa from "./API/Mapa";
 
 /* Core CSS required for Ionic components to work properly */
@@ -70,71 +71,81 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <InterruptorProvider>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Redirect exact path="/" to="/home" />
+        <FavoritesProvider>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Redirect exact path="/" to="/home" />
 
-            <Route path="/home" render={() => <HomePage />} exact={true} />
-            <Route path="/super" render={() => <SuperPage />} exact={true} />
-            <Route
-              path="/explorar"
-              render={() => <ExplorarPage />}
-              exact={true}
-            />
-            <Route
-              path="/carrito"
-              render={() => <CarritoPage />}
-              exact={true}
-            />
-            <Route path="/cuenta" render={() => <CuentaPage />} exact={true} />
-            <Route path="/mapa" render={() => <MapaPage />} exact={true} />
-            <Route path="/billetera" render={() => <PagoPage />} exact={true} />
-            <Route
-              path="/promociones"
-              component={PromocionesPage}
-              exact={true}
-            />
-            <Route
-              path="/vistaProducto_1"
-              component={Vista_Productos}
-              exact={true}
-            />
-            <Route
-              path="/vistaProducto_2"
-              component={Vista_Productos_M}
-              exact={true}
-            />
-            <Route path="/billetera" component={Billetera} exact={true} />
-            <Route path="/favoritos" component={Favoritos} exact={true} />
-            <Route path="/pedidos" component={Pedidos} exact={true} />
-          </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="home" href="/home">
-              <IoHomeSharp className="g:text-[20px] x:text-[25px]" />
-              <IonLabel>Home</IonLabel>
-            </IonTabButton>
+              <Route path="/home" render={() => <HomePage />} exact={true} />
+              <Route path="/super" render={() => <SuperPage />} exact={true} />
+              <Route
+                path="/explorar"
+                render={() => <ExplorarPage />}
+                exact={true}
+              />
+              <Route
+                path="/carrito"
+                render={() => <CarritoPage />}
+                exact={true}
+              />
+              <Route
+                path="/cuenta"
+                render={() => <CuentaPage />}
+                exact={true}
+              />
+              <Route path="/mapa" render={() => <MapaPage />} exact={true} />
+              <Route
+                path="/billetera"
+                render={() => <PagoPage />}
+                exact={true}
+              />
+              <Route
+                path="/promociones"
+                component={PromocionesPage}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_1"
+                component={Vista_Productos}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_2"
+                component={Vista_Productos_M}
+                exact={true}
+              />
+              <Route path="/billetera" component={Billetera} exact={true} />
+              <Route path="/favoritos" component={Favoritos} exact={true} />
+              <Route path="/pedidos" component={Pedidos} exact={true} />
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="home" href="/home">
+                <IoHomeSharp className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Home</IonLabel>
+              </IonTabButton>
 
-            <IonTabButton tab="super" href="/super">
-              <FaAppleWhole className="g:text-[20px] x:text-[25px] " />
-              <IonLabel>Super</IonLabel>
-            </IonTabButton>
+              <IonTabButton tab="super" href="/super">
+                <FaAppleWhole className="g:text-[20px] x:text-[25px] " />
+                <IonLabel>Super</IonLabel>
+              </IonTabButton>
 
-            <IonTabButton tab="explorar" href="/explorar">
-              <FaSearch className="g:text-[20px] x:text-[25px]" />
-              <IonLabel>Explorar</IonLabel>
-            </IonTabButton>
+              <IonTabButton tab="explorar" href="/explorar">
+                <FaSearch className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Explorar</IonLabel>
+              </IonTabButton>
 
-            <IonTabButton tab="carrito" href="/carrito">
-              <FaShoppingCart className="g:text-[20px] x:text-[25px]" />
-              <IonLabel>Carrito</IonLabel>
-            </IonTabButton>
+              <IonTabButton tab="carrito" href="/carrito">
+                <FaShoppingCart className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Carrito</IonLabel>
+              </IonTabButton>
 
-            <IonTabButton tab="cuenta" href="/cuenta">
-              <FaUser className="g:text-[20px] x:text-[25px]" />
-              <IonLabel>Cuenta</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
+              <IonTabButton tab="cuenta" href="/cuenta">
+                <FaUser className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Cuenta</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </FavoritesProvider>
       </InterruptorProvider>
     </IonReactRouter>
   </IonApp>

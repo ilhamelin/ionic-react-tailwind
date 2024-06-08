@@ -31,7 +31,7 @@ const PagoPage: React.FC = () => {
             <div className="font-font-family-light text-[15px] font-normal">
               Uber Cash
             </div>
-            <div className="flex font-font-family-light items-center gap-[245px]">
+            <div className="flex font-font-family-light items-center x:gap-[235px] l:gap-[190px] g:gap-[140px]">
               <div className="text-[28px] font-bold">
                 CLP
                 <span className="ml-4">0</span>

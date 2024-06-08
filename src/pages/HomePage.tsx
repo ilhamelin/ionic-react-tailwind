@@ -48,7 +48,13 @@ import liquido from "../img/Liquido.png";
 import express from "../img/comida-enlatada64px.png";
 
 // componentes ionic
-import { IonContent, IonHeader, IonToolbar, IonIcon } from "@ionic/react";
+import {
+  IonContent,
+  IonHeader,
+  IonToolbar,
+  IonIcon,
+  IonToast,
+} from "@ionic/react";
 
 // import de iconos
 import {
@@ -59,11 +65,13 @@ import {
 import { IoMdPricetag } from "react-icons/io";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LiaMedalSolid } from "react-icons/lia";
-import { searchCircleOutline } from "ionicons/icons";
+import { image, searchCircleOutline } from "ionicons/icons";
 
 import "../theme/tailwind.css";
 
 import Interruptor from "../components/Interruntor";
+import { FaCircle } from "react-icons/fa6";
+import { useFavorites } from "../API/FavoritesContext";
 
 const HomePage: React.FC = () => {
   const history = useHistory();
@@ -86,6 +94,34 @@ const HomePage: React.FC = () => {
     target: { value: React.SetStateAction<string> };
   }) => {
     setSearchText(event.target.value);
+  };
+
+  //add favoritos
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+
+  const hideToast = () => {
+    setShowToast(false);
+  };
+
+  const { addToFavorites } = useFavorites();
+
+  const handleAddToFavorites = (product: any) => {
+    addToFavorites(product);
+    showToastMessage("Producto agregado a favoritos");
+  };
+
+  const product_B = {
+    id: 51,
+    name: "El Señor de los Bajones",
+    price: "CLP 1,600",
+    image: oferta,
+    deliveryTime: "30-45 min",
   };
 
   return (
@@ -354,10 +390,11 @@ const HomePage: React.FC = () => {
 
         <div className="flex flex-col md:grid-cols-2 mt-3 border-b border-Plata/50 md:gap-x-2">
           <div className="md:flex md:ml-2">
-            <div className="flex justify-center" onClick={handleProducto}>
+            <div className="flex justify-center">
               <img
+                onClick={handleProducto}
                 className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
-                src={oferta}
+                src={product_B.image}
               />
               <div className="flex absolute items-center xm:gap-x-[65px] ">
                 <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
@@ -365,21 +402,26 @@ const HomePage: React.FC = () => {
                   Oferta superior -
                   <span className="ml-1">Gasta CLP 10.000, Ahor...</span>
                 </div>
-                <div className="ml-[132px] l:ml-[80px] x:ml-[135px] md:ml-[126px] g:ml-[30px] text-end">
-                  <RiHeart3Line className="text-Rojo_suave" />
-                </div>
+                <button
+                  onClick={() => handleAddToFavorites(product_B)}
+                  className="ml-[132px] l:ml-[80px] x:ml-[120px] md:ml-[126px] g:ml-[30px] text-end"
+                >
+                  <RiHeart3Line className="text-Blanco text-[20px]" />
+                </button>
               </div>
             </div>
             <div className=" mx-2 my-2">
               <div className="">
-                <div className="flex text-[19px]  g:text-[18px] font-font-family-light font-medium leading-6 gap-x-[296px] l:gap-x-[245px] x:gap-x-[300px] md:gap-x-[150px] xm:gap-x-[350px] g:gap-x-[190px]">
-                  Sabor X2
+                <div className="flex text-[19px]  g:text-[18px] font-font-family-light font-medium leading-6 gap-x-[296px] l:gap-x-[245px] x:gap-x-[180px] md:gap-x-[150px] xm:gap-x-[350px] g:gap-x-[190px]">
+                  {product_B.name}
                   <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] font-semibold">
                     4.4
                   </div>
                 </div>
-                <div className="text-[14px] font-font-family-light font-normal leading-5 g:text-[14px]">
-                  Costo de envio: CLP 1600 * 30-45 min
+                <div className="flex items-center text-[14px] font-font-family-light font-normal leading-5 g:text-[14px]">
+                  Costo de envio: {product_B.price}
+                  <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
+                  30-45 min
                 </div>
                 <div className=" text-justify"></div>
               </div>
@@ -753,6 +795,14 @@ const HomePage: React.FC = () => {
         </div>
         <div className="mt-[100px]"></div>
       </IonContent>
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={hideToast}
+        message={toastMessage}
+        duration={2000} // Duración en milisegundos
+        position="bottom"
+        color="success" // Puedes cambiar el color según tus necesidades
+      />
     </>
   );
 };

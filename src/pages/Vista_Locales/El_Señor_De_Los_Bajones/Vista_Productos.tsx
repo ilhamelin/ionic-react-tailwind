@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { IonContent, IonHeader } from "@ionic/react";
+import { IonContent, IonHeader, IonToast } from "@ionic/react";
+
+import { useFavorites } from "../../../API/FavoritesContext";
 
 import {
   FaStar,
@@ -36,6 +38,42 @@ const Vista_Productos: React.FC = () => {
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+  };
+
+  //add favoritos
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+
+  const hideToast = () => {
+    setShowToast(false);
+  };
+
+  const { addToFavorites } = useFavorites();
+
+  const handleAddToFavorites = (product: any) => {
+    addToFavorites(product);
+    showToastMessage("Producto agregado a favoritos");
+  };
+
+  const product = {
+    id: 1,
+    name: "Duo Sandwich",
+    price: "CLP 10,700",
+    image: Favorito_1,
+    deliveryTime: "30 - 45 min",
+  };
+
+  const product_2 = {
+    id: 2,
+    name: "Papas Clasicas",
+    image: Favorito_2,
+    price: "CLP 6,200",
+    deliveryTime: "30 - 45 min",
   };
 
   return (
@@ -189,28 +227,31 @@ const Vista_Productos: React.FC = () => {
                     <div className="flex justify-center x:px-4 l:px-3 g:px-3 relative">
                       <img
                         className="rounded-xl object-cover x:h-[140px] l:h-[100px] g:h-[95px] drop-shadow-md"
-                        src={Favorito_1}
+                        src={product.image}
                       />
                       <div className="absolute x:bottom-[115px] x:right-[19px] l:bottom-[78px] l:right-[20px] g:bottom-[75px] g:right-0">
                         <div className="bg-Cian_oscuro text-Blanco rounded-md x:px-1.5 x:mr-4  x:text-[12px] l:px-1.5 l:mr-2 l:text-[11px] g:px-1.5 g:mr-4 g:text-[10px] items-center text-white  font-font-family-light">
                           #1 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[4px] x:right-[20px] x:py-2 x:px-2 l:py-1 l:px-1 l:bottom-[4px] l:right-[15px] g:bottom-[4px] g:right-[20px] g:py-1 g:px-1 bg-Blanco shadow-lg   rounded-full">
+                      <button
+                        onClick={() => handleAddToFavorites(product)}
+                        className="absolute x:bottom-[4px] x:right-[20px] x:py-2 x:px-2 l:py-1 l:px-1 l:bottom-[4px] l:right-[15px] g:bottom-[4px] g:right-[20px] g:py-1 g:px-1 bg-Blanco shadow-lg   rounded-full"
+                      >
                         <AiOutlinePlus />
                       </button>
                     </div>
                     <div className="mt-1 x:px-4 l:px-3 g:px-3">
                       <div className="flex">
                         <div className="flex flex-col x:text-[15px] l:text-[13px] g:text-[11px] g:leading-4 font-font-family-light font-semibold">
-                          Duo Sandwich
+                          {product.name}
                           <span>Churrasco</span>
                           <span>Italiano</span>
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light x:leading-5 l:leading-4 x:text-[11px] l:text-[10px] g:text-[9px] g:leading-4">
                         <div className="flex items-center">
-                          CLP 10,700
+                          {product.price}
                           <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
                         </div>
                         <span className="flex items-center font-font-family-light font-light x:text-[11px] l:text-[9px] g:text-[9px]">
@@ -224,26 +265,29 @@ const Vista_Productos: React.FC = () => {
                     <div className="flex justify-center x:px-4 l:px-3 g:px-3 relative">
                       <img
                         className="rounded-xl object-cover x:h-[140px] l:h-[100px] g:h-[95px] drop-shadow-md"
-                        src={Favorito_2}
+                        src={product_2.image}
                       />
                       <div className="absolute x:bottom-[115px] x:right-[19px] l:bottom-[74px] l:right-[20px] g:bottom-[75px] g:right-0">
                         <div className="bg-Cian_oscuro text-Blanco rounded-md x:px-1.5 x:mr-4  x:text-[12px] l:px-1.5 l:mr-2 l:text-[11px] g:px-1.5 g:mr-4 g:text-[10px] items-center text-white  font-font-family-light">
                           #2 de tus favoritos
                         </div>
                       </div>
-                      <button className="absolute x:bottom-[4px] x:right-[20px] x:py-2 x:px-2 l:py-1 l:px-1 l:bottom-[4px] l:right-[15px] g:bottom-[4px] g:right-[20px] g:py-1 g:px-1 bg-Blanco shadow-lg   rounded-full">
+                      <button
+                        onClick={() => handleAddToFavorites(product_2)}
+                        className="absolute x:bottom-[4px] x:right-[20px] x:py-2 x:px-2 l:py-1 l:px-1 l:bottom-[4px] l:right-[15px] g:bottom-[4px] g:right-[20px] g:py-1 g:px-1 bg-Blanco shadow-lg   rounded-full"
+                      >
                         <AiOutlinePlus />
                       </button>
                     </div>
                     <div className="mt-1 x:px-4 l:px-3 g:px-3">
                       <div className="flex">
                         <div className="flex flex-col x:text-[15px] l:text-[13px] g:text-[11px] g:leading-4 font-font-family-light font-semibold">
-                          Papas Clasicas
+                          {product_2.name}
                         </div>
                       </div>
                       <div className="flex flex-col font-font-family-light font-light x:leading-5 l:leading-4 x:text-[11px] l:text-[10px] g:text-[9px] g:leading-4">
                         <div className="flex items-center">
-                          CLP 6,200
+                          {product_2.price}
                           <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
                         </div>
                         <span className="flex items-center font-font-family-light font-light x:text-[11px] l:text-[9px] g:text-[9px]">
@@ -525,7 +569,7 @@ const Vista_Productos: React.FC = () => {
                 </button>
               </div>
             </div>
-            <div className="flex x:gap-x-[119px] border-b border-b-Gris_muy_claro x:pb-3 l:pb-2 l:gap-x-[91px] g:gap-x-[68px] g:pb-2 g:mx-1 g:mt-4">
+            <div className="flex x:gap-x-[131px] border-b border-b-Gris_muy_claro x:pb-3 l:pb-2 l:gap-x-[91px] g:gap-x-[80px] g:pb-2 g:mx-1 g:mt-4">
               <div className="flex flex-col x:px-4 l:px-3 g:px-2">
                 <div className="flex flex-col font-font-family-light font-medium x:text-[13px] x:leading-4 l:text-[12px] g:text-[11px] g:leading-4">
                   Vienesa Completo
@@ -537,7 +581,8 @@ const Vista_Productos: React.FC = () => {
                   100% (10)
                 </div>
                 <div className="flex flex-col font-font-family-light font-light x:text-[11px] x:leading-3 l:text-[10px] g:text-[9px] g:leading-3">
-                  vienesa, Chucrut, americana, <span> tomate y mayonesa casera.</span>
+                  vienesa, Chucrut, americana,{" "}
+                  <span> tomate y mayonesa casera.</span>
                 </div>
               </div>
               <div className="flex justify-center relative">
@@ -553,6 +598,14 @@ const Vista_Productos: React.FC = () => {
           </div>
         </div>
       </IonContent>
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={hideToast}
+        message={toastMessage}
+        duration={2000} // Duración en milisegundos
+        position="bottom"
+        color="success" // Puedes cambiar el color según tus necesidades
+      />
     </>
   );
 };
