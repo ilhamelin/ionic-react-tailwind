@@ -60,7 +60,7 @@ const Favoritos: React.FC = () => {
                 <div className="flex items-center justify-between g:gap-x-[80px] g:text-[14px] font-semibold">
                   {product.name}
                   <span className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[12px] font-normal">
-                    4.4
+                    {product.rating}
                   </span>
                 </div>
                 <div className="py-1">

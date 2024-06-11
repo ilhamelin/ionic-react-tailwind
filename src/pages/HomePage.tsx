@@ -29,10 +29,11 @@ import americano from "../img/hot-dog64px.png";
 import oferta from "../img/oferta2.png";
 import oferta2 from "../img/Oferta3.png";
 import oferta3 from "../img/oferta4.png";
-import oferta4 from "../img/oferta5.png";
-import oferta6 from "../img/oferta6.png";
-import oferta7 from "../img/oferta7.1.png";
-import oferta8 from "../img/oferta8.png";
+import portada_LittleCaesars from "../img/oferta5.png";
+import portada_KFC from "../img/oferta6.png";
+import portada_BurgerKing from "../img/oferta7.1.png";
+import portada_Terragona from "../img/oferta8.png";
+import portada_Subway from "../img/Subway/Portada_Oferta.png";
 
 import ahumada from "../img/logo-asuntos-corporativos-ahumad.png";
 import superZoo from "../img/superzoo.png";
@@ -60,6 +61,7 @@ import {
 import {
   RiNotification3Line,
   RiHeart3Line,
+  RiHeart3Fill,
   RiArrowDropDownLine,
 } from "react-icons/ri";
 import { IoMdPricetag } from "react-icons/io";
@@ -88,6 +90,14 @@ const HomePage: React.FC = () => {
     history.push("/vistaProducto_2");
   };
 
+  const handleProducto2 = () => {
+    history.push("/vistaProducto_3");
+  };
+  
+  const handleProducto3 = () => {
+    history.push("/vistaProducto_4");
+  };
+
   const [searchText, setSearchText] = useState("");
 
   const handleSearchChange = (event: {
@@ -99,6 +109,7 @@ const HomePage: React.FC = () => {
   //add favoritos
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [favoriteProducts, setFavoriteProducts] = useState<any[]>([]);
 
   const showToastMessage = (message: string) => {
     setToastMessage(message);
@@ -109,11 +120,16 @@ const HomePage: React.FC = () => {
     setShowToast(false);
   };
 
-  const { addToFavorites } = useFavorites();
+  const { addToFavorites, removeFromFavorites, favorites } = useFavorites();
 
   const handleAddToFavorites = (product: any) => {
-    addToFavorites(product);
-    showToastMessage("Producto agregado a favoritos");
+    if (favorites.some((p) => p.id === product.id)) {
+      removeFromFavorites(product.id);
+      showToastMessage("Producto eliminado de favoritos");
+    } else {
+      addToFavorites(product);
+      showToastMessage("Producto agregado a favoritos");
+    }
   };
 
   const product_B = {
@@ -122,6 +138,61 @@ const HomePage: React.FC = () => {
     price: "CLP 1,600",
     image: oferta,
     deliveryTime: "30-45 min",
+    rating: 4.4,
+  };
+
+  const product_M = {
+    id: 52,
+    name: "McDonal´s",
+    price: "CLP 1,500",
+    image: oferta2,
+    deliveryTime: "30-45 min",
+    rating: 4.6,
+  };
+
+  const product_S = {
+    id: 53,
+    name: "Subway",
+    price: "CLP 900",
+    image: portada_Subway,
+    deliveryTime: "30-45 min",
+    rating: 4.5,
+  };
+
+  const product_L = {
+    id: 54,
+    name: "Little Caesars Pizza",
+    price: "CLP 1300",
+    image: portada_LittleCaesars,
+    deliveryTime: "30-45 min",
+    rating: 4.6,
+  };
+
+  const product_KFC = {
+    id: 55,
+    name: "KFC",
+    price: "CLP 2200",
+    image: portada_KFC,
+    deliveryTime: "30-45 min",
+    rating: 4.4,
+  };
+
+  const product_BK = {
+    id: 56,
+    name: "Burger King",
+    price: "CLP 2200",
+    image: portada_BurgerKing,
+    deliveryTime: "30-45 min",
+    rating: 4.3,
+  };
+
+  const product_TG = {
+    id: 57,
+    name: "Terragona",
+    price: "CLP 2200",
+    image: portada_Terragona,
+    deliveryTime: "30-45 min",
+    rating: 4.3,
   };
 
   return (
@@ -388,37 +459,39 @@ const HomePage: React.FC = () => {
           </Swiper>
         </div>
 
-        <div className="flex flex-col md:grid-cols-2 mt-3 border-b border-Plata/50 md:gap-x-2">
-          <div className="md:flex md:ml-2">
+        <div className="flex flex-col md:grid-cols-2 mt-3 border-b border-Plata/50 md:gap-x-2 ">
+          <div className="font-font-family-light">
             <div className="flex justify-center">
               <img
                 onClick={handleProducto}
                 className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
                 src={product_B.image}
               />
-              <div className="flex absolute items-center xm:gap-x-[65px] ">
-                <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
+              <div className="flex absolute items-center xm:gap-x-[65px] x:gap-x-[125px] l:gap-x-[80px] g:gap-x-[30px]">
+                <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white x:text-[12px] x:leading-5 text-Blanco">
                   <IoTrophyOutline className="mx-[2px] " />
-                  Oferta superior -
-                  <span className="ml-1">Gasta CLP 10.000, Ahor...</span>
+                  Oferta superior
+                  <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
+                  <span>Gasta CLP 10.000, Ahor...</span>
                 </div>
-                <button
-                  onClick={() => handleAddToFavorites(product_B)}
-                  className="ml-[132px] l:ml-[80px] x:ml-[120px] md:ml-[126px] g:ml-[30px] text-end"
-                >
-                  <RiHeart3Line className="text-Blanco text-[20px]" />
+                <button onClick={() => handleAddToFavorites(product_B)}>
+                  {favorites.some((p) => p.id === product_B.id) ? (
+                    <RiHeart3Fill className="text-Blanco text-[20px]" />
+                  ) : (
+                    <RiHeart3Line className="text-Blanco text-[20px]" />
+                  )}
                 </button>
               </div>
             </div>
             <div className=" mx-2 my-2">
               <div className="">
-                <div className="flex text-[19px]  g:text-[18px] font-font-family-light font-medium leading-6 gap-x-[296px] l:gap-x-[245px] x:gap-x-[180px] md:gap-x-[150px] xm:gap-x-[350px] g:gap-x-[190px]">
+                <div className="flex x:text-[17px] x:leading-5 g:text-[18px] l:text-[17px] l:leading-5 font-font-family-light font-medium x:gap-x-[195px] l:gap-x-[145px] md:gap-x-[150px] xm:gap-x-[350px] g:gap-x-[75px]">
                   {product_B.name}
-                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] font-semibold">
-                    4.4
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] x:text-[15px] font-light ">
+                    {product_B.rating}
                   </div>
                 </div>
-                <div className="flex items-center text-[14px] font-font-family-light font-normal leading-5 g:text-[14px]">
+                <div className="flex items-center text-[14px] font-font-family-light font-light leading-5 g:text-[14px]">
                   Costo de envio: {product_B.price}
                   <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
                   30-45 min
@@ -428,33 +501,41 @@ const HomePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="md:flex md:flex-row-reverse mb-3 mt-3 mb:ml-2 ">
-            <div className="flex justify-center " onClick={handleProducto1}>
+          <div className="font-font-family-light">
+            <div className="flex justify-center">
               <img
-                className="rounded-xl object-cover h-[190px] w-[414px] l:w-[360px] x:w-[410px] md:w-[410px] xm:w-[470px] g:w-[310px]"
-                src={oferta2}
+                onClick={handleProducto1}
+                className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
+                src={product_M.image}
               />
-              <div className="flex absolute items-center gap-x-[260px] l:gap-x-[310px] x:gap-x-[360px] md:gap-x-[260px] xm:gap-x-[320px]">
-                <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
+              <div className="flex absolute items-center xm:gap-x-[65px] x:gap-x-[260px] l:gap-x-[210px] g:gap-x-[160px]">
+                <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white x:text-[12px] x:leading-5 text-Blanco">
                   <IoTrophyOutline className="mx-[2px] " />
-                  Ahorros exclusivos
+                  Ahorro exclusivos
                 </div>
-                <div className="text-end g:ml-[-100px]">
-                  <RiHeart3Line className="text-Rojo_suave" />
-                </div>
+                <button onClick={() => handleAddToFavorites(product_M)}>
+                  {favorites.some((p) => p.id === product_M.id) ? (
+                    <RiHeart3Fill className="text-Blanco text-[20px]" />
+                  ) : (
+                    <RiHeart3Line className="text-Blanco text-[20px]" />
+                  )}
+                </button>
               </div>
             </div>
-            <div className="mx-2 my-2 mb:ml-2">
-              <div className="flex text-[19px] g:text-[18px] font-font-family-light font-medium leading-6 gap-x-[275px] l:gap-x-[220px] x:gap-x-[270px] md:gap-x-[120px] xm:gap-x-[330px] g:gap-x-[170px]">
-                McDonald's
-                <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] font-semibold">
-                  4.6
+            <div className=" mx-2 my-2">
+              <div className="">
+                <div className="flex x:text-[17px] x:leading-5 g:text-[18px] l:text-[17px] l:leading-5 font-font-family-light font-medium x:gap-x-[290px] l:gap-x-[240px] g:gap-x-[180px]">
+                  {product_M.name}
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] x:text-[15px] font-light">
+                    {product_M.rating}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="text-[14px] font-font-family-light font-normal leading-5 g:text-[14px]">
-                  Costo de envio: CLP 2100 * 30-45 min
+                <div className="flex items-center text-[14px] font-font-family-light font-light leading-5 g:text-[14px]">
+                  Costo de envio: {product_M.price}
+                  <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
+                  30-45 min
                 </div>
+                <div className=" text-justify"></div>
               </div>
             </div>
           </div>
@@ -462,7 +543,7 @@ const HomePage: React.FC = () => {
 
         <div className="border-b border-Plata/50">
           <div className="ml-2">
-            <h3 className="font-font-family font-bold leading-8 normal-nums text-[24px]">
+            <h3 className="font-font-family-light font-bold leading-8 normal-nums text-[24px]">
               Ofertas de Hoy
             </h3>
           </div>
@@ -476,31 +557,38 @@ const HomePage: React.FC = () => {
               }}
             >
               <SwiperSlide>
-                <div className="flex justify-center ">
+                <div className="flex justify-center">
                   <img
-                    className="rounded-xl object-cover x:w-[300px] x:h-[140px] l:h-[140px]"
-                    src={oferta3}
+                    className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
+                    src={product_M.image}
+                    onClick={handleProducto1}
                   />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[105px]  xm:gap-x-[140px] g:gap-x-[45px] ">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white l:-ml-1">
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px]  xm:gap-x-[140px] g:gap-x-[45px] ">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
                     </div>
-                    <div className="text-end">
-                      <RiHeart3Line className="text-Rojo_suave" />
-                    </div>
+                    <button onClick={() => handleAddToFavorites(product_M)}>
+                      {favorites.some((p) => p.id === product_M.id) ? (
+                        <RiHeart3Fill className="text-Blanco text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Blanco text-[20px]" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0">
                   <div className="flex gap-x-[150px] l:gap-x-[120px] x:gap-x-[150px] xm:gap-x-[190px] g:gap-x-[80px]">
-                    <div className="text-[15px] font-semibold">McDonald's</div>
+                    <div className="text-[15px] font-semibold">
+                      {product_M.name}
+                    </div>
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      4.6
+                      {product_M.rating}
                     </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light font-medium leading-5 g:text-[11px]">
-                    Costo de envio: CLP 2200
-                    <span className="font-font-family-light font-medium leading-5 g:text-[11px]">
+                  <div className="flex g:flex-col font-medium leading-5 g:text-[11px]">
+                    Costo de envio: {product_M.price}
+                    <span className=" font-medium leading-5 g:text-[11px]">
                       30-45 min
                     </span>
                   </div>
@@ -510,30 +598,35 @@ const HomePage: React.FC = () => {
                 <div className="flex justify-center">
                   <img
                     className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
-                    src={oferta4}
+                    src={portada_LittleCaesars}
+                    onClick={handleProducto2}
                   />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
                     </div>
-                    <div className="text-end">
-                      <RiHeart3Line className="text-Rojo_suave" />
-                    </div>
+                    <button onClick={() => handleAddToFavorites(product_L)}>
+                      {favorites.some((p) => p.id === product_L.id) ? (
+                        <RiHeart3Fill className="text-Blanco text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Blanco text-[20px]" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div className="mx-1 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
-                  <div className="flex gap-x-[100px] l:gap-x-[65px] x:gap-x-[90px] xm:gap-x-[130px] g:gap-x-[29px]">
-                    <div className=" text-[15px] g:text-[px] font-semibold">
-                      Little Caesars Pizza
+                  <div className="flex gap-x-[100px] l:gap-x-[65px] x:gap-x-[95px] xm:gap-x-[130px] g:gap-x-[29px]">
+                    <div className=" text-[15px] g:text-[px] font-semibold ">
+                      {product_L.name}
                     </div>
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      4.6
+                      {product_L.rating}
                     </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light font-medium leading-5 g:text-[11px]">
-                    Costo de envio: CLP 2200
-                    <span className="font-font-family-light font-medium leading-5 g:text-[11px]">
+                  <div className="flex g:flex-col font-font-family-light leading-5 g:text-[11px]">
+                    Costo de envio: {product_L.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
                       30-45 min
                     </span>
                   </div>
@@ -543,28 +636,32 @@ const HomePage: React.FC = () => {
                 <div className="flex justify-center">
                   <img
                     className="rounded-xl object-cover h-auto w-[300px] l:h-[140px] x:h-[140px] g:h-[118px]"
-                    src={oferta6}
+                    src={portada_KFC}
                   />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[50px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
                     </div>
-                    <div className="text-end">
-                      <RiHeart3Line className="text-Rojo_suave" />
-                    </div>
+                    <button onClick={() => handleAddToFavorites(product_KFC)}>
+                      {favorites.some((p) => p.id === product_KFC.id) ? (
+                        <RiHeart3Fill className="text-Blanco text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Blanco text-[20px]" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:ml-0">
-                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[185px] x:gap-x-[205px] xm:gap-x-[240px] g:gap-x-[145px]">
-                    KFC
+                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[185px] x:gap-x-[205px] xm:gap-x-[240px] g:gap-x-[140px]">
+                    {product_KFC.name}
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      4.4
+                      {product_KFC.rating}
                     </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light font-medium leading-5 g:text-[11px]">
-                    Costo de envio: CLP 2200
-                    <span className="font-font-family-light font-medium leading-5 g:text-[11px]">
+                  <div className="flex g:flex-col font-font-family-light leading-5 g:text-[11px]">
+                    Costo de envio: {product_KFC.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
                       30-45 min
                     </span>
                   </div>
@@ -574,28 +671,32 @@ const HomePage: React.FC = () => {
                 <div className="flex justify-center">
                   <img
                     className="rounded-xl object-cover h-auto w-full l:h-[140px] g:h-[120px]"
-                    src={oferta7}
+                    src={portada_BurgerKing}
                   />
                   <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[50px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
                     </div>
-                    <div className="text-end">
-                      <RiHeart3Line className="text-Rojo_claro" />
-                    </div>
+                    <button onClick={() => handleAddToFavorites(product_BK)}>
+                      {favorites.some((p) => p.id === product_BK.id) ? (
+                        <RiHeart3Fill className="text-Plata text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Plata text-[20px]" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
                   <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[120px] x:gap-x-[145px] xm:gap-x-[180px] g:gap-x-[85px]">
-                    Burger King
+                    {product_BK.name}
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      4.3
+                      {product_BK.rating}
                     </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light font-medium leading-5 g:text-[11px]">
-                    Costo de envio: CLP 2200
-                    <span className="font-font-family-light font-medium leading-5 g:text-[11px]">
+                  <div className="flex g:flex-col font-font-family-light  leading-5 g:text-[11px]">
+                    Costo de envio: {product_BK.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
                       30-45 min
                     </span>
                   </div>
@@ -605,28 +706,32 @@ const HomePage: React.FC = () => {
                 <div className="flex justify-center">
                   <img
                     className="rounded-xl object-cover h-auto w-[300px] l:h-[140px] g:h-[120px]"
-                    src={oferta8}
+                    src={portada_Terragona}
                   />
                   <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[50px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
                       <IoTrophyOutline className="mx-[2px] " />
                       Ahorros exclusivos
                     </div>
-                    <div className="text-end">
-                      <RiHeart3Line className="text-Rojo_suave" />
-                    </div>
+                    <button onClick={() => handleAddToFavorites(product_TG)}>
+                      {favorites.some((p) => p.id === product_TG.id) ? (
+                        <RiHeart3Fill className="text-Plata text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Plata text-[20px]" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
                   <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[135px] x:gap-x-[160px] xm:gap-x-[200px] g:gap-x-[100px]">
-                    Tarragona
+                    {product_TG.name}
                     <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      4.3
+                      {product_TG.rating}
                     </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light font-medium leading-5 g:text-[11px]">
-                    Costo de envio: CLP 2200
-                    <span className="font-font-family-light font-medium leading-5 g:text-[11px]">
+                  <div className="flex g:flex-col font-font-family-light  leading-5 g:text-[11px]">
+                    Costo de envio: {product_TG.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
                       30-45 min
                     </span>
                   </div>
@@ -793,6 +898,48 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <div className="flex flex-col md:grid-cols-2 mt-3 border-b border-Plata/50 md:gap-x-2 ">
+          <div className="font-font-family-light">
+            <div className="flex justify-center">
+              <img
+                onClick={handleProducto3}
+                className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
+                src={product_S.image}
+              />
+              <div className="flex absolute items-center xm:gap-x-[65px] x:gap-x-[250px] l:gap-x-[200px] g:gap-x-[155px]">
+                <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-white x:text-[12px] x:leading-5 text-Blanco">
+                  <IoTrophyOutline className="mx-[2px]" />
+                  Ahorros esclusivos
+                </div>
+                <button onClick={() => handleAddToFavorites(product_S)}>
+                  {favorites.some((p) => p.id === product_S.id) ? (
+                    <RiHeart3Fill className="text-Blanco text-[20px]" />
+                  ) : (
+                    <RiHeart3Line className="text-Blanco text-[20px]" />
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className=" mx-2 my-2">
+              <div className="">
+                <div className="flex x:text-[17px] x:leading-5 g:text-[18px] l:text-[17px] l:leading-5 font-font-family-light font-medium x:gap-x-[315px] l:gap-x-[265px] g:gap-x-[210px]">
+                  {product_S.name}
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] x:text-[15px] font-light">
+                    4.5
+                  </div>
+                </div>
+                <div className="flex items-center text-[14px] font-font-family-light font-light leading-5 g:text-[14px]">
+                  Costo de envio: {product_S.price}
+                  <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
+                  30-45 min
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+
         <div className="mt-[100px]"></div>
       </IonContent>
       <IonToast

@@ -12,6 +12,8 @@ import PromocionesPage from "./pages/PromocionesPage";
 import LocalPage from "./pages/Vista_Locales/LocalPage";
 import Vista_Productos from "./pages/Vista_Locales/El_Señor_De_Los_Bajones/Vista_Productos";
 import Vista_Productos_M from "./pages/Vista_Locales/Mc_Donald's/Vista_Productos_M";
+import Vista_Productos_L from "./pages/Vista_Locales/Little_Caesars_Pizza/Vista_Productos_L";
+import Vista_Producto_S from "./pages/Vista_Locales/Subway/Vista_Producto_S";
 import Billetera from "./pages/CuentaPage-Opciones/PagoPage";
 import Favoritos from "./pages/CuentaPage-Opciones/Favoritos";
 import Pedidos from "./pages/CuentaPage-Opciones/Pedidos";
@@ -112,6 +114,16 @@ const App: React.FC = () => (
               <Route
                 path="/vistaProducto_2"
                 component={Vista_Productos_M}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_3"
+                component={Vista_Productos_L}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_4"
+                component={Vista_Producto_S}
                 exact={true}
               />
               <Route path="/billetera" component={Billetera} exact={true} />
