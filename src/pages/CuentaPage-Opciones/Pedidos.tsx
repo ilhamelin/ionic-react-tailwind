@@ -17,12 +17,14 @@ const Pedidos: React.FC = () => {
     <>
       <IonHeader class="shadow-none">
         <IonToolbar>
-          <button
-            className=" x:px-[10px] x:py-[10px] l:px-[7px] l:py-[7px] g:px-[7px] g:py-[7px] rounded-full bg-opacity-50 active:bg-Gris_muy_claro"
-            onClick={() => window.history.back()}
-          >
-            <FaArrowLeft className="text-Negro x:text-[25px] l:text-[23px] g:text-[21px]" />
-          </button>
+          <div className="flex items-center gap-x-[234px] mt-2 mb-2">
+            <button
+              className="mx-5  rounded-full bg-opacity-50 active:bg-Gris_muy_claro"
+              onClick={() => window.history.back()}
+            >
+              <FaArrowLeft className="text-Negro text-[20px]" />
+            </button>
+          </div>
           <IonTitle className="font-font-family-light x:text-[28px] l:text-[26px] g:text-[24px]">
             Pedidos
           </IonTitle>

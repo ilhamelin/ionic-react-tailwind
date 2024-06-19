@@ -1,16 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import "../theme/tailwind.css";
 
-import { Link, useHistory } from "react-router-dom";
-
-// Import IONIC Components
-import { Route, Redirect } from "react-router";
-import { IonReactRouter } from "@ionic/react-router";
+// Import Componentes
+import Interruptor from "../components/Interruntor";
+import { useFavorites } from "../API/FavoritesContext";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import required modules
-import { Pagination } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -31,9 +28,12 @@ import oferta2 from "../img/Oferta3.png";
 import oferta3 from "../img/oferta4.png";
 import portada_LittleCaesars from "../img/oferta5.png";
 import portada_KFC from "../img/oferta6.png";
-import portada_BurgerKing from "../img/oferta7.1.png";
+import portada_BurgerKing from "../img/Burger_King/oferta7.1.png";
 import portada_Terragona from "../img/oferta8.png";
 import portada_Subway from "../img/Subway/Portada_Oferta.png";
+import portada_Wendy from "../img/Wendy/Portada_Wendy.png";
+import portada_pizzaria from "../img/Pizzería_Pizzola/Portada_Pizzaria_Pizzola.png";
+import portada_iro_sushi from "../img/Iro_Sushi/Portada_iro_sushi.png";
 
 import ahumada from "../img/logo-asuntos-corporativos-ahumad.png";
 import superZoo from "../img/superzoo.png";
@@ -43,9 +43,7 @@ import easy from "../img/easyLogo.png";
 import jumbo from "../img/JumboLogo.png";
 import Decathlon from "../img/Decathlon.png";
 import salcobrand from "../img/Salcobrand.png";
-import botilleria from "../img/Botilleria.png";
 import liquido from "../img/Liquido.png";
-
 import express from "../img/comida-enlatada64px.png";
 
 // componentes ionic
@@ -57,6 +55,8 @@ import {
   IonToast,
 } from "@ionic/react";
 
+
+
 // import de iconos
 import {
   RiNotification3Line,
@@ -67,13 +67,9 @@ import {
 import { IoMdPricetag } from "react-icons/io";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LiaMedalSolid } from "react-icons/lia";
-import { image, searchCircleOutline } from "ionicons/icons";
-
-import "../theme/tailwind.css";
-
-import Interruptor from "../components/Interruntor";
+import { searchCircleOutline } from "ionicons/icons";
 import { FaCircle } from "react-icons/fa6";
-import { useFavorites } from "../API/FavoritesContext";
+
 
 const HomePage: React.FC = () => {
   const history = useHistory();
@@ -82,20 +78,28 @@ const HomePage: React.FC = () => {
     history.push("/promociones");
   };
 
-  const handleProducto = () => {
-    history.push("/vistaProducto_1");
+  const handleProductoBajon = () => {
+    history.push("/vistaProducto_Bajon");
   };
 
-  const handleProducto1 = () => {
-    history.push("/vistaProducto_2");
+  const handleProductoLittlePizza = () => {
+    history.push("/vistaProducto_Little_Pizza");
   };
 
-  const handleProducto2 = () => {
-    history.push("/vistaProducto_3");
+  const handleProductoMcDonals = () => {
+    history.push("/vistaProducto_McDonals");
+  };
+
+  const handleProductoSubway = () => {
+    history.push("/vistaProducto_Subway");
   };
   
-  const handleProducto3 = () => {
-    history.push("/vistaProducto_4");
+  const handleProductoBurgerKing = () => {
+    history.push("/vistaProducto_Burger_King");
+  };
+  
+  const handleProductoKFC = () => {
+    history.push("/vistaProducto_KFC");
   };
 
   const [searchText, setSearchText] = useState("");
@@ -109,11 +113,16 @@ const HomePage: React.FC = () => {
   //add favoritos
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const [favoriteProducts, setFavoriteProducts] = useState<any[]>([]);
+  const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
 
   const showToastMessage = (message: string) => {
     setToastMessage(message);
+    setToastAnimation("toast-slide-in");
     setShowToast(true);
+
+    setTimeout(() => {
+      setToastAnimation("toast-slide-out");
+    }, 2000);
   };
 
   const hideToast = () => {
@@ -171,11 +180,12 @@ const HomePage: React.FC = () => {
   const product_KFC = {
     id: 55,
     name: "KFC",
-    price: "CLP 2200",
+    price: "CLP 900",
     image: portada_KFC,
     deliveryTime: "30-45 min",
     rating: 4.4,
   };
+  
 
   const product_BK = {
     id: 56,
@@ -195,8 +205,49 @@ const HomePage: React.FC = () => {
     rating: 4.3,
   };
 
+  const product_W = {
+    id: 58,
+    name: "Wendy",
+    price: "CLP 1100",
+    image: portada_Wendy,
+    deliveryTime: "30-45 min",
+    rating: 4.5,
+  };
+
+  const product_PP = {
+    id: 58,
+    name: "Pizzería Pizzola",
+    price: "CLP 1700",
+    image: portada_pizzaria,
+    deliveryTime: "30-45 min",
+    rating: 4.3,
+  };
+
+  const product_IS = {
+    id: 59,
+    name: "Iro Sushi",
+    price: "CLP 1300",
+    image: portada_iro_sushi,
+    deliveryTime: "30-45 min",
+    rating: 4.5,
+  };
+  
+
+  //ChatBot
+
   return (
     <>
+      <IonToast
+        className={`font-font-family-light text-[15px] leading-5 ${toastAnimation}`}
+        isOpen={showToast}
+        onDidDismiss={hideToast}
+        message={toastMessage}
+        duration={2000} // Duración en milisegundos
+        position="top"
+        color="success" // Puedes cambiar el color según tus necesidades
+        animated={true} // Habilita la animación
+      />
+
       <IonHeader class="shadow-none">
         <IonToolbar>
           <div className="flex ">
@@ -247,7 +298,7 @@ const HomePage: React.FC = () => {
       <IonContent className="font-font-family-light">
         <div className="mt-2 items-center text-center ">
           <Swiper
-            className="l:w-full x:w-full md:w-[800px] g:w-auto"
+            className="l:w-full x:w-full md:w-[800px] g:w-auto lr:px-4"
             slidesPerView={4.5}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
@@ -258,109 +309,113 @@ const HomePage: React.FC = () => {
                 width: 400,
               },
 
+              393: {
+                slidesPerView: 5,
+              },
+
               768: {
                 slidesPerView: 5.5,
                 spaceBetween: 0,
               },
             }}
           >
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px] py-[13px] px-[13px] rounded-full bg-Naranja_oscuro_desaturado ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={hamburger} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px] ">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Hamburguesa
               </div>
             </SwiperSlide>
-            <SwiperSlide className="">
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Naranja_suave ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={supermercado} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px]">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Supermercado
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Rojo_claro ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={sushi} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px] ">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Sushi
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Amarillo_intenso ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={pizza} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px] ">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Pizza
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Rojo_suave ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={china} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px] ">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Comida China
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Cian_suave ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={express} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px]">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Express
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Naranja_claro ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={sandwich} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px]">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Sandwich
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Amarillo_vivo ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={farmacia} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px]">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Farmacia
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Rojo_oscuro ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={polloFrito} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px]">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Pollo
               </div>
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="mx-1">
               <div className="flex justify-center">
-                <div className="mx-[10px]  py-[13px] px-[13px] rounded-full bg-Naranja_oscuro_desaturado ">
+                <div className="mx-[5px] py-[13px] px-[8px] rounded-full ">
                   <img src={americano} />
                 </div>
               </div>
-              <div className="font-font-family-light font-medium leading-5 g:text-[12px] mt-1 l:text-[11px] md:text-[15px] ">
+              <div className="font-font-family-light font-semibold leading-5 lr:text-[10px] g:text-[12px] mt-1 l:text-[11px] ">
                 Americana
               </div>
             </SwiperSlide>
@@ -388,6 +443,10 @@ const HomePage: React.FC = () => {
                 slidesPerView: 3,
                 spaceBetween: 5,
               },
+              393: {
+                slidesPerView: 3,
+                spaceBetween: 5,
+              },
               425: {
                 slidesPerView: 3,
                 spaceBetween: 0,
@@ -403,55 +462,55 @@ const HomePage: React.FC = () => {
             }}
           >
             <SwiperSlide className="px-4">
-              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center gap-x-2 py-2">
-                <IoMdPricetag className=" object-cover " />
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px]">
+              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center py-2">
+                <IoMdPricetag className="mr-1" />
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px]">
                   Oferta
                 </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center gap-x-2 py-2 px-1 ">
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px]">
+              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center py-2 px-1 ">
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px]">
                   Menos de 30 min
                 </div>
               </div>
             </SwiperSlide>
             <SwiperSlide className="px-4">
-              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center gap-x-0 py-2 px-2">
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px]">
+              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center py-2 ">
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px]">
                   Costos
                 </div>
-                <RiArrowDropDownLine className="object-cover text-[20px]" />
+                <RiArrowDropDownLine className="text-[20px]" />
               </div>
             </SwiperSlide>
-            <SwiperSlide className="px-1">
+            <SwiperSlide>
               <div className="flex bg-Gris_muy_claro  rounded-2xl items-center justify-center gap-x-0 py-2 ">
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px]">
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px]">
                   Costo de envio
                 </div>
-                <RiArrowDropDownLine className="object-cover text-[20px]" />
+                <RiArrowDropDownLine className="text-[20px]" />
               </div>
             </SwiperSlide>
             <SwiperSlide className="px-2">
               <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center gap-x-2 py-2 px-2">
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px]">
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px]">
                   Paga con Pluxee
                 </div>
               </div>
             </SwiperSlide>
-            <SwiperSlide className="px-2">
+            <SwiperSlide className="px-1">
               <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center gap-x-1 py-2">
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px]">
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px]">
                   Tipo de Dieta
                 </div>
                 <RiArrowDropDownLine className="object-cover text-[20px]" />
               </div>
             </SwiperSlide>
-            <SwiperSlide className="w-auto h-auto">
-              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center g:gap-x-[5px] py-2">
-                <LiaMedalSolid className="object-cover text-[15px]" />
-                <div className="font-font-family-light font-medium leading-5 g:text-[12px] l:text-[12px] x:text-[12px]">
+            <SwiperSlide>
+              <div className="flex bg-Gris_muy_claro rounded-2xl items-center justify-center py-2">
+                <LiaMedalSolid className="text-[15px] mr-1" />
+                <div className="font-font-family-light font-semibold leading-5 g:text-[12px] l:text-[12px] x:text-[12px]">
                   Mayor Calificacion
                 </div>
               </div>
@@ -463,7 +522,7 @@ const HomePage: React.FC = () => {
           <div className="font-font-family-light">
             <div className="flex justify-center">
               <img
-                onClick={handleProducto}
+                onClick={handleProductoBajon}
                 className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
                 src={product_B.image}
               />
@@ -476,14 +535,14 @@ const HomePage: React.FC = () => {
                 </div>
                 <button onClick={() => handleAddToFavorites(product_B)}>
                   {favorites.some((p) => p.id === product_B.id) ? (
-                    <RiHeart3Fill className="text-Blanco text-[20px]" />
+                    <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
                   ) : (
-                    <RiHeart3Line className="text-Blanco text-[20px]" />
+                    <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
                   )}
                 </button>
               </div>
             </div>
-            <div className=" mx-2 my-2">
+            <div className=" mx-2 my-2 x:mx-2 lr:mx-4 ">
               <div className="">
                 <div className="flex x:text-[17px] x:leading-5 g:text-[18px] l:text-[17px] l:leading-5 font-font-family-light font-medium x:gap-x-[195px] l:gap-x-[145px] md:gap-x-[150px] xm:gap-x-[350px] g:gap-x-[75px]">
                   {product_B.name}
@@ -504,7 +563,7 @@ const HomePage: React.FC = () => {
           <div className="font-font-family-light">
             <div className="flex justify-center">
               <img
-                onClick={handleProducto1}
+                onClick={handleProductoMcDonals}
                 className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
                 src={product_M.image}
               />
@@ -515,14 +574,14 @@ const HomePage: React.FC = () => {
                 </div>
                 <button onClick={() => handleAddToFavorites(product_M)}>
                   {favorites.some((p) => p.id === product_M.id) ? (
-                    <RiHeart3Fill className="text-Blanco text-[20px]" />
+                    <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
                   ) : (
-                    <RiHeart3Line className="text-Blanco text-[20px]" />
+                    <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
                   )}
                 </button>
               </div>
             </div>
-            <div className=" mx-2 my-2">
+            <div className=" mx-2 my-2 x:mx-2 lr:mx-4">
               <div className="">
                 <div className="flex x:text-[17px] x:leading-5 g:text-[18px] l:text-[17px] l:leading-5 font-font-family-light font-medium x:gap-x-[290px] l:gap-x-[240px] g:gap-x-[180px]">
                   {product_M.name}
@@ -542,215 +601,410 @@ const HomePage: React.FC = () => {
         </div>
 
         <div className="border-b border-Plata/50">
-          <div className="ml-2">
+          <div className="ml-2 lr:ml-4">
             <h3 className="font-font-family-light font-bold leading-8 normal-nums text-[24px]">
               Ofertas de Hoy
             </h3>
           </div>
-          <div>
-            <Swiper
-              className="px-4 l:px-2 g:px-2"
-              slidesPerView={1.5}
-              spaceBetween={10}
-              pagination={{
-                clickable: true,
-              }}
-            >
-              <SwiperSlide>
-                <div className="flex justify-center">
-                  <img
-                    className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
-                    src={product_M.image}
-                    onClick={handleProducto1}
-                  />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px]  xm:gap-x-[140px] g:gap-x-[45px] ">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
-                      <IoTrophyOutline className="mx-[2px] " />
-                      Ahorros exclusivos
-                    </div>
-                    <button onClick={() => handleAddToFavorites(product_M)}>
-                      {favorites.some((p) => p.id === product_M.id) ? (
-                        <RiHeart3Fill className="text-Blanco text-[20px]" />
-                      ) : (
-                        <RiHeart3Line className="text-Blanco text-[20px]" />
-                      )}
-                    </button>
+
+          <Swiper
+            slidesPerView={1.5}
+            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            <SwiperSlide className="pl-4">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_M.image}
+                  onClick={handleProductoMcDonals}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_M)}>
+                    {favorites.some((p) => p.id === product_M.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[140px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_M.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_M.rating}
                   </div>
                 </div>
-                <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0">
-                  <div className="flex gap-x-[150px] l:gap-x-[120px] x:gap-x-[150px] xm:gap-x-[190px] g:gap-x-[80px]">
-                    <div className="text-[15px] font-semibold">
-                      {product_M.name}
-                    </div>
-                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      {product_M.rating}
-                    </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_M.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_B.image}
+                  onClick={handleProductoBajon}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
                   </div>
-                  <div className="flex g:flex-col font-medium leading-5 g:text-[11px]">
-                    Costo de envio: {product_M.price}
-                    <span className=" font-medium leading-5 g:text-[11px]">
-                      30-45 min
-                    </span>
+                  <button onClick={() => handleAddToFavorites(product_B)}>
+                    {favorites.some((p) => p.id === product_B.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[50px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_B.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_B.rating}
                   </div>
                 </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="flex justify-center">
-                  <img
-                    className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
-                    src={portada_LittleCaesars}
-                    onClick={handleProducto2}
-                  />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
-                      <IoTrophyOutline className="mx-[2px] " />
-                      Ahorros exclusivos
-                    </div>
-                    <button onClick={() => handleAddToFavorites(product_L)}>
-                      {favorites.some((p) => p.id === product_L.id) ? (
-                        <RiHeart3Fill className="text-Blanco text-[20px]" />
-                      ) : (
-                        <RiHeart3Line className="text-Blanco text-[20px]" />
-                      )}
-                    </button>
-                  </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_B.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
                 </div>
-                <div className="mx-1 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
-                  <div className="flex gap-x-[100px] l:gap-x-[65px] x:gap-x-[95px] xm:gap-x-[130px] g:gap-x-[29px]">
-                    <div className=" text-[15px] g:text-[px] font-semibold ">
-                      {product_L.name}
-                    </div>
-                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      {product_L.rating}
-                    </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_BK.image}
+                  onClick={handleProductoBurgerKing}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
                   </div>
-                  <div className="flex g:flex-col font-font-family-light leading-5 g:text-[11px]">
-                    Costo de envio: {product_L.price}
-                    <span className="font-font-family-light  leading-5 g:text-[11px]">
-                      30-45 min
-                    </span>
-                  </div>
+                  <button onClick={() => handleAddToFavorites(product_BK)}>
+                    {favorites.some((p) => p.id === product_BK.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
                 </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="flex justify-center">
-                  <img
-                    className="rounded-xl object-cover h-auto w-[300px] l:h-[140px] x:h-[140px] g:h-[118px]"
-                    src={portada_KFC}
-                  />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
-                      <IoTrophyOutline className="mx-[2px] " />
-                      Ahorros exclusivos
-                    </div>
-                    <button onClick={() => handleAddToFavorites(product_KFC)}>
-                      {favorites.some((p) => p.id === product_KFC.id) ? (
-                        <RiHeart3Fill className="text-Blanco text-[20px]" />
-                      ) : (
-                        <RiHeart3Line className="text-Blanco text-[20px]" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-                <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:ml-0">
-                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[185px] x:gap-x-[205px] xm:gap-x-[240px] g:gap-x-[140px]">
-                    {product_KFC.name}
-                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      {product_KFC.rating}
-                    </div>
-                  </div>
-                  <div className="flex g:flex-col font-font-family-light leading-5 g:text-[11px]">
-                    Costo de envio: {product_KFC.price}
-                    <span className="font-font-family-light  leading-5 g:text-[11px]">
-                      30-45 min
-                    </span>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="flex justify-center">
-                  <img
-                    className="rounded-xl object-cover h-auto w-full l:h-[140px] g:h-[120px]"
-                    src={portada_BurgerKing}
-                  />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[50px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
-                      <IoTrophyOutline className="mx-[2px] " />
-                      Ahorros exclusivos
-                    </div>
-                    <button onClick={() => handleAddToFavorites(product_BK)}>
-                      {favorites.some((p) => p.id === product_BK.id) ? (
-                        <RiHeart3Fill className="text-Plata text-[20px]" />
-                      ) : (
-                        <RiHeart3Line className="text-Plata text-[20px]" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-                <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
-                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[120px] x:gap-x-[145px] xm:gap-x-[180px] g:gap-x-[85px]">
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[135px] ">
+                  <div className="text-[15px] font-semibold">
                     {product_BK.name}
-                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      {product_BK.rating}
-                    </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light  leading-5 g:text-[11px]">
-                    Costo de envio: {product_BK.price}
-                    <span className="font-font-family-light  leading-5 g:text-[11px]">
-                      30-45 min
-                    </span>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_BK.rating}
                   </div>
                 </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="flex justify-center">
-                  <img
-                    className="rounded-xl object-cover h-auto w-[300px] l:h-[140px] g:h-[120px]"
-                    src={portada_Terragona}
-                  />
-                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[50px]">
-                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
-                      <IoTrophyOutline className="mx-[2px] " />
-                      Ahorros exclusivos
-                    </div>
-                    <button onClick={() => handleAddToFavorites(product_TG)}>
-                      {favorites.some((p) => p.id === product_TG.id) ? (
-                        <RiHeart3Fill className="text-Plata text-[20px]" />
-                      ) : (
-                        <RiHeart3Line className="text-Plata text-[20px]" />
-                      )}
-                    </button>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_BK.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_KFC.image}
+                  onClick={handleProductoKFC}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_KFC)}>
+                    {favorites.some((p) => p.id === product_KFC.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[190px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_KFC.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_KFC.rating}
                   </div>
                 </div>
-                <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
-                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[135px] x:gap-x-[160px] xm:gap-x-[200px] g:gap-x-[100px]">
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_KFC.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_L.image}
+                  onClick={handleProductoLittlePizza}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_L)}>
+                    {favorites.some((p) => p.id === product_L.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[80px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_L.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_L.rating}
+                  </div>
+                </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_L.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_S.image}
+                  onClick={handleProductoMcDonals}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_S)}>
+                    {favorites.some((p) => p.id === product_S.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[160px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_S.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_S.rating}
+                  </div>
+                </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_S.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_TG.image}
+                  onClick={handleProductoMcDonals}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_TG)}>
+                    {favorites.some((p) => p.id === product_TG.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[145px] ">
+                  <div className="text-[15px] font-semibold">
                     {product_TG.name}
-                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-semibold">
-                      {product_TG.rating}
-                    </div>
                   </div>
-                  <div className="flex g:flex-col font-font-family-light  leading-5 g:text-[11px]">
-                    Costo de envio: {product_TG.price}
-                    <span className="font-font-family-light  leading-5 g:text-[11px]">
-                      30-45 min
-                    </span>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_TG.rating}
                   </div>
                 </div>
-              </SwiperSlide>
-            </Swiper>
-          </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_TG.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_W.image}
+                  onClick={handleProductoMcDonals}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_W)}>
+                    {favorites.some((p) => p.id === product_W.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[170px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_W.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_W.rating}
+                  </div>
+                </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_W.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-cover h-[150px] w-full "
+                  src={product_PP.image}
+                  onClick={handleProductoMcDonals}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_PP)}>
+                    {favorites.some((p) => p.id === product_PP.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[105px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_PP.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_PP.rating}
+                  </div>
+                </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_PP.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="px-2">
+              <div className="flex justify-center">
+                <img
+                  className="rounded-xl object-none h-[150px] w-full "
+                  src={product_IS.image}
+                  onClick={handleProductoMcDonals}
+                />
+                <div className="flex absolute items-center gap-x-[90px]">
+                  <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco">
+                    <IoTrophyOutline className="mx-[1px] " />
+                    Ahorros exclusivos
+                  </div>
+                  <button onClick={() => handleAddToFavorites(product_IS)}>
+                    {favorites.some((p) => p.id === product_IS.id) ? (
+                      <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                    ) : (
+                      <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                <div className="flex gap-x-[155px] ">
+                  <div className="text-[15px] font-semibold">
+                    {product_IS.name}
+                  </div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] font-light">
+                    {product_IS.rating}
+                  </div>
+                </div>
+                <div className="flex g:flex-col font-medium leading-5 text-[11px]">
+                  Costo de envio: {product_IS.price}
+                  <span className=" font-medium leading-5 text-[11px]">
+                    30-45 min
+                  </span>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
 
         <div className="border-b border-Plata/50 ">
-          <div className="g:ml-2">
+          <div className="g:ml-2 lr:ml-4">
             <h3 className="font-font-family font-bold leading-8 normal-nums text-[24px]">
               Tiendas cerca de ti
             </h3>
           </div>
           <div>
-            <div className="mt-2 items-center text-center ">
+            <div className="items-center text-center ">
               <Swiper
-                className="l:ml-2 l:w-full x:w-full md:w-[800px] g:w-auto"
+                className="px-4 l:w-full x:w-full md:w-[800px] g:w-auto lr:px-4"
                 slidesPerView={4.5}
                 onSlideChange={() => console.log("slide change")}
                 onSwiper={(swiper) => console.log(swiper)}
@@ -903,7 +1157,7 @@ const HomePage: React.FC = () => {
           <div className="font-font-family-light">
             <div className="flex justify-center">
               <img
-                onClick={handleProducto3}
+                onClick={handleProductoSubway}
                 className="rounded-xl object-cover h-[190px] w-auto l:w-[360px] x:w-[410px] xm:w-[470px] g:w-[310px]"
                 src={product_S.image}
               />
@@ -914,14 +1168,14 @@ const HomePage: React.FC = () => {
                 </div>
                 <button onClick={() => handleAddToFavorites(product_S)}>
                   {favorites.some((p) => p.id === product_S.id) ? (
-                    <RiHeart3Fill className="text-Blanco text-[20px]" />
+                    <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
                   ) : (
-                    <RiHeart3Line className="text-Blanco text-[20px]" />
+                    <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
                   )}
                 </button>
               </div>
             </div>
-            <div className=" mx-2 my-2">
+            <div className=" mx-2 my-2 lr:mx-4">
               <div className="">
                 <div className="flex x:text-[17px] x:leading-5 g:text-[18px] l:text-[17px] l:leading-5 font-font-family-light font-medium x:gap-x-[315px] l:gap-x-[265px] g:gap-x-[210px]">
                   {product_S.name}
@@ -942,14 +1196,6 @@ const HomePage: React.FC = () => {
 
         <div className="mt-[100px]"></div>
       </IonContent>
-      <IonToast
-        isOpen={showToast}
-        onDidDismiss={hideToast}
-        message={toastMessage}
-        duration={2000} // Duración en milisegundos
-        position="bottom"
-        color="success" // Puedes cambiar el color según tus necesidades
-      />
     </>
   );
 };

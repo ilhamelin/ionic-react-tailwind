@@ -14,12 +14,14 @@ const PagoPage: React.FC = () => {
     <>
       <IonHeader class="shadow-none">
         <IonToolbar>
-          <button
-            className=" px-[10px] py-[10px] rounded-full bg-opacity-50 active:bg-Gris_muy_claro"
-            onClick={() => window.history.back()}
-          >
-            <FaArrowLeft className="text-Negro text-[25px]" />
-          </button>
+          <div className="flex items-center gap-x-[234px] mt-2 mb-2">
+            <button
+              className="mx-5  rounded-full bg-opacity-50 active:bg-Gris_muy_claro"
+              onClick={() => window.history.back()}
+            >
+              <FaArrowLeft className="text-Negro text-[20px]" />
+            </button>
+          </div>
           <IonTitle className="font-font-family-light text-[28px]">
             Billetera
           </IonTitle>

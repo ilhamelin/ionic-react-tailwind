@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { IonContent, IonHeader } from "@ionic/react";
+import React, { useState } from "react";
+import { IonContent, IonHeader, IonToast } from "@ionic/react";
+
+import { useFavorites } from "../../../API/FavoritesContext";
+
+import CustomActionSheet from "../../../components/CustomActionSheetProps";
 
 import { FaSearch } from "react-icons/fa";
 
@@ -8,10 +12,14 @@ import {
   FaCircle,
   FaAngleRight,
   FaUserPlus,
-  FaRegHeart,
   FaEllipsisVertical,
   FaArrowLeft,
 } from "react-icons/fa6";
+
+import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { RiHeart3Fill, RiHeart3Line } from "react-icons/ri";
+import { MdInfoOutline } from "react-icons/md";
+import { HiOutlineShare } from "react-icons/hi";
 
 import { AiOutlineLike, AiOutlinePlus, AiFillTag } from "react-icons/ai";
 
@@ -25,11 +33,9 @@ import Favorito_3 from "../../../img/Mc_Macdonals/Cuarto_Libra.png";
 import Favorito_4 from "../../../img/Mc_Macdonals/Gran_Big_Mac.png";
 import Favorito_5 from "../../../img/Mc_Macdonals/Bacon_Cheddar_McMelt_2_Carnes.png";
 import Favorito_6 from "../../../img/Mc_Macdonals/Family_box_uber.png";
-import Favorito_7 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_completo.png";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 
 const Vista_Productos_M: React.FC = () => {
   // Aquí puedes utilizar ofertaId para cargar la información de la oferta seleccionada
@@ -39,10 +45,66 @@ const Vista_Productos_M: React.FC = () => {
     setIsChecked(!isChecked);
   };
 
-  // Agrega el estado scrolled y la función handleScroll
+  //add favoritos
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
+
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setToastAnimation("toast-slide-in");
+    setShowToast(true);
+
+    setTimeout(() => {
+      setToastAnimation("toast-slide-out");
+    }, 2000); // Cambia esta duración según tu preferencia
+  };
+
+  const hideToast = () => {
+    setShowToast(false);
+  };
+
+  const { addToFavorites, removeFromFavorites, favorites } = useFavorites();
+
+  const handleAddToFavorites = (product: any) => {
+    if (favorites.some((p) => p.id === product.id)) {
+      removeFromFavorites(product.id);
+      showToastMessage("Producto eliminado de favoritos");
+    } else {
+      addToFavorites(product);
+      showToastMessage("Producto agregado a favoritos");
+    }
+  };
+
+  const product_M = {
+    id: 52,
+    name: "McDonal´s",
+    price: "CLP 1,500",
+    image: Portada_M,
+    deliveryTime: "30-45 min",
+    rating: 4.6,
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleActionClick = (action: string) => {
+    console.log(action);
+    setIsOpen(false);
+  };
 
   return (
     <>
+      <IonToast
+        className={`font-font-family-light text-[15px] leading-5 ${toastAnimation}`}
+        isOpen={showToast}
+        onDidDismiss={hideToast}
+        message={toastMessage}
+        duration={2000} // Duración en milisegundos
+        position="top"
+        color="success" // Puedes cambiar el color según tus necesidades
+        animated={true} // Habilita la animación
+      />
       <div className=" fixed top-0 left-0 w-full z-10 transition-transform duration-300">
         <IonHeader
           class="shadow-none"
@@ -57,15 +119,90 @@ const Vista_Productos_M: React.FC = () => {
             </button>
           </div>
           <div className="flex x:gap-x-5  x:px-4  x:mt-[5px]  l:gap-x-4 l:px-3 l:mt-[3px] g:gap-x-5 g:px-4 g:mt-[5px] items-center justify-center ">
-            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px] l:py-[5px] g:px-[10px] g:py-[10px] rounded-full bg-opacity-50">
-              <FaRegHeart className=" text-Blanco x:text-[15px]  l:text-[14px] g:text-[15px]" />
+            <button
+              className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px] l:py-[5px] g:px-[10px] g:py-[10px] lr:px-[10px] lr:py-[10px]  rounded-full bg-opacity-50"
+              onClick={() => handleAddToFavorites(product_M)}
+            >
+              {favorites.some((p) => p.id === product_M.id) ? (
+                <RiHeart3Fill className="text-Blanco x:text-[15px]  l:text-[14px] g:text-[15px] lr:text-[15px]" />
+              ) : (
+                <RiHeart3Line className="text-Blanco x:text-[15px]  l:text-[14px] g:text-[15px] lr:text-[15px]" />
+              )}
             </button>
-            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px]  l:py-[5px] g:px-[10px] g:py-[10px] rounded-full bg-opacity-50">
-              <FaSearch className=" text-Blanco x:text-[15px] text-[15px] l:text-[14px]" />
+            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px]  l:py-[5px] g:px-[10px] g:py-[10px] lr:px-[10px] lr:py-[10px] rounded-full bg-opacity-50">
+              <FaSearch className=" text-Blanco x:text-[15px] text-[15px] l:text-[14px] lr:text-[15px]" />
             </button>
-            <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px]  l:py-[5px] g:px-[10px] g:py-[10px] rounded-full bg-opacity-50">
-              <FaEllipsisVertical className=" text-Blanco x:text-[15px] text-[15px] l:text-[14px]" />
+            <button
+              onClick={() => setIsOpen(true)}
+              className="bg-Negro x:px-[10px] x:py-[10px] l:px-[5px] l:py-[5px] g:px-[10px] g:py-[10px] lr:px-[10px] lr:py-[10px] rounded-full bg-opacity-50"
+            >
+              <FaEllipsisVertical className="text-Blanco x:text-[15px] text-[15px] l:text-[14px] lr:text-[15px]" />
             </button>
+
+            <CustomActionSheet
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              actions={[
+                {
+                  content: (
+                    <>
+                      <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
+                        <FaSearch className="mx-2 mr-4" />
+                        <span className="font-medium">Busca el negocio</span>
+                      </div>
+                    </>
+                  ),
+                  onClick: () => handleActionClick("Busca el negocio"),
+                },
+                {
+                  content: (
+                    <>
+                      <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
+                        <FaUserPlus className="mx-2 mr-4 text-[20px]" />
+                        <span className="font-medium">Pedido grupal</span>
+                      </div>
+                    </>
+                  ),
+                  onClick: () => handleActionClick("Pedido grupal"),
+                },
+                {
+                  content: (
+                    <>
+                      <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
+                        <RiHeart3Line className="mx-2 mr-4 text-[20px]" />
+                        <span className="font-medium">Agregar a favoritos</span>
+                      </div>
+                    </>
+                  ),
+                  onClick: () => handleActionClick("Agregar a favoritos"),
+                },
+                {
+                  content: (
+                    <>
+                      <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
+                        <HiOutlineShare className="mx-2 mr-4 text-[20px]" />
+                        <span className="font-medium">Agregar a favoritos</span>
+                      </div>
+                    </>
+                  ),
+                  onClick: () => handleActionClick("Compartir"),
+                },
+                {
+                  content: (
+                    <>
+                      <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
+                        <MdInfoOutline className="mx-2 mr-4 text-[20px]" />
+                        <span className="font-medium">
+                          Ver Informacion de la Tienda
+                        </span>
+                      </div>
+                    </>
+                  ),
+                  onClick: () =>
+                    handleActionClick("Ver información de la Tienda"),
+                },
+              ]}
+            />
           </div>
         </IonHeader>
       </div>

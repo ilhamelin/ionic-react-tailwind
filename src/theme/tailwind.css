@@ -50,4 +50,53 @@ ion-toggle::part(track) {
     width: 100%;
     border-radius: 5px;
     margin-bottom: 10px;
-  }
+}
+
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.toast-slide-in {
+    animation: slideIn 0.5s forwards;
+}
+
+.toast-slide-out {
+    animation: slideOut 1.5s forwards;
+}
+
+
+/* App.css */
+.rcw-widget-container {
+    --rcw-widget-bg-color: #1a202c;
+    /* Cambia este valor por el color que prefieras */
+}
+
+.rcw-conversation-container {
+    --rcw-message-color: #2d3748;
+    /* Cambia este valor por el color que prefieras */
+}
+
+.swiper {
+
+}

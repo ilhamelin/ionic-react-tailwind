@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 
@@ -24,6 +24,8 @@ import { FaMicrophoneLines } from "react-icons/fa6";
 import { FiUser } from "react-icons/fi";
 import { IoInformationCircleOutline } from "react-icons/io5";
 
+import User from "../img/Perfil_User.png";
+
 const CuentaPage: React.FC = () => {
   const history = useHistory();
 
@@ -39,6 +41,14 @@ const CuentaPage: React.FC = () => {
     history.push("/pedidos");
   };
 
+  const handlePromo = () => {
+    history.push("/promociones");
+  };
+
+  const handleConfi = () => {
+    history.push("/configuracion");
+  };
+
   return (
     <>
       <IonHeader class="shadow-none">
@@ -49,7 +59,11 @@ const CuentaPage: React.FC = () => {
                 Benjamin ignacio
                 <span>Reyes Valdes</span>
               </div>
-              <FaCircleUser className="x:text-[56px] l:text-[55px] g:text-[50px] items-end" />
+              <img
+                onClick={handleConfi}
+                src={User}
+                className=" rounded-full h-full w-[60px]"
+              />
             </div>
           </IonTitle>
         </IonToolbar>
@@ -58,7 +72,7 @@ const CuentaPage: React.FC = () => {
         <div className="font-font-family-light">
           <div className="flex  justify-center x:mx-4 x:mt-4 x:gap-[20px] l:mx-3 l:mt-4 l:gap-[20px] g:mx-4 g:mt-4 g:gap-[10px]">
             <button
-              className="flex flex-col bg-Gris_muy_claro rounded-xl x:px-6 x:py-4 l:px-5 l:py-3 items-center shadow-lg border-b-[3px] border-Plata g:px-4 g:py-2"
+              className="flex flex-col bg-Gris_muy_claro rounded-xl x:px-6 x:py-4 l:px-5 l:py-3 items-center shadow-lg border-b-[3px] border-Plata g:px-4 g:py-2 transition transform hover:scale-105 active:scale-95 active:shadow-sm"
               onClick={handleFavoritos}
             >
               <img className="g:h-[50px]" src={Favoritos} />
@@ -67,7 +81,7 @@ const CuentaPage: React.FC = () => {
               </span>
             </button>
             <button
-              className="flex flex-col bg-Gris_muy_claro rounded-xl x:px-6 x:py-4 l:px-5 l:py-3 g:px-4 g:py-2 items-center shadow-xl border-b-[3px] border-Plata "
+              className="flex flex-col bg-Gris_muy_claro rounded-xl x:px-6 x:py-4 l:px-5 l:py-3 g:px-4 g:py-2 items-center shadow-xl border-b-[3px] border-Plata transition transform hover:scale-105 active:scale-95 active:shadow-sm"
               onClick={handleBilletera}
             >
               <img className="g:h-[50px]" src={Billetera} />
@@ -76,7 +90,7 @@ const CuentaPage: React.FC = () => {
               </span>
             </button>
             <button
-              className="flex flex-col bg-Gris_muy_claro rounded-xl x:px-6 x:py-4 l:px-5 l:py-3 g:px-4 g:py-2 items-center shadow-xl border-b-[3px] border-Plata "
+              className="flex flex-col bg-Gris_muy_claro rounded-xl x:px-6 x:py-4 l:px-5 l:py-3 g:px-4 g:py-2 items-center shadow-xl border-b-[3px] border-Plata transition transform hover:scale-105 active:scale-95 active:shadow-sm"
               onClick={handlePedidos}
             >
               <img className="g:h-[50px]" src={Pedidos} />
@@ -85,8 +99,8 @@ const CuentaPage: React.FC = () => {
               </span>
             </button>
           </div>
-          <div className=" border-Gris_muy_claro x:border-b-[4px] x:pb-5 l:pb-4 g:pb-3 g:border-b-[4px] ">
-            <div className="flex bg-Gris_muy_claro x:px-4 x:py-4 x:mx-4 x:mt-6 x:gap-[185px] l:px-3 l:py-3 l:mx-3 l:mt-5 l:gap-[160px] rounded-xl shadow-lg border-b-[3px] border-Plata g:px-2 g:py-2 g:mx-2 g:mt-2 g:gap-[130px]">
+          <div className="border-Gris_muy_claro x:border-b-[4px] x:pb-5 l:pb-4 g:pb-3 g:border-b-[4px]">
+            <div className="flex bg-Gris_muy_claro  x:px-4 x:py-4 x:mx-4 x:mt-6 x:gap-[185px] l:px-3 l:py-3 l:mx-3 l:mt-5 l:gap-[160px] rounded-xl shadow-lg border-b-[3px] border-Plata g:px-2 g:py-2 g:mx-2 g:mt-2 g:gap-[130px]">
               <div className="flex flex-col justify-center font-font-family-light x:text-[15px] l:text-[14px] g:text-[13px] g:leading-4 font-semibold">
                 Uber One
                 <span className="x:text-[13px] l:text-[12px] g:text-[11px] g:leading-4 font-normal">
@@ -101,6 +115,7 @@ const CuentaPage: React.FC = () => {
               </div>
             </div>
           </div>
+
           <div className="flex flex-col x:mx-4 l:mx-3 g:mx-2">
             <div className="flex x:mt-5 l:mt-4 g:mt-3 items-center">
               <HiUserGroup className="x:mr-5 x:text-[15px] l:mr-4 l:text-[14px] g:mr-3 g:text-[14px]" />
@@ -119,7 +134,10 @@ const CuentaPage: React.FC = () => {
             </div>
             <div className="flex x:mt-7 l:mt-6 g:mt-5  items-center">
               <AiOutlineTag className="x:mr-5 x:text-[15px] l:mr-4 l:text-[14px] g:text-[14px] g:mr-3" />
-              <button className="flex flex-col x:text-[15px] l:text-[14px] font-font-family-light font-semibold x:leading-5 l:leading-4 g:text-[13px] g:leading-4">
+              <button
+                onClick={handlePromo}
+                className="flex flex-col x:text-[15px] l:text-[14px] font-font-family-light font-semibold x:leading-5 l:leading-4 g:text-[13px] g:leading-4"
+              >
                 Promociones
               </button>
             </div>

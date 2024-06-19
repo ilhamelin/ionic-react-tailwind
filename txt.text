@@ -655,3 +655,192 @@ const Vista_Productos_M: React.FC = () => {
 };
 
 export default Vista_Productos_M;
+
+
+
+
+<SwiperSlide>
+                <div className="lr:mx-4">
+                  <div className="flex justify-center">
+                    <img
+                      className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
+                      src={product_M.image}
+                      onClick={handleProducto1}
+                    />
+                    <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] lr:gap-x-[65px] x:gap-x-[110px]  xm:gap-x-[140px] g:gap-x-[45px] ">
+                      <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-md px-1 text-[12px] items-center text-Blanco l:-ml-1">
+                        <IoTrophyOutline className="mx-[1px] " />
+                        Ahorros exclusivos
+                      </div>
+                      <button onClick={() => handleAddToFavorites(product_M)}>
+                        {favorites.some((p) => p.id === product_M.id) ? (
+                          <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                        ) : (
+                          <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mx-2 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                    <div className="flex gap-x-[150px] l:gap-x-[120px] x:gap-x-[150px] xm:gap-x-[190px] g:gap-x-[80px] lr:gap-x-[120px]">
+                      <div className="text-[15px] font-semibold">
+                        {product_M.name}
+                      </div>
+                      <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] x:text-[15px] font-light">
+                        {product_M.rating}
+                      </div>
+                    </div>
+                    <div className="flex g:flex-col font-medium leading-5 g:text-[11px]">
+                      Costo de envio: {product_M.price}
+                      <span className=" font-medium leading-5 g:text-[11px]">
+                        30-45 min
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="lr:mx-4">
+                  <div className="flex justify-center">
+                    <img
+                      className="rounded-xl object-cover h-[157px] w-[300px] l:h-[140px] g:h-[117px]"
+                      src={portada_LittleCaesars}
+                      onClick={handleProducto2}
+                    />
+                    <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px]">
+                      <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
+                        <IoTrophyOutline className="mx-[2px] " />
+                        Ahorros exclusivos
+                      </div>
+                      <button onClick={() => handleAddToFavorites(product_L)}>
+                        {favorites.some((p) => p.id === product_L.id) ? (
+                          <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                        ) : (
+                          <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mx-1 my-2 l:mx-0 xm:mx-2.5 g:mx-0 ">
+                    <div className="flex gap-x-[100px] l:gap-x-[65px] x:gap-x-[95px] xm:gap-x-[130px] g:gap-x-[29px] lr:gap-x-[70px]">
+                      <div className=" text-[15px] g:text-[px] font-semibold ">
+                        {product_L.name}
+                      </div>
+                      <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] x:text-[15px] font-light">
+                        {product_L.rating}
+                      </div>
+                    </div>
+                    <div className="flex g:flex-col font-font-family-light leading-5 g:text-[11px]">
+                      Costo de envio: {product_L.price}
+                      <span className="font-font-family-light  leading-5 g:text-[11px]">
+                        30-45 min
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="flex justify-center">
+                  <img
+                    className="rounded-xl object-cover h-auto w-[300px] l:h-[140px] x:h-[140px] g:h-[118px]"
+                    src={portada_KFC}
+                  />
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[80px] x:gap-x-[110px] xm:gap-x-[150px] g:gap-x-[45px] lr:gap-x-[80px]">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
+                      <IoTrophyOutline className="mx-[2px] " />
+                      Ahorros exclusivos
+                    </div>
+                    <button onClick={() => handleAddToFavorites(product_KFC)}>
+                      {favorites.some((p) => p.id === product_KFC.id) ? (
+                        <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:ml-0">
+                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[185px] x:gap-x-[205px] xm:gap-x-[240px] g:gap-x-[140px] lr:gap-x-[180px]">
+                    {product_KFC.name}
+                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] x:text-[15px] font-light">
+                      {product_KFC.rating}
+                    </div>
+                  </div>
+                  <div className="flex g:flex-col font-font-family-light leading-5 g:text-[11px]">
+                    Costo de envio: {product_KFC.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
+                      30-45 min
+                    </span>
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="flex justify-center">
+                  <img
+                    className="rounded-xl object-cover h-auto w-full l:h-[140px] g:h-[120px]"
+                    src={portada_BurgerKing}
+                  />
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] lr:gap-x-[80px] g:gap-x-[50px]">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
+                      <IoTrophyOutline className="mx-[2px] " />
+                      Ahorros exclusivos
+                    </div>
+                    <button onClick={() => handleAddToFavorites(product_BK)}>
+                      {favorites.some((p) => p.id === product_BK.id) ? (
+                        <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
+                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[120px] x:gap-x-[145px] xm:gap-x-[180px] g:gap-x-[85px] lr:gap-x-[125px]">
+                    {product_BK.name}
+                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] x:text-[15px] font-light">
+                      {product_BK.rating}
+                    </div>
+                  </div>
+                  <div className="flex g:flex-col font-font-family-light  leading-5 g:text-[11px]">
+                    Costo de envio: {product_BK.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
+                      30-45 min
+                    </span>
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="flex justify-center">
+                  <img
+                    className="rounded-xl object-cover h-auto w-[300px] l:h-[140px] g:h-[120px]"
+                    src={portada_Terragona}
+                  />
+                  <div className="flex absolute items-center gap-x-[130px] l:gap-x-[90px] x:gap-x-[110px] lr:gap-x-[80px] g:gap-x-[50px]">
+                    <div className="flex bg-Cian_oscuro mt-1 ml-[2px] rounded-lg px-1 text-[12px] items-center text-Blanco l:-ml-1">
+                      <IoTrophyOutline className="mx-[2px] " />
+                      Ahorros exclusivos
+                    </div>
+                    <button onClick={() => handleAddToFavorites(product_TG)}>
+                      {favorites.some((p) => p.id === product_TG.id) ? (
+                        <RiHeart3Fill className="text-Rojo_oscuro text-[20px]" />
+                      ) : (
+                        <RiHeart3Line className="text-Rojo_oscuro text-[20px]" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                <div className="mx-2 my-2 l:mx-0 xm:ml-2 g:mx-0">
+                  <div className="flex text-[15px] font-semibold gap-x-[130px] l:gap-x-[135px] x:gap-x-[160px] xm:gap-x-[200px] g:gap-x-[100px] lr:gap-x-[135px]">
+                    {product_TG.name}
+                    <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[13px] x:text-[15px] font-light">
+                      {product_TG.rating}
+                    </div>
+                  </div>
+                  <div className="flex g:flex-col font-font-family-light  leading-5 g:text-[11px]">
+                    Costo de envio: {product_TG.price}
+                    <span className="font-font-family-light  leading-5 g:text-[11px]">
+                      30-45 min
+                    </span>
+                  </div>
+                </div>
+              </SwiperSlide>

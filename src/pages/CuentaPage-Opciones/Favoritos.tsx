@@ -11,36 +11,47 @@ import { useFavorites } from "../../API/FavoritesContext";
 import UberOne from "../../img/UberOne.png";
 
 const Favoritos: React.FC = () => {
-  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
-  const [showAddToast, setShowAddToast] = useState(false);
+  const { favorites, removeFromFavorites } = useFavorites();
   const [showRemoveToast, setShowRemoveToast] = useState(false);
-
-  const handleAddToFavorites = (product: any) => {
-    addToFavorites(product);
-    setShowAddToast(true);
-  };
+  const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
 
   const handleRemoveFromFavorites = (productId: string) => {
     removeFromFavorites(productId);
+    setToastAnimation("toast-slide-in");
     setShowRemoveToast(true);
+
+    setTimeout(() => {
+      setToastAnimation("toast-slide-out");
+    }, 2000); // Cambia esta duración según tu preferencia
   };
 
   return (
     <>
+      <IonToast
+        className={`font-font-family-light text-[15px] leading-5 ${toastAnimation}`}
+        isOpen={showRemoveToast}
+        onDidDismiss={() => setShowRemoveToast(false)}
+        position="top"
+        color="danger"
+        message="Producto eliminado de favoritos"
+        duration={2000}
+      />
       <IonHeader class="shadow-none">
         <IonToolbar>
-          <button
-            className="px-[10px] py-[10px] rounded-full bg-opacity-50 active:bg-Gris_muy_claro"
-            onClick={() => window.history.back()}
-          >
-            <FaArrowLeft className="text-Negro text-[25px]" />
-          </button>
+          <div className="flex items-center mt-2 mb-2">
+            <button
+              className="mx-5  rounded-full bg-opacity-50 active:bg-Gris_muy_claro"
+              onClick={() => window.history.back()}
+            >
+              <FaArrowLeft className="text-Negro text-[20px]" />
+            </button>
+          </div>
           <IonTitle className="font-font-family-light text-[28px]">
             Favoritos
           </IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent class="mb-10">
         <div className="px-[10px] py-[10px] font-font-family-light leading-5 g:text-[20px]">
           Agregado Reciente
         </div>
@@ -81,18 +92,6 @@ const Favoritos: React.FC = () => {
           </div>
         ))}
       </IonContent>
-      <IonToast
-        isOpen={showAddToast}
-        onDidDismiss={() => setShowAddToast(false)}
-        message="Producto agregado a favoritos"
-        duration={2000}
-      />
-      <IonToast
-        isOpen={showRemoveToast}
-        onDidDismiss={() => setShowRemoveToast(false)}
-        message="Producto eliminado de favoritos"
-        duration={2000}
-      />
     </>
   );
 };
