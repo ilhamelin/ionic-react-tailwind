@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
@@ -24,10 +24,36 @@ import { FaMicrophoneLines } from "react-icons/fa6";
 import { FiUser } from "react-icons/fi";
 import { IoInformationCircleOutline } from "react-icons/io5";
 
-import User from "../img/Perfil_User.png";
+import UserPlaceholder from "../img/Perfil_User.png";
+import { doc, getDoc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase/firebase-config";
 
 const CuentaPage: React.FC = () => {
+  const [user] = useAuthState(auth);
+  const [userData, setUserData] = useState<any>(null);
   const history = useHistory();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        console.log("Authenticated user ID:", user.uid); // Verifica el UID del usuario
+        const userDocRef = doc(db, "Usuarios", user.uid);
+        try {
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            setUserData(userDoc.data());
+          } else {
+            console.log("No user data found!");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   const handleBilletera = () => {
     history.push("/billetera");
@@ -46,7 +72,7 @@ const CuentaPage: React.FC = () => {
   };
 
   const handleConfi = () => {
-    history.push("/configuracion");
+    history.push("/configuracionCuenta");
   };
 
   return (
@@ -54,16 +80,18 @@ const CuentaPage: React.FC = () => {
       <IonHeader class="shadow-none">
         <IonToolbar>
           <IonTitle>
-            <div className="flex x:gap-[80px] l:gap-[70px] g:gap-[60px] justify-start items-center">
-              <div className="flex flex-col x:text-[30px] l:text-[25px] g:text-[20px] font-font-family-light">
-                Benjamin ignacio
-                <span>Reyes Valdes</span>
+            <div className="flex justify-start items-center">
+              <div className="flex flex-col x:text-[30px] l:text-[25px] g:text-[20px] w-[265px] font-font-family-light">
+                {userData ? userData.name : "Cargando..."}
               </div>
-              <img
-                onClick={handleConfi}
-                src={User}
-                className=" rounded-full h-full w-[60px]"
-              />
+              <div>
+                <img
+                  className="rounded-full h-full w-[90px] px-2 py-2"
+                  src={user?.photoURL || UserPlaceholder}
+                  alt="User profile"
+                  onClick={handleConfi}
+                />
+              </div>
             </div>
           </IonTitle>
         </IonToolbar>

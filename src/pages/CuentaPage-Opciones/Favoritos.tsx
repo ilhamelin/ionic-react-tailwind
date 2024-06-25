@@ -1,3 +1,5 @@
+// Favoritos.tsx
+import React, { useEffect, useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -5,24 +7,51 @@ import {
   IonToolbar,
   IonToast,
 } from "@ionic/react";
-import React, { useState } from "react";
 import { FaArrowLeft, FaTrash } from "react-icons/fa";
-import { useFavorites } from "../../API/FavoritesContext";
+
+import {
+  getFavoriteStoresForUser,
+  getStoreFromFirestore,
+  removeFavoriteFromFirestore,
+} from "../../firebase/firebase-functions";
 import UberOne from "../../img/UberOne.png";
+import { auth } from "../../firebase/firebase-config";
 
 const Favoritos: React.FC = () => {
-  const { favorites, removeFromFavorites } = useFavorites();
+  const [favoriteStores, setFavoriteStores] = useState<any[]>([]);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
   const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
 
-  const handleRemoveFromFavorites = (productId: string) => {
-    removeFromFavorites(productId);
-    setToastAnimation("toast-slide-in");
-    setShowRemoveToast(true);
+  useEffect(() => {
+    const fetchFavoriteStores = async () => {
+      const userId = auth.currentUser?.uid;
+      if (userId) {
+        const storeIds = await getFavoriteStoresForUser(userId);
+        const storeDataPromises = storeIds.map((storeId) =>
+          getStoreFromFirestore(storeId)
+        );
+        const storeData = await Promise.all(storeDataPromises);
+        setFavoriteStores(storeData);
+      }
+    };
 
-    setTimeout(() => {
-      setToastAnimation("toast-slide-out");
-    }, 2000); // Cambia esta duración según tu preferencia
+    fetchFavoriteStores();
+  }, []);
+
+  const handleRemoveFromFavorites = async (storeId: string) => {
+    const userId = auth.currentUser?.uid;
+    if (userId) {
+      await removeFavoriteFromFirestore(userId, storeId);
+      setFavoriteStores((prevStores) =>
+        prevStores.filter((store) => store.id !== storeId)
+      );
+      setToastAnimation("toast-slide-in");
+      setShowRemoveToast(true);
+
+      setTimeout(() => {
+        setToastAnimation("toast-slide-out");
+      }, 2000);
+    }
   };
 
   return (
@@ -55,36 +84,36 @@ const Favoritos: React.FC = () => {
         <div className="px-[10px] py-[10px] font-font-family-light leading-5 g:text-[20px]">
           Agregado Reciente
         </div>
-        {favorites.map((product) => (
+        {favoriteStores.map((store) => (
           <div
-            key={product.id}
+            key={store.id}
             className="flex flex-col px-[10px] py-[10px] font-font-family-light leading-5"
           >
             <div className="flex items-center">
               <div className="pr-3">
                 <img
-                  className="h-[80px] w-[110px] rounded-xl object-contain shadow-2xl"
-                  src={product.image}
+                  className="h-[80px] w-auto rounded-xl object-contain shadow-2xl"
+                  src={store.imagenUrl}
                 />
               </div>
-              <div className="flex flex-col flex-grow">
-                <div className="flex items-center justify-between g:gap-x-[80px] g:text-[14px] font-semibold">
-                  {product.name}
-                  <span className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[12px] font-normal">
-                    {product.rating}
-                  </span>
+              <div className="flex flex-col flex-grow ">
+                <div className="flex items-center">
+                  <div className="flex-1">{store.nombre}</div>
+                  <div className="bg-Gris_muy_claro py-1 px-1 rounded-full text-[15px] x:text-[15px] font-light order-last">
+                    {store.clasificacion}
+                  </div>
                 </div>
                 <div className="py-1">
                   <img className="h-[12px]" src={UberOne} alt="UberOne" />
                 </div>
                 <div className="flex flex-col g:text-[12px] font-light">
-                  Costo de Envio {product.price}{" "}
-                  <span>{product.deliveryTime}</span>
+                  Costo de Envio: {store.deliveryPrice}
+                  <span>{store.deliveryTime}</span>
                 </div>
               </div>
               <button
                 className="text-red-500 ml-3"
-                onClick={() => handleRemoveFromFavorites(product.id)}
+                onClick={() => handleRemoveFromFavorites(store.id)}
               >
                 <FaTrash />
               </button>

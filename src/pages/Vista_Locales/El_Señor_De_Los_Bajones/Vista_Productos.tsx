@@ -5,9 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 
-import { useFavorites } from "../../../API/FavoritesContext";
+import { useFavorites } from "../../../Context/FavoritesContext";
 
 import CustomActionSheet from "../../../components/CustomActionSheetProps";
+import { useCarrito } from "../../../Context/CarritoContext";
 
 import {
   FaStar,
@@ -52,9 +53,17 @@ import Favorito_7 from "../../../img/El_Señor_De_Los_Bajones/Vienesa_completo.p
 
 import Portada_El_Bajon from "../../../img/oferta2.png";
 
+import { Producto } from "../../../Context/CarritoContext";
+import { useHistory } from "react-router-dom";
+
+interface Vista_ProductoProps {
+  product_1: Producto; // Asegúrate de que este tipo coincida con el que estás utilizando
+}
+
 const Vista_Productos: React.FC = () => {
   // Aquí puedes utilizar ofertaId para cargar la información de la oferta seleccionada
   const [isChecked, setIsChecked] = useState(false);
+  const history = useHistory();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -101,21 +110,22 @@ const Vista_Productos: React.FC = () => {
     rating: 4.4,
   };
 
-  const product_1 = {
+  const product_1: Producto = {
     id: 1,
     name: "Duo Sandwich",
-    price: "CLP 10,700",
+    price: "10,700",
     image: Favorito_1,
-    rating: "88%",
+    rating: "5",
+    cantidad: 0, // Agrega la propiedad cantidad al objeto Producto
   };
 
-  const product_2 = {
+  const product_2: Producto = {
     id: 2,
     name: "Papas Clasicas",
-
     image: Favorito_2,
     price: "CLP 6,200",
-    rating: "94%",
+    rating: "4.2",
+    cantidad: 0,
   };
 
   const product_3 = {
@@ -151,13 +161,13 @@ const Vista_Productos: React.FC = () => {
 
   //Contador
 
-  const [counters, setCounters] = useState<{ [key: number]: boolean }>({});
+  const [counters, setCounters] = useState<{ [key: number]: number }>({});
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
   const handleToggleCounter = (productId: number) => {
     setCounters((prevCounters) => ({
       ...prevCounters,
-      [productId]: !prevCounters[productId],
+      [productId]: prevCounters[productId] ? 0 : 1,
     }));
   };
 
@@ -166,6 +176,7 @@ const Vista_Productos: React.FC = () => {
       ...prevQuantities,
       [productId]: (prevQuantities[productId] || 0) + 1,
     }));
+    addToCarrito(product_1);
   };
 
   const handleDecrement = (productId: number) => {
@@ -179,6 +190,23 @@ const Vista_Productos: React.FC = () => {
 
   //Añadir a Carrito
 
+  const { addToCarrito, carrito } = useCarrito();
+  const [showAddToast, setShowAddToast] = useState(false);
+
+  const handleAddToCarrito = (producto: Producto) => {
+    addToCarrito(producto);
+    handleToggleCounter(producto.id); // Para asegurarse de que el botón se transforme
+    setCounters((prevCounters) => ({
+      ...prevCounters,
+      [producto.id]: (prevCounters[producto.id] || 0) + 1,
+    }));
+    setShowAddToast(true); // Mostrar mensaje de notificación al agregar
+  };
+
+  // Datos BBDD FireBase
+
+  const idTienda = "uniqueStoreId";
+
   return (
     <>
       <IonToast
@@ -191,6 +219,7 @@ const Vista_Productos: React.FC = () => {
         color="success" // Puedes cambiar el color según tus necesidades
         animated={true} // Habilita la animación
       />
+
       <div className=" fixed top-0 left-0 w-full z-10 transition-transform duration-300">
         <IonHeader
           class="shadow-none"
@@ -423,8 +452,8 @@ const Vista_Productos: React.FC = () => {
                         </div>
                       </div>
                       <button
-                        className="absolute  bottom-[90px] right-[15px] px-1 py-1  bg-Blanco shadow-lg rounded-full"
-                        onClick={() => handleToggleCounter(product_1.id)}
+                        className="absolute bottom-[90px] right-[15px] px-1 py-1 bg-Blanco shadow-lg rounded-full"
+                        onClick={() => handleAddToCarrito(product_1)}
                       >
                         {counters[product_1.id] ? (
                           <AiOutlineClose className="text-[16px]" />
@@ -451,6 +480,7 @@ const Vista_Productos: React.FC = () => {
                           </button>
                         </div>
                       )}
+
                       <div className="mt-1 lr:px-0 x:px-4 l:px-3 g:px-3">
                         <div className="flex">
                           <div className="flex flex-col x:text-[15px] l:text-[13px] g:text-[11px] g:leading-4 font-font-family-light font-semibold">
@@ -462,12 +492,10 @@ const Vista_Productos: React.FC = () => {
                         <div className="flex flex-col font-font-family-light font-light x:leading-5 l:leading-4 x:text-[11px] l:text-[10px] g:text-[9px] g:leading-4">
                           <div className="flex items-center">
                             {product_1.price}
-                            <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[3.7px] g:mx-[4px] g:text-[2.7px]" />
+                            <FaCircle className="x:mx-[4px] x:text-[2.7px] l:mx-[3px] l:text-[2.5px] g:mx-[2.5px] g:text-[2px]" />
+                            {product_1.rating}
                           </div>
-                          <span className="flex items-center font-font-family-light font-light x:text-[11px] l:text-[9px] g:text-[9px]">
-                            <AiOutlineLike className="x:mr-[2.5px] l:mr-[2.5px] g:mr-[2.5px]" />
-                            90% (41)
-                          </span>
+                          <span>con queso derretido</span>
                         </div>
                       </div>
                     </div>
@@ -485,7 +513,7 @@ const Vista_Productos: React.FC = () => {
                       </div>
                       <button
                         className="absolute  bottom-[5px] right-[15px] px-1 py-1  bg-Blanco shadow-lg rounded-full"
-                        onClick={() => handleToggleCounter(product_2.id)}
+                        onClick={() => handleAddToCarrito(product_2)}
                       >
                         {counters[product_2.id] ? (
                           <AiOutlineClose className="text-[16px]" />
@@ -851,6 +879,16 @@ const Vista_Productos: React.FC = () => {
           </div>
         </div>
       </IonContent>
+      {carrito.length > 0 && (
+        <div className="font-font-family-light">
+          <button
+            className="fixed my-2 bottom-0 left-[5px] w-[380px] rounded-lg  bg-Negro text-Blanco py-4 text-Cafe border-t border-gray-300"
+            onClick={() => history.push("/carrito")}
+          >
+            Ver Carrito ( {carrito.length} )
+          </button>
+        </div>
+      )}
     </>
   );
 };

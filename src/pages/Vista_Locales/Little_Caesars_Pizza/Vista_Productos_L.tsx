@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 
-import { useFavorites } from "../../../API/FavoritesContext";
+import { useFavorites } from "../../../Context/FavoritesContext";
 
 import CustomActionSheet from "../../../components/CustomActionSheetProps";
 

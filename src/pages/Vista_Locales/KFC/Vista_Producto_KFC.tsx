@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonHeader, IonToast } from "@ionic/react";
 
-import { useFavorites } from "../../../API/FavoritesContext";
+import { useFavorites } from "../../../Context/FavoritesContext";
 
 import CustomActionSheet from "../../../components/CustomActionSheetProps";
 

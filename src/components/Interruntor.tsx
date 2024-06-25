@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { BsBagFill } from "react-icons/bs";
 import { TbTruckDelivery } from "react-icons/tb";
-import { useInterruptor } from "../API/InterruptorContext";
+import { useInterruptor } from "../Context/InterruptorContext";
 
 const Interruptor: React.FC = () => {
     const { isChecked, setChecked } = useInterruptor();

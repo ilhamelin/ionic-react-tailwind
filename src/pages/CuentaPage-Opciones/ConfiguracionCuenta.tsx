@@ -45,6 +45,10 @@ const ConfiguracionCuenta: React.FC = () => {
     }
   };
 
+  const handleEditar = () => {
+    history.push("/cuentaUber");
+  };
+
   return (
     <>
       <IonHeader className="shadow-none">
@@ -67,7 +71,7 @@ const ConfiguracionCuenta: React.FC = () => {
           <div className="font-font-family-light leading-6 py-2">
             {userData ? userData.name : "Cargando..."}
           </div>
-          <button className="text-Cian_oscuro font-font-family-light font-medium text-[15px]">
+          <button onClick={handleEditar} className="text-Cian_oscuro font-font-family-light font-medium text-[15px]">
             EDITA LA CUENTA
           </button>
         </div>
