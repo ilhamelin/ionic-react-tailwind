@@ -1,5 +1,6 @@
 // StoreView.tsx
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   addFavoriteToFirestore,
   getFavoriteStoresForUser,
@@ -20,6 +21,7 @@ const StoreView = ({ idTienda }: { idTienda: string }) => {
   const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
 
   const userId = auth.currentUser?.uid;
+  const history = useHistory();
 
   useEffect(() => {
     const fetchStoreData = async () => {
@@ -63,6 +65,19 @@ const StoreView = ({ idTienda }: { idTienda: string }) => {
     setIsFavorite(!isFavorite);
   };
 
+  const handleNavigateToStore = () => {
+    switch (idTienda) {
+      case "1":
+        history.push("/vistaProducto_Bajon");
+        break;
+      case "4":
+        history.push("/vistaProducto_McDonals");
+        break;
+      default:
+        console.error("Tienda no encontrada");
+    }
+  };
+
   if (!storeData) {
     return <div></div>;
   }
@@ -88,6 +103,7 @@ const StoreView = ({ idTienda }: { idTienda: string }) => {
       <div className="font-font-family-light">
         <div className="flex justify-center">
           <img
+            onClick={handleNavigateToStore}
             className="rounded-xl object-cover h-[190px] w-full mx-4"
             src={storeData.imagenUrl}
             alt={`${storeData.nombre} image`}

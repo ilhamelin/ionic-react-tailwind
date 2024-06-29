@@ -20,7 +20,7 @@ import CarritoPage from "./pages/CarritoPage";
 import CuentaPage from "./pages/CuentaPage";
 import MapaPage from "./pages/MapaPage";
 import PromocionesPage from "./pages/PromocionesPage";
-import Vista_Productos from "./pages/Vista_Locales/El_Señor_De_Los_Bajones/Vista_Productos";
+import Vista_Productos from "./pages/Vista_Locales/El_Señor_De_Los_Bajones/Vista_Productos_ElBajon";
 import Vista_Productos_M from "./pages/Vista_Locales/Mc_Donald's/Vista_Productos_M";
 import Vista_Productos_L from "./pages/Vista_Locales/Little_Caesars_Pizza/Vista_Productos_L";
 import Vista_Producto_S from "./pages/Vista_Locales/Subway/Vista_Producto_S";
@@ -145,6 +145,7 @@ const MainContent: React.FC = () => {
                   component={Vista_Productos}
                   exact={true}
                 />
+                
                 <Route
                   path="/vistaProducto_McDonals"
                   component={Vista_Productos_M}

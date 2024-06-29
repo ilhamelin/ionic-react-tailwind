@@ -23,18 +23,6 @@ import sandwich from "../img/sandwich64px.png";
 import farmacia from "../img/farmacia64px.png";
 import polloFrito from "../img/pollo-frito64px.png";
 import americano from "../img/hot-dog64px.png";
-import oferta from "../img/oferta2.png";
-import oferta2 from "../img/Oferta3.png";
-import oferta3 from "../img/oferta4.png";
-import portada_LittleCaesars from "../img/oferta5.png";
-import portada_KFC from "../img/oferta6.png";
-import portada_BurgerKing from "../img/Burger_King/oferta7.1.png";
-import portada_Terragona from "../img/oferta8.png";
-import portada_Subway from "../img/Subway/Portada_Oferta.png";
-import portada_Wendy from "../img/Wendy/Portada_Wendy.png";
-import portada_pizzaria from "../img/Pizzería_Pizzola/Portada_Pizzaria_Pizzola.png";
-import portada_iro_sushi from "../img/Iro_Sushi/Portada_iro_sushi.png";
-
 import ahumada from "../img/logo-asuntos-corporativos-ahumad.png";
 import superZoo from "../img/superzoo.png";
 import casaIdeas from "../img/Casaideas.png";
@@ -434,15 +422,13 @@ const HomePage: React.FC = () => {
               Ofertas de Hoy
             </h3>
           </div>
-
           <Swiper
-
             slidesPerView={1.5}
             spaceBetween={10}
             pagination={{ clickable: true }}
           >
             {[...tiendasIdsOfertasHoy].map((idTienda) => (
-              <SwiperSlide className="" key={idTienda}>
+              <SwiperSlide key={idTienda}>
                 <LocalPageSub idTienda={idTienda} />
               </SwiperSlide>
             ))}

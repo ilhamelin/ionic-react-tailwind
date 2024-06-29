@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonHeader } from "@ionic/react";
-
 import CustomActionSheet from "../../../components/CustomActionSheetProps";
-
-import { FaSearch } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
 
 import {
   FaStar,
   FaCircle,
   FaAngleRight,
   FaUserPlus,
-  FaEllipsisVertical,
   FaArrowLeft,
+  FaEllipsisVertical,
 } from "react-icons/fa6";
 
+import { FaSearch } from "react-icons/fa";
+
 import { RiHeart3Fill, RiHeart3Line } from "react-icons/ri";
-import { MdInfoOutline } from "react-icons/md";
+
 import { HiOutlineShare } from "react-icons/hi";
 
-import { AiFillTag } from "react-icons/ai";
+import { MdInfoOutline } from "react-icons/md";
 
+import Portada from "../../../img/Portada_Señor_de_los_Bajones.png";
 import Promo from "../../../img/DonutUberOne@3x.png";
-import LogoUber from "../../../img/UberOne.png";
-
-
-import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  removeFavoriteFromFirestore,
   addFavoriteToFirestore,
   getFavoriteStoresForUser,
   getStoreFromFirestoreVista,
+  removeFavoriteFromFirestore,
 } from "../../../firebase/firebase-functions";
 import { auth } from "../../../firebase/firebase-config";
-import ProductosSliderKFC from "./ProductoSliderKFC";
-import ProductosListKFC from "./ProductoListKFC";
-import ProductosList2x1KFC from "./ProductoList2x1KFC";
+import { useHistory } from "react-router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import ProductosListLosBajones from "./ProductosListLosBajones";
+import ProductosSliderLosBajones from "./ProductosSliderLosBajones";
+import ProductosList2x1LosBajones from "./ProductosList2x1LosBajones";
 
 interface StoreData {
   nombre: string;
@@ -47,28 +48,30 @@ interface StoreData {
   // Agrega otros campos que tu tienda pueda tener
 }
 
-const Vista_Productos_KFC: React.FC = () => {
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+const Vista_Productos_ElBajon: React.FC = () => {
   const [storeData, setStoreData] = useState<StoreData | null>(null);
-  const [isChecked, setIsChecked] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [showRemoveToast, setShowRemoveToast] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [showAddToast, setShowAddToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+  const [showRemoveToast, setShowRemoveToast] = useState(false);
   const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
+  const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const [userData, setUserData] = useState<any>(null);
   const userId = auth.currentUser?.uid;
 
+  const history = useHistory();
+
+  // Handle checkbox change
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
-  //add favoritos
-
+  // Fetch store data from Firestore
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const data = await getStoreFromFirestoreVista("2"); // Replace "1" with actual store ID
+        const data = await getStoreFromFirestoreVista("1"); // Replace "1" with actual store ID
         if (data) {
           setStoreData(data as StoreData);
         } else {
@@ -82,28 +85,31 @@ const Vista_Productos_KFC: React.FC = () => {
     fetchStoreData();
   }, []);
 
+  // Fetch user's favorite stores
   useEffect(() => {
     const fetchFavorites = async () => {
       if (userId && storeData) {
         const favoriteStores = await getFavoriteStoresForUser(userId);
-        setIsFavorite(favoriteStores.includes("2")); // Replace "1" with actual store ID
+        setIsFavorite(favoriteStores.includes("1")); // Replace "1" with actual store ID
       }
     };
 
     fetchFavorites();
   }, [userId, storeData]);
 
+  // Fetch user data from Firestore
+
   // Toggle favorite status
   const handleToggleFavorite = async () => {
     if (isFavorite) {
-      await removeFavoriteFromFirestore(userId!, "2"); // Replace "1" with actual store ID
+      await removeFavoriteFromFirestore(userId!, "1"); // Replace "1" with actual store ID
       setToastAnimation("toast-slide-in");
       setShowRemoveToast(true);
       setTimeout(() => {
         setToastAnimation("toast-slide-out");
       }, 2000);
     } else {
-      await addFavoriteToFirestore(userId!, "2"); // Replace "1" with actual store ID
+      await addFavoriteToFirestore(userId!, "1"); // Replace "1" with actual store ID
       setToastAnimation("toast-slide-in");
       setShowAddToast(true);
       setTimeout(() => {
@@ -113,6 +119,7 @@ const Vista_Productos_KFC: React.FC = () => {
     setIsFavorite(!isFavorite);
   };
 
+  // Handle action click
   const handleActionClick = (action: string) => {
     console.log(action);
     setIsOpen(false);
@@ -125,19 +132,19 @@ const Vista_Productos_KFC: React.FC = () => {
   }
 
   const productosIdsArticulosDestacados = new Set([
-    "30",
-    "31",
-    "32",
-    "33",
-    "34",
+    "20",
+    "21",
+    "23",
+    "24",
+    "22",
   ]);
-  const productosIds2x1 = new Set(["34", "35"]);
+  const productosIds2x1 = new Set(["24", "25"]);
   const productosIdsSeleccionadoParaTi = new Set([
-    "32",
-    "36",
-    "37",
-    "35",
-    "34",
+    "21",
+    "25",
+    "24",
+    "22",
+    "26",
   ]);
 
   return (
@@ -167,13 +174,13 @@ const Vista_Productos_KFC: React.FC = () => {
               )}
             </button>
             <button className="bg-Negro x:px-[10px]  x:py-[10px]  l:px-[5px]  l:py-[5px] g:px-[10px] g:py-[10px] lr:px-[10px] lr:py-[10px] rounded-full bg-opacity-50">
-              <FaSearch className=" text-Blanco x:text-[15px] text-[15px] l:text-[14px] lr:text-[15px]" />
+              <FaSearch className=" text-Blanco text-[20px]" />
             </button>
             <button
               onClick={() => setIsOpen(true)}
-              className="bg-Negro x:px-[10px] x:py-[10px] l:px-[5px] l:py-[5px] g:px-[10px] g:py-[10px] lr:px-[10px] lr:py-[10px] rounded-full bg-opacity-50"
+              className="bg-Negro px-[10px] py-[10px] rounded-full bg-opacity-50"
             >
-              <FaEllipsisVertical className="text-Blanco x:text-[15px] text-[15px] l:text-[14px] lr:text-[15px]" />
+              <FaEllipsisVertical className="text-Blanco text-[20px]" />
             </button>
 
             <CustomActionSheet
@@ -206,6 +213,7 @@ const Vista_Productos_KFC: React.FC = () => {
                   content: (
                     <>
                       <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
+                        <RiHeart3Line className="mx-2 mr-4 text-[20px]" />
                         <span className="font-medium">Agregar a favoritos</span>
                       </div>
                     </>
@@ -243,7 +251,7 @@ const Vista_Productos_KFC: React.FC = () => {
         </IonHeader>
       </div>
       <IonContent fullscreen={true}>
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <div>
             <img
               src={storeData.imagenUrl}
@@ -253,23 +261,21 @@ const Vista_Productos_KFC: React.FC = () => {
           <div className="font-font-family-light font-medium x:text-[21px]  x:mt-2  l:text-[18px] l:mt-1 g:text-[21px] g:mt-2 text-center">
             {storeData.nombre}
           </div>
-          <div className="flex items-center justify-center x:space-x-5  l:space-x-3 g:space-x-3">
+          <div className="flex items-center justify-center x:space-x-5  l:space-x-3 g:space-x-10 ">
             <div className="flex-col ">
               <div className="flex font-font-family-light font-normal items-center justify-center x:text-[13px]  l:text-[12px] g:text-[11px]">
                 {storeData.clasificacion}
-                <FaStar className=" x:text-[11px] x:mx-[4px]  l:text-[8px] l:mx-[2px] g:mx-[4px] g:text-[10px] lr:mx-1 " />
+                <FaStar className="x:text-[11px] x:mx-[4px]  l:text-[8px] l:mx-[2px] g:mx-[4px] g:text-[10px] " />
                 <span className="flex items-center font-font-family-light font-light">
                   ({storeData.cantidadReview})
-                  <FaCircle className="x:mx-[4px] mx-[4px] x:text-[2.7px]  l:mx-[2px] l:text-[2.7px] g:text-[2.7px] lr:mx-1" />
+                  <FaCircle className="x:mx-[4px] mx-[4px] x:text-[2.7px]  l:mx-[2px] l:text-[2.7px] g:text-[2.7px]" />
                   Costo de envio: CLP {storeData.deliveryPrice}
                   <FaCircle className="x:mx-[4px] mx-[4px] x:text-[2.7px]  l:mx-[2px] l:text-[2.7px] g:text-[2.7px]" />
                 </span>
               </div>
               <div className="flex font-font-family-light font-light x:text-[13px]  l:text-[12px] g:text-[11px] items-center justify-center">
-                <img className="h-[10px] pr-1" src={LogoUber} />
-                <span className="text-Joya_del_Chelsea">Uber One</span>
-                <FaCircle className="x:mx-[4px]  x:text-[2.7px] l:mx-[2px] l:text-[2.7px] g:mx-[4px] g:text-[2.7px] lr:mx-1" />
-                1.6 km
+                <FaCircle className="x:mx-[4px]  x:text-[2.7px] l:mx-[2px] l:text-[2.7px] g:mx-[4px] g:text-[2.7px]" />
+                4.7 km
               </div>
             </div>
             <div>
@@ -310,7 +316,7 @@ const Vista_Productos_KFC: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center x:space-x-10  l:space-x-10 border border-Gris_muy_claro rounded-md x:mt-4 x:mx-5 x:py-4 l:mt-2 l:py-2 l:mx-2 g:space-x-4 g:mt-4 g:mx-5 g:py-4 font-font-family-light ">
+          <div className="flex justify-center x:space-x-10  l:space-x-10 border border-Gris_muy_claro rounded-md mt-4 py-2 mx-4 g:space-x-4 g:mt-4 g:mx-5 g:py-4 font-font-family-light ">
             <div className="flex flex-col text-center x:pr-10 l:pr-5 g:pr-4 border-r border-Gris_muy_claro">
               <div className="font-medium x:text-[12px] l:text-[11px] g:text-[11px] g:leading-4">
                 Costos de envio: CLP {storeData.deliveryPrice}
@@ -329,7 +335,7 @@ const Vista_Productos_KFC: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-center border-none rounded-md x:mx-5 x:mt-5 x:space-x-[86px] l:mt-4 l:mx-4 l:space-x-[72px] g:mx-5 g:mt-5 g:space-x-[32px] lr:space-x-[85px] bg-PapayaWhip font-font-family-light">
+          <div className="flex justify-center border-none rounded-md x:mx-5 x:mt-5 x:space-x-[86px] l:mt-4 l:mx-4 l:space-x-[72px] g:mx-5 g:mt-5 g:space-x-[32px] bg-PapayaWhip font-font-family-light">
             <div className="flex flex-col x:pt-2 x:pl-2 l:pt-2 l:pl-2 g:pl-2 g:pt-2">
               <span className="font-semibold x:text-[12px] l:text-[11px] l:leading-3 g:text-[10px] g:leading-3">
                 Sin Costo de envio y Hasta un 5%
@@ -350,7 +356,7 @@ const Vista_Productos_KFC: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col x:mt-5 l:mt-4 g:mt-4  border-b border-b-Gris_muy_claro">
+          <div className="flex flex-col mt-4  border-b border-b-Gris_muy_claro">
             <div className="font-font-family-light font-bold x:text-[25px] x:ml-5 l:text-[23px] l:ml-4 g:text-[20px] g:ml-5 ">
               Articulos destacados
             </div>
@@ -362,7 +368,7 @@ const Vista_Productos_KFC: React.FC = () => {
               >
                 {[...productosIdsArticulosDestacados].map((idProducto) => (
                   <SwiperSlide key={idProducto}>
-                    <ProductosSliderKFC
+                    <ProductosSliderLosBajones
                       idProducto={idProducto}
                       idTienda={""}
                       userId={""}
@@ -372,15 +378,14 @@ const Vista_Productos_KFC: React.FC = () => {
               </Swiper>
             </div>
           </div>
-          <div className="flex flex-col x:mt-5 l:mt-5 g:mt-5 border-b border-b-Gris_muy_claro">
-            <div className="flex items-center font-font-family-light font-bold x:text-[25px] x:ml-4 l:text-[25px] l:ml-4 g:text-[25px] g:ml-4 g:leading-4">
-              <AiFillTag className="text-Verde x:mr-[2px] x:text-[30px] l:mr-[2px] l:text-[28px] g:text-[28px] g:mr-[2px]" />
-              2x1
+          <div className="flex flex-col mt-4 border-b border-b-Gris_muy_claro">
+            <div className="font-font-family-light font-bold x:text-[25px] x:ml-4 l:text-[24px] l:ml-4 g:text-[20px] g:leading-4 g:ml-4">
+              2X1
             </div>
             <div className="mt-3 mx-4">
               {[...productosIds2x1].map((idProducto) => (
                 <div key={idProducto}>
-                  <ProductosList2x1KFC idProducto={idProducto} />
+                  <ProductosList2x1LosBajones idProducto={idProducto} />
                 </div>
               ))}
             </div>
@@ -392,15 +397,16 @@ const Vista_Productos_KFC: React.FC = () => {
             <div className="mt-3 mx-4">
               {[...productosIdsSeleccionadoParaTi].map((idProducto) => (
                 <div key={idProducto}>
-                  <ProductosListKFC idProducto={idProducto} />
+                  <ProductosListLosBajones idProducto={idProducto} />
                 </div>
               ))}
             </div>
           </div>
+          <div className="mb-5"></div>
         </div>
       </IonContent>
     </>
   );
 };
 
-export default Vista_Productos_KFC;
+export default Vista_Productos_ElBajon;
