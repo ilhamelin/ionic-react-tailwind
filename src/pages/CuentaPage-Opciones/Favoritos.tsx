@@ -1,4 +1,3 @@
-// Favoritos.tsx
 import React, { useEffect, useState } from "react";
 import {
   IonContent,
@@ -16,11 +15,13 @@ import {
 } from "../../firebase/firebase-functions";
 import UberOne from "../../img/UberOne.png";
 import { auth } from "../../firebase/firebase-config";
+import { useHistory } from "react-router-dom";
 
 const Favoritos: React.FC = () => {
   const [favoriteStores, setFavoriteStores] = useState<any[]>([]);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
   const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
+  const history = useHistory();
 
   useEffect(() => {
     const fetchFavoriteStores = async () => {
@@ -43,7 +44,7 @@ const Favoritos: React.FC = () => {
     if (userId) {
       await removeFavoriteFromFirestore(userId, storeId);
       setFavoriteStores((prevStores) =>
-        prevStores.filter((store) => store.id !== storeId)
+        prevStores.filter((store) => store.idTienda !== storeId)
       );
       setToastAnimation("toast-slide-in");
       setShowRemoveToast(true);
@@ -51,6 +52,31 @@ const Favoritos: React.FC = () => {
       setTimeout(() => {
         setToastAnimation("toast-slide-out");
       }, 2000);
+    }
+  };
+
+  const handleNavigateToStore = (storeId: string) => {
+    switch (storeId) {
+      case "1":
+        history.push("/vistaProducto_Bajon");
+        break;
+      case "2":
+        history.push("/vistaProducto_KFC");
+        break;
+      case "3":
+        history.push("/vistaProducto_Burger_King");
+        break;
+      case "4":
+        history.push("/vistaProducto_McDonals");
+        break;
+      case "5":
+        history.push("/vistaProducto_Little_Pizza");
+        break;
+      case "6":
+        history.push("/vistaProducto_Subway");
+        break;
+      default:
+        console.error("Tienda no encontrada");
     }
   };
 
@@ -81,19 +107,22 @@ const Favoritos: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent class="mb-10">
-        <div className="px-[10px] py-[10px] font-font-family-light leading-5 g:text-[20px]">
+        <div className="px-[10px] ml-3 py-[10px] font-font-family-light leading-5 g:text-[20px]">
           Agregado Reciente
         </div>
         {favoriteStores.map((store) => (
           <div
-            key={store.id}
+            key={store.idTienda}
             className="flex flex-col px-[10px] py-[10px] font-font-family-light leading-5"
+            style={{ cursor: "pointer" }}
           >
             <div className="flex items-center">
               <div className="pr-3">
                 <img
+                  onClick={() => handleNavigateToStore(store.idTienda)}
                   className="h-[80px] w-auto rounded-xl object-contain shadow-2xl"
                   src={store.imagenUrl}
+                  alt={store.nombre}
                 />
               </div>
               <div className="flex flex-col flex-grow ">
@@ -111,15 +140,17 @@ const Favoritos: React.FC = () => {
                   <span>{store.deliveryTime}</span>
                 </div>
               </div>
+
               <button
-                className="text-red-500 ml-3"
-                onClick={() => handleRemoveFromFavorites(store.id)}
+                className="text-Rojo_suave ml-3 "
+                onClick={() => handleRemoveFromFavorites(store.idTienda)}
               >
                 <FaTrash />
               </button>
             </div>
           </div>
         ))}
+        <div className="mb-20"></div>
       </IonContent>
     </>
   );

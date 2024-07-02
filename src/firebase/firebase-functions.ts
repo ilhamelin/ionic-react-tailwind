@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { doc } from "firebase/firestore";
-import { Producto } from "../Context/CarritoContext";
+
 
 // Base de Datos Login y Register
 
@@ -25,6 +25,7 @@ const addUserToFirestore = async (userData: {
   phoneNumber: string;
   address: string;
   userId: string;
+  imagenUrl: string;
 }) => {
   try {
     const userDocRef = doc(db, "Usuarios", userData.userId);
@@ -56,6 +57,21 @@ const registerUserAndAddToFirestore = async (userData: {
     console.error("Error al agregar usuario a Firestore: ", error);
   }
 };
+
+//------------------------------------------------------//
+//--------------- EXPORT DATOS TIENDA ---------------//
+//----------------------------------------------------//
+
+export interface StoreData {
+  nombre: string;
+  imagenUrl?: string;
+  clasificacion: number;
+  deliveryPrice: number;
+  rating: number;
+  categorias: string;
+  cantidadReview: string;
+  // Agrega otros campos que tu tienda pueda tener
+}
 
 //------------------------------------------------------//
 //--------------- Base de Datos Tiendas ---------------//
@@ -205,6 +221,7 @@ const getProductFromFirestoreVista = async (
 };
 
 //--------------- Base de Datos Producto KFC ---------------//
+
 const addProductKFCToFirestore = async (productData: {
   idProducto: string;
   cantidadProducto: string;
@@ -276,7 +293,7 @@ const getProductKFCFromFirestoreVista = async (
   }
 };
 
-//--------------- Base de Datos Producto KFC ---------------//
+//--------------- Base de Datos Producto Caesars ---------------//
 
 const addProductCaesarsToFirestore = async (productData: {
   idProducto: string;
@@ -349,6 +366,151 @@ const getProductCaesarsFromFirestoreVista = async (
   }
 };
 
+//--------------- Base de Datos Producto Burger King ---------------//
+
+const addProductBurgerKingToFirestore = async (productData: {
+  idProducto: string;
+  cantidadProducto: string;
+  cantidadReview: string;
+  imagenUrl: string;
+  nombre: string;
+  popularidad: string;
+  ingredientes: string;
+  precio: string;
+}) => {
+  try {
+    const productDocRef = doc(db, "ProductoBurgerKing", productData.idProducto);
+    await setDoc(productDocRef, {
+      ...productData,
+      createdAt: new Date().toISOString(),
+    });
+    console.log("Producto KFC registrada en Firestore");
+  } catch (error) {
+    console.error("Error al agregar producto KFC a Firestore: ", error);
+  }
+};
+
+const getProductBurgerKingFromFirestore = async (idProducto: string) => {
+  try {
+    const productsCollection = collection(db, "ProductoBurgerKing");
+    const q = query(productsCollection, where("idProducto", "==", idProducto));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const productData = querySnapshot.docs[0].data();
+      return productData;
+    } else {
+      console.error("No such document!");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting product KFC data: ", error);
+    return null;
+  }
+};
+
+const getProductBurgerKingFromFirestoreVista = async (
+  idProducto: string
+): Promise<DocumentData | null> => {
+  try {
+    const q = query(
+      collection(db, "ProductoBurgerKing"),
+      where("idProducto", "==", idProducto)
+    );
+
+    // Ejecutar la consulta
+    const querySnapshot = await getDocs(q);
+
+    // Verificar si se encontró algún documento
+    if (querySnapshot.empty) {
+      console.log(
+        "No se encontró ningún documento con idProducto:",
+        idProducto
+      );
+      return null;
+    }
+
+    // Si se encontró, retornar el primer documento encontrado (asumiendo que idTienda es único)
+    const doc = querySnapshot.docs[0];
+    return doc.data();
+  } catch (error) {
+    console.error("Error al obtener datos de Firestore:", error);
+    throw error; // Manejar el error según sea necesario en tu aplicación
+  }
+};
+
+//--------------- Base de Datos Producto Mc Donalds ---------------//
+
+const addProductMcDonaldsToFirestore = async (productData: {
+  idProducto: string;
+  cantidadProducto: string;
+  cantidadReview: string;
+  imagenUrl: string;
+  nombre: string;
+  popularidad: string;
+  ingredientes: string;
+  precio: string;
+}) => {
+  try {
+    const productDocRef = doc(db, "ProductoMcDonalds", productData.idProducto);
+    await setDoc(productDocRef, {
+      ...productData,
+      createdAt: new Date().toISOString(),
+    });
+    console.log("Producto KFC registrada en Firestore");
+  } catch (error) {
+    console.error("Error al agregar producto KFC a Firestore: ", error);
+  }
+};
+
+const getProductMcDonaldsFromFirestore = async (idProducto: string) => {
+  try {
+    const productsCollection = collection(db, "ProductoMcDonalds");
+    const q = query(productsCollection, where("idProducto", "==", idProducto));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const productData = querySnapshot.docs[0].data();
+      return productData;
+    } else {
+      console.error("No such document!");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting product KFC data: ", error);
+    return null;
+  }
+};
+
+const getProductMcDonaldsFromFirestoreVista = async (
+  idProducto: string
+): Promise<DocumentData | null> => {
+  try {
+    const q = query(
+      collection(db, "ProductoMcDonalds"),
+      where("idProducto", "==", idProducto)
+    );
+
+    // Ejecutar la consulta
+    const querySnapshot = await getDocs(q);
+
+    // Verificar si se encontró algún documento
+    if (querySnapshot.empty) {
+      console.log(
+        "No se encontró ningún documento con idProducto:",
+        idProducto
+      );
+      return null;
+    }
+
+    // Si se encontró, retornar el primer documento encontrado (asumiendo que idTienda es único)
+    const doc = querySnapshot.docs[0];
+    return doc.data();
+  } catch (error) {
+    console.error("Error al obtener datos de Firestore:", error);
+    throw error; // Manejar el error según sea necesario en tu aplicación
+  }
+};
 
 //----------------------------------------------------------//
 //--------------- lOGICA AÑADIR A FAVORITOS ---------------//
@@ -470,100 +632,63 @@ const getFavoriteProductosForUser = async (
 //--------------- lOGICA AÑADIR A CARRITO ---------------//
 //--------------------------------------------------------//
 
-const addProductToCart = async (
+const addCarritoToFirestore = async (
   userId: string,
-  idTienda: string,
-  idProducto: string,
-  cantidad: number
-) => {
+  idProducto: string
+): Promise<void> => {
+  const userCarritosRef = doc(db, "Carrito", userId);
+
   try {
-    const cartDocRef = doc(db, "Carrito", userId); // Referencia al documento del carrito del usuario
-    const cartDoc = await getDoc(cartDocRef); // Obtener el documento del carrito
-
-    const newProduct = { idProducto, idTienda, cantidad };
-
-    if (cartDoc.exists()) {
-      const cartData = cartDoc.data();
-
-      // Comprobar si el producto ya está en el carrito
-      const productoExistente = cartData.productos.find(
-        (producto: any) => producto.idProducto === idProducto
-      );
-
-      if (productoExistente) {
-        // Actualizar la cantidad del producto existente
-        const productosActualizados = cartData.productos.map((producto: any) =>
-          producto.idProducto === idProducto
-            ? { ...producto, cantidad: producto.cantidad + cantidad }
-            : producto
-        );
-        await updateDoc(cartDocRef, { productos: productosActualizados });
-      } else {
-        // Agregar nuevo producto al array de productos
-        await updateDoc(cartDocRef, { productos: arrayUnion(newProduct) });
-      }
-    } else {
-      // Crear el documento de carrito con el primer producto
-      await setDoc(cartDocRef, { productos: [newProduct] });
-    }
-
-    console.log("Producto añadido al carrito");
-  } catch (error) {
-    console.error("Error al agregar producto al carrito: ", error);
-    throw error;
-  }
-};
-const removeProductFromCart = async (userId: string, idProducto: string) => {
-  try {
-    const cartDocRef = doc(db, "Carrito", userId);
-    const cartDoc = await getDoc(cartDocRef);
-
-    if (cartDoc.exists()) {
-      const cartData = cartDoc.data();
-      const productosActualizados = cartData.productos.filter(
-        (producto: any) => producto.idProducto !== idProducto
-      );
-
-      await updateDoc(cartDocRef, { productos: productosActualizados });
-      console.log("Producto eliminado del carrito");
-    } else {
-      console.error("El documento del carrito no existe");
-    }
-  } catch (error) {
-    console.error("Error al eliminar producto del carrito: ", error);
-    throw error;
-  }
-};
-const updateProductQuantityInCart = async (
-  userId: string,
-  idProducto: string,
-  cantidad: number
-) => {
-  try {
-    const cartDocRef = doc(db, "Carrito", userId);
-    const cartDoc = await getDoc(cartDocRef);
-
-    if (cartDoc.exists()) {
-      const cartData = cartDoc.data();
-      const productosActualizados = cartData.productos.map((producto: any) =>
-        producto.idProducto === idProducto
-          ? { ...producto, cantidad }
-          : producto
-      );
-
-      await updateDoc(cartDocRef, { productos: productosActualizados });
-      console.log("Cantidad de producto actualizada en el carrito");
-    } else {
-      console.error("El documento del carrito no existe");
-    }
-  } catch (error) {
-    console.error(
-      "Error al actualizar cantidad de producto en el carrito: ",
-      error
+    await setDoc(
+      userCarritosRef,
+      { productos: arrayUnion(idProducto) },
+      { merge: true }
     );
+    console.log("Producto añadida a Carrito");
+  } catch (error) {
+    console.error("Error al añadir Producto a Carrito: ", error);
     throw error;
   }
 };
+
+const getCarritoProductForUser = async (userId: string): Promise<string[]> => {
+  const userCarritosRef = doc(db, "Carrito", userId);
+
+  try {
+    const userCarritosDoc = await getDoc(userCarritosRef);
+    if (userCarritosDoc.exists()) {
+      const userCarritosData = userCarritosDoc.data();
+      if (userCarritosData) {
+        return userCarritosData.tiendas || [];
+      }
+    }
+    return [];
+  } catch (error) {
+    console.error("Error al obtener Producto del usuario: ", error);
+    throw error;
+  }
+};
+
+const getCarritoProductosForUser = async (
+  userId: string
+): Promise<string[]> => {
+  const userCarritosRef = doc(db, "Carrito", userId);
+
+  try {
+    const userCarritosDoc = await getDoc(userCarritosRef);
+    if (userCarritosDoc.exists()) {
+      const userCarritosData = userCarritosDoc.data();
+      if (userCarritosData) {
+        return userCarritosData.productos || [];
+      }
+    }
+    return [];
+  } catch (error) {
+    console.error("Error al obtener Carrito del usuario: ", error);
+    throw error;
+  }
+};
+
 
 export {
   addUserToFirestore,
@@ -580,14 +705,19 @@ export {
   addProductosFavoriteToFirestore,
   removeProductosFavoriteFromFirestore,
   getFavoriteProductosForUser,
-  addProductToCart,
-  removeProductFromCart,
-  updateProductQuantityInCart,
   addProductKFCToFirestore,
   getProductKFCFromFirestore,
   getProductKFCFromFirestoreVista,
   addProductCaesarsToFirestore,
   getProductCaesarsFromFirestore,
-  getProductCaesarsFromFirestoreVista
-
+  getProductCaesarsFromFirestoreVista,
+  addProductBurgerKingToFirestore,
+  getProductBurgerKingFromFirestore,
+  getProductBurgerKingFromFirestoreVista,
+  addProductMcDonaldsToFirestore,
+  getProductMcDonaldsFromFirestore,
+  getProductMcDonaldsFromFirestoreVista, db,
+  getCarritoProductForUser,
+  addCarritoToFirestore,
+  getCarritoProductosForUser,
 };

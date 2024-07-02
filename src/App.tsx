@@ -53,7 +53,7 @@ import { InterruptorProvider } from "./Context/InterruptorContext";
 import PagoPage from "./pages/CuentaPage-Opciones/PagoPage";
 import LayoutAdmin from "./layouts/LayoutAdmin";
 import { auth } from "./firebase/firebase-config";
-import { CarritoProvider } from "./Context/CarritoContext";
+
 
 setupIonicReact();
 
@@ -98,123 +98,113 @@ const MainContent: React.FC = () => {
 
   return (
     <InterruptorProvider>
-      <CarritoProvider>
-        <FavoritesProvider>
-          {isAuthenticated ? (
-            <IonTabs>
-              <IonRouterOutlet>
-                <Route
-                  path="/auth"
-                  render={() => <LayoutAdmin />}
-                  exact={true}
-                />
-                <Route path="/home" render={() => <HomePage />} exact={true} />
-                <Route
-                  path="/super"
-                  render={() => <SuperPage />}
-                  exact={true}
-                />
-                <Route
-                  path="/explorar"
-                  render={() => <ExplorarPage />}
-                  exact={true}
-                />
-                <Route
-                  path="/carrito"
-                  render={() => <CarritoPage />}
-                  exact={true}
-                />
-                <Route
-                  path="/cuenta"
-                  render={() => <CuentaPage />}
-                  exact={true}
-                />
-                <Route path="/mapa" render={() => <MapaPage />} exact={true} />
-                <Route
-                  path="/billetera"
-                  render={() => <PagoPage />}
-                  exact={true}
-                />
-                <Route
-                  path="/promociones"
-                  component={PromocionesPage}
-                  exact={true}
-                />
-                <Route
-                  path="/vistaProducto_Bajon"
-                  component={Vista_Productos}
-                  exact={true}
-                />
-                
-                <Route
-                  path="/vistaProducto_McDonals"
-                  component={Vista_Productos_M}
-                  exact={true}
-                />
-                <Route
-                  path="/vistaProducto_Little_Pizza"
-                  component={Vista_Productos_L}
-                  exact={true}
-                />
-                <Route
-                  path="/vistaProducto_Subway"
-                  component={Vista_Producto_S}
-                  exact={true}
-                />
-                <Route
-                  path="/vistaProducto_Burger_King"
-                  component={Vista_Producto_BK}
-                  exact={true}
-                />
-                <Route
-                  path="/vistaProducto_KFC"
-                  component={Vista_Producto_KFC}
-                  exact={true}
-                />
-                <Route path="/billetera" component={Billetera} exact={true} />
-                <Route path="/favoritos" component={Favoritos} exact={true} />
-                <Route path="/pedidos" component={Pedidos} exact={true} />
-                <Route
-                  path="/configuracionCuenta"
-                  component={ConfiguracionCuenta}
-                  exact={true}
-                />
-                <Route path="/cuentaUber" component={Cuenta} exact={true} />
-                <Route exact path="/" render={() => <Redirect to="/home" />} />
-              </IonRouterOutlet>
-
-              <IonTabBar slot="bottom">
-                <IonTabButton tab="home" href="/home">
-                  <IoHomeSharp className="g:text-[20px] x:text-[25px]" />
-                  <IonLabel>Home</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="super" href="/super">
-                  <FaAppleWhole className="g:text-[20px] x:text-[25px]" />
-                  <IonLabel>Super</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="explorar" href="/explorar">
-                  <FaSearch className="g:text-[20px] x:text-[25px]" />
-                  <IonLabel>Explorar</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="carrito" href="/carrito">
-                  <FaShoppingCart className="g:text-[20px] x:text-[25px]" />
-                  <IonLabel>Carrito</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="cuenta" href="/cuenta">
-                  <FaUser className="g:text-[20px] x:text-[25px]" />
-                  <IonLabel>Cuenta</IonLabel>
-                </IonTabButton>
-              </IonTabBar>
-            </IonTabs>
-          ) : (
+      <FavoritesProvider>
+        {isAuthenticated ? (
+          <IonTabs>
             <IonRouterOutlet>
-              <Route path="/login" component={Login} exact={true} />
-              <Route path="/register" component={Register} exact={true} />
-              <Route exact path="/" render={() => <Redirect to="/login" />} />
+              <Route path="/auth" render={() => <LayoutAdmin />} exact={true} />
+              <Route path="/home" render={() => <HomePage />} exact={true} />
+              <Route path="/super" render={() => <SuperPage />} exact={true} />
+              <Route
+                path="/explorar"
+                render={() => <ExplorarPage />}
+                exact={true}
+              />
+              <Route
+                path="/carrito"
+                render={() => <CarritoPage />}
+                exact={true}
+              />
+              <Route
+                path="/cuenta"
+                render={() => <CuentaPage />}
+                exact={true}
+              />
+              <Route path="/mapa" render={() => <MapaPage />} exact={true} />
+              <Route
+                path="/billetera"
+                render={() => <PagoPage />}
+                exact={true}
+              />
+              <Route
+                path="/promociones"
+                component={PromocionesPage}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_Bajon"
+                component={Vista_Productos}
+                exact={true}
+              />
+
+              <Route
+                path="/vistaProducto_McDonals"
+                component={Vista_Productos_M}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_Little_Pizza"
+                component={Vista_Productos_L}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_Subway"
+                component={Vista_Producto_S}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_Burger_King"
+                component={Vista_Producto_BK}
+                exact={true}
+              />
+              <Route
+                path="/vistaProducto_KFC"
+                component={Vista_Producto_KFC}
+                exact={true}
+              />
+              <Route path="/billetera" component={Billetera} exact={true} />
+              <Route path="/favoritos" component={Favoritos} exact={true} />
+              <Route path="/pedidos" component={Pedidos} exact={true} />
+              <Route
+                path="/configuracionCuenta"
+                component={ConfiguracionCuenta}
+                exact={true}
+              />
+              <Route path="/cuentaUber" component={Cuenta} exact={true} />
+              <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
-          )}
-        </FavoritesProvider>
-      </CarritoProvider>
+
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="home" href="/home">
+                <IoHomeSharp className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Home</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="super" href="/super">
+                <FaAppleWhole className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Super</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="explorar" href="/explorar">
+                <FaSearch className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Explorar</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="carrito" href="/carrito">
+                <FaShoppingCart className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Carrito</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="cuenta" href="/cuenta">
+                <FaUser className="g:text-[20px] x:text-[25px]" />
+                <IonLabel>Cuenta</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        ) : (
+          <IonRouterOutlet>
+            <Route path="/login" component={Login} exact={true} />
+            <Route path="/register" component={Register} exact={true} />
+            <Route exact path="/" render={() => <Redirect to="/login" />} />
+          </IonRouterOutlet>
+        )}
+      </FavoritesProvider>
     </InterruptorProvider>
   );
 };

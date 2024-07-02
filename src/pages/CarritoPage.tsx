@@ -1,49 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router";
 import {
   IonContent,
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonToast,
+  IonList,
+  IonItem,
+  IonLabel,
 } from "@ionic/react";
-import { FaArrowLeft } from "react-icons/fa6";
-import { Producto, useCarrito } from "../Context/CarritoContext";
+import { FaArrowLeft, FaTrash } from "react-icons/fa6";
+import { auth } from "../firebase/firebase-config";
+import {
+  getCarritoProductosForUser,
+  getStoreFromFirestore,
+  removeFavoriteFromFirestore,
+} from "../firebase/firebase-functions";
 
 const CarritoPage: React.FC = () => {
   const history = useHistory();
-  const { carrito, removeFromCarrito, updateCantidad } = useCarrito();
+  const [CarritoProducts, setCarritoProducts] = useState<any[]>([]);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
+  const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
 
-  const handleRemove = (id: string) => {
-    removeFromCarrito(id);
-    setShowRemoveToast(true);
-  };
+  useEffect(() => {
+    const fetchCarritoProducts = async () => {
+      const userId = auth.currentUser?.uid;
+      if (userId) {
+        const storeIds = await getCarritoProductosForUser(userId);
+        const storeDataPromises = storeIds.map((storeId) =>
+          getStoreFromFirestore(storeId)
+        );
+        const storeData = await Promise.all(storeDataPromises);
+        setCarritoProducts(storeData);
+      }
+    };
 
-  const handleIncrementQuantity = (id: string) => {
-    const item = carrito.find((item) => item.id === id);
-    if (item) {
-      updateCantidad(id, (item.cantidad || 0) + 1);
-    }
-  };
+    fetchCarritoProducts();
+  }, []);
 
-  const handleDecrementQuantity = (id: string) => {
-    const item = carrito.find((item) => item.id === id);
-    if (item && (item.cantidad || 0) > 1) {
-      updateCantidad(id, (item.cantidad || 0) - 1);
+  const handleRemoveFromFavorites = async (storeId: string) => {
+    const userId = auth.currentUser?.uid;
+    if (userId) {
+      await removeFavoriteFromFirestore(userId, storeId);
+      setCarritoProducts((prevStores) =>
+        prevStores.filter((store) => store.id !== storeId)
+      );
+      setToastAnimation("toast-slide-in");
+      setShowRemoveToast(true);
+
+      setTimeout(() => {
+        setToastAnimation("toast-slide-out");
+      }, 2000);
     }
   };
 
   return (
     <IonContent className="bg-white">
-      <IonToast
-        className="font-font-family-light text-[15px] leading-5"
-        isOpen={showRemoveToast}
-        onDidDismiss={() => setShowRemoveToast(false)}
-        message="Producto eliminado del carrito"
-        position="top"
-        duration={2000}
-      />
       <IonHeader className="ion-no-border">
         <IonToolbar className="bg-white flex justify-start items-center">
           <button onClick={() => history.goBack()} className="text-Cian_oscuro">
@@ -55,39 +68,14 @@ const CarritoPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <div>
-          {carrito.length === 0 ? (
-            <p>El carrito está vacío</p>
-          ) : (
-            carrito.map((producto: Producto) => (
-              <div key={producto.id} className="carrito-item">
-                <img src={producto.image} alt={producto.name} />
-                <div>
-                  <h2>{producto.name}</h2>
-                  <p>Precio: {producto.price}</p>
-                  <p>Cantidad: {producto.cantidad}</p>
-                  <button onClick={() => handleRemove(producto.id)}>
-                    Eliminar
-                  </button>
-                  <div>
-                    <button
-                      onClick={() => handleDecrementQuantity(producto.id)}
-                      disabled={(producto.cantidad || 1) <= 1}
-                    >
-                      -
-                    </button>
-                    <span>{producto.cantidad}</span>
-                    <button
-                      onClick={() => handleIncrementQuantity(producto.id)}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+        {CarritoProducts.map((store) => (
+          <div
+            key={store.id}
+            className="flex flex-col px-[10px] py-[10px] font-font-family-light leading-5"
+          >
+            
+          </div>
+        ))}
         <div className="mb-16"></div>
       </IonContent>
     </IonContent>

@@ -51,6 +51,8 @@ import {
   addFavoriteToFirestore,
 } from "../../../firebase/firebase-functions";
 import ProductosSliderCaesars from "./ProductoSliderCaesars";
+import ProductosList2x1Caesars from "./ProductoList2x1Caesars";
+import ProductosListCaesars from "./ProductoListCaesars";
 
 interface StoreData {
   nombre: string;
@@ -147,13 +149,13 @@ const Vista_Productos_L: React.FC = () => {
     "43",
     "44",
   ]);
-  const productosIds2x1 = new Set(["34", "35"]);
+  const productosIds2x1 = new Set(["42", "44"]);
   const productosIdsSeleccionadoParaTi = new Set([
-    "32",
-    "36",
-    "37",
-    "35",
-    "34",
+    "42",
+    "46",
+    "47",
+    "45",
+    "44",
   ]);
 
   return (
@@ -400,14 +402,26 @@ const Vista_Productos_L: React.FC = () => {
             <div className="font-font-family-light font-bold x:text-[25px] x:ml-4 l:text-[24px] l:ml-4 g:text-[20px] g:leading-4 g:ml-4">
               Seleccionado para ti
             </div>
-            
+            <div className="mt-3 mx-4">
+              {[...productosIds2x1].map((idProducto) => (
+                <div key={idProducto}>
+                  <ProductosList2x1Caesars idProducto={idProducto} />
+                </div>
+              ))}
+            </div>
           </div>
           <div className="flex flex-col x:mt-5 l:mt-5 g:mt-5">
             <div className="flex items-center font-font-family-light font-bold x:text-[25px] x:ml-4 l:text-[25px] l:ml-4 g:text-[25px] g:ml-4 g:leading-4">
               <AiFillTag className="text-Verde x:mr-[2px] x:text-[30px] l:mr-[2px] l:text-[28px] g:text-[28px] g:mr-[2px]" />
               2x1
             </div>
-            
+            <div className="mt-3 mx-4">
+              {[...productosIdsSeleccionadoParaTi].map((idProducto) => (
+                <div key={idProducto}>
+                  <ProductosListCaesars idProducto={idProducto} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </IonContent>

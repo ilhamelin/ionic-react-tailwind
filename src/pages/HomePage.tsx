@@ -4,7 +4,6 @@ import "../theme/tailwind.css";
 
 // Import Componentes
 import Interruptor from "../components/Interruntor";
-import { useFavorites } from "../Context/FavoritesContext";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -44,17 +43,10 @@ import {
 } from "@ionic/react";
 
 // import de iconos
-import {
-  RiNotification3Line,
-  RiHeart3Line,
-  RiHeart3Fill,
-  RiArrowDropDownLine,
-} from "react-icons/ri";
+import { RiNotification3Line, RiArrowDropDownLine } from "react-icons/ri";
 import { IoMdPricetag } from "react-icons/io";
-import { IoTrophyOutline } from "react-icons/io5";
 import { LiaMedalSolid } from "react-icons/lia";
 import { searchCircleOutline } from "ionicons/icons";
-import { FaCircle } from "react-icons/fa6";
 
 import { auth, db } from "../firebase/firebase-config";
 import { doc, getDoc } from "firebase/firestore";
@@ -64,32 +56,20 @@ import LocalPageSub from "./Vista_Locales/LocalPageSub";
 
 const HomePage: React.FC = () => {
   const history = useHistory();
+  const [searchText, setSearchText] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
+  const [user] = useAuthState(auth);
+  const [userData, setUserData] = useState<any>(null);
 
   const handleClick = () => {
     history.push("/promociones");
   };
 
-  const [searchText, setSearchText] = useState("");
-
-  const handleSearchChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setSearchText(event.target.value);
-  };
-
-  //add favoritos
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
-
   const hideToast = () => {
     setShowToast(false);
   };
-
-  //DateBase FireBase
-
-  const [user] = useAuthState(auth);
-  const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -168,6 +148,7 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </IonToolbar>
+
         <IonToolbar className="flex flex-col items-center justify-center px-2">
           <div className="w-full">
             <IonIcon
@@ -178,7 +159,6 @@ const HomePage: React.FC = () => {
             <input
               type="text"
               value={searchText}
-              onChange={handleSearchChange}
               placeholder="Buscar Uber Eats"
               className="w-full px-4 py-2 border-none bg-Mercurio   placeholder:text-Gris_paloma placeholder:font-font-family-light placeholder:font-normal placeholder:text-[15px] text-Negro font-font-family-light font-normal text-[15px] rounded-2xl shadow-sm focus:outline-none focus:ring-0 "
             />

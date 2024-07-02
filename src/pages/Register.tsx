@@ -43,6 +43,7 @@ const Register: React.FC = () => {
         phoneNumber: userData.phoneNumber,
         address: userData.address,
         userId: user.uid,
+        imagenUrl: ""
       });
 
       // Registro exitoso, redirige al usuario a la página de inicio
@@ -66,6 +67,7 @@ const Register: React.FC = () => {
           phoneNumber: "",
           address: "",
           userId: user.uid,
+          imagenUrl: ""
         });
 
         // Inicio de sesión exitoso, redirige al usuario a la página de inicio

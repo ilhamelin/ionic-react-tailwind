@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { getProductFromFirestore } from "../../../firebase/firebase-functions"; // Importamos la función addToCart
+import { getProductBurgerKingFromFirestore } from "../../../firebase/firebase-functions";
 import { IonToast } from "@ionic/react";
 import { IoTrophyOutline } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
+
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const ProductosSliderLosBajones = ({
+const ProductosSliderBurgerKing = ({
   idProducto,
   idTienda,
   userId,
@@ -29,7 +30,7 @@ const ProductosSliderLosBajones = ({
   useEffect(() => {
     const fetchProductoData = async () => {
       try {
-        const data = await getProductFromFirestore(idProducto);
+        const data = await getProductBurgerKingFromFirestore(idProducto);
         setProductData(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -49,6 +50,15 @@ const ProductosSliderLosBajones = ({
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
+  };
+
+  const truncateText = (text: string, wordLimit: number) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
   };
 
   if (loading) {
@@ -127,7 +137,7 @@ const ProductosSliderLosBajones = ({
           <div className="my-2 ">
             <div className="flex flex-col">
               <div className="text-[15px] font-semibold ">
-                {productData.nombre}
+                {truncateText(productData.nombre, 3)}
               </div>
               <div className="flex items-center font-light">
                 <div className="text-[13px] ">CLP {productData.precio}</div>
@@ -147,4 +157,4 @@ const ProductosSliderLosBajones = ({
   );
 };
 
-export default ProductosSliderLosBajones;
+export default ProductosSliderBurgerKing;

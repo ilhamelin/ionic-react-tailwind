@@ -79,21 +79,21 @@ const CuentaPage: React.FC = () => {
     <>
       <IonHeader class="shadow-none">
         <IonToolbar>
-          <IonTitle>
-            <div className="flex justify-start items-center">
-              <div className="flex flex-col x:text-[30px] l:text-[25px] g:text-[20px] w-[265px] font-font-family-light">
+          <div className="px-4">
+            <div className="flex items-center font-font-family-light">
+              <div className="flex-1 text-[20px] ">
                 {userData ? userData.name : "Cargando..."}
               </div>
-              <div>
+              <div className="">
                 <img
-                  className="rounded-full h-full w-[90px] px-2 py-2"
-                  src={user?.photoURL || UserPlaceholder}
+                  className="rounded-full w-[100px]  px-2 py-2 order-last"
+                  src={userData?.imagenUrl || UserPlaceholder}
                   alt="User profile"
                   onClick={handleConfi}
                 />
               </div>
             </div>
-          </IonTitle>
+          </div>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -231,7 +231,7 @@ const CuentaPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="mt-[90px]"></div>
+        <div className="mb-28"></div>
       </IonContent>
     </>
   );

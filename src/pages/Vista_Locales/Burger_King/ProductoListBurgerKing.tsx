@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { getProductCaesarsFromFirestore } from "../../../firebase/firebase-functions";
+import { getProductBurgerKingFromFirestore } from "../../../firebase/firebase-functions";
 import { IonToast } from "@ionic/react";
 import { IoTrophyOutline } from "react-icons/io5";
 import { auth } from "../../../firebase/firebase-config";
 import { FaCircle } from "react-icons/fa";
 
-const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
+const ProductosListBurgerKing = ({ idProducto }: { idProducto: string }) => {
   const [productData, setProductData] = useState<any>(null);
   const [showAddToast, setShowAddToast] = useState(false);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
@@ -17,7 +17,7 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
   useEffect(() => {
     const fetchProductoData = async () => {
       try {
-        const data = await getProductCaesarsFromFirestore(idProducto);
+        const data = await getProductBurgerKingFromFirestore(idProducto);
         setProductData(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -98,4 +98,4 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
   );
 };
 
-export default ProductosListCaesars;
+export default ProductosListBurgerKing;

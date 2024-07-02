@@ -6,7 +6,7 @@ import { getProductCaesarsFromFirestore } from "../../../firebase/firebase-funct
 import { IonToast } from "@ionic/react";
 import { IoTrophyOutline } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
-import { useCarrito } from "../../../Context/CarritoContext";
+
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { AiOutlinePlus } from "react-icons/ai";
 
@@ -26,7 +26,7 @@ const ProductosSliderCaesars = ({
   const [toastAnimation, setToastAnimation] = useState("toast-slide-in");
   const [showCounter, setShowCounter] = useState(false);
   const [quantity, setQuantity] = useState(1); // Estado para la cantidad
-  const { addToCarrito } = useCarrito(); // Usar el contexto del carrito
+
 
   useEffect(() => {
     const fetchProductoData = async () => {
@@ -42,22 +42,6 @@ const ProductosSliderCaesars = ({
 
     fetchProductoData();
   }, [idProducto]);
-
-  const handleAddToCart = () => {
-    if (productData) {
-      addToCarrito({
-        id: idProducto,
-        name: productData.nombre,
-        price: productData.precio,
-        image: productData.imagenUrl,
-        rating: productData.popularidad,
-        ingredients: productData.ingredientes,
-        cantidad: quantity,
-      });
-      setShowAddToast(true);
-      setShowCounter(true);
-    }
-  };
 
   const handleIncrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -125,14 +109,16 @@ const ProductosSliderCaesars = ({
                         -
                       </button>
                       <span className="mx-1">{quantity}</span>
-                      <button className="text-[15px] mx-1" onClick={handleIncrementQuantity}>+</button>
+                      <button
+                        className="text-[15px] mx-1"
+                        onClick={handleIncrementQuantity}
+                      >
+                        +
+                      </button>
                     </div>
                   )}
                   <div className="my-1">
-                    <button
-                      className="text-[12px] bg-Gris_muy_claro shadow-md rounded-full py-1 px-1"
-                      onClick={handleAddToCart}
-                    >
+                    <button className="text-[12px] bg-Gris_muy_claro shadow-md rounded-full py-1 px-1">
                       <AiOutlinePlus className="text-[15px]" />
                     </button>
                   </div>

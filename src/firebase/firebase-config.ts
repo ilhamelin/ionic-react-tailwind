@@ -9,6 +9,7 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"; // Importa Firebase Storage
 
 // Tu configuración de Firebase
 const firebaseConfig = {
@@ -59,3 +60,4 @@ getRedirectResult(auth)
 
 // Exporta la instancia de autenticación y Firestore para que puedan ser utilizadas en otros archivos
 export { auth, db, loginWithGoogle };
+export const storage = getStorage(app); // Inicializa Firebase Storage

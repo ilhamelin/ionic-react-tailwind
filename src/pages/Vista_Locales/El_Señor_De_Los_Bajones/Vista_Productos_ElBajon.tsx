@@ -213,7 +213,17 @@ const Vista_Productos_ElBajon: React.FC = () => {
                   content: (
                     <>
                       <div className="flex items-center border-b-Gris_muy_claro border-b-2 pb-4">
-                        <RiHeart3Line className="mx-2 mr-4 text-[20px]" />
+                        
+                        <button
+                          onClick={handleToggleFavorite}
+                          className="x:px-[10px]  x:py-[10px]  l:px-[5px] l:py-[5px] g:px-[10px] g:py-[10px] lr:px-[10px] lr:py-[10px]  rounded-full bg-opacity-50"
+                        >
+                          {isFavorite ? (
+                            <RiHeart3Fill className="text-Negro text-[20px]" />
+                          ) : (
+                            <RiHeart3Line className="text-Negro text-[20px]" />
+                          )}
+                        </button>
                         <span className="font-medium">Agregar a favoritos</span>
                       </div>
                     </>

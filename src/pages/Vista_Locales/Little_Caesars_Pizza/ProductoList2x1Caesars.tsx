@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import { getProductCaesarsFromFirestore } from "../../../firebase/firebase-functions";
 import { IonToast } from "@ionic/react";
-import { IoTrophyOutline } from "react-icons/io5";
-import { auth } from "../../../firebase/firebase-config";
 import { FaCircle } from "react-icons/fa";
 
-const ProductosList2x1KFC = ({ idProducto }: { idProducto: string }) => {
+const ProductosList2x1Caesars = ({ idProducto }: { idProducto: string }) => {
   const [productData, setProductData] = useState<any>(null);
   const [showAddToast, setShowAddToast] = useState(false);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
@@ -26,6 +24,15 @@ const ProductosList2x1KFC = ({ idProducto }: { idProducto: string }) => {
 
     fetchProductoData();
   }, [idProducto]);
+
+  const truncateText = (text: string, wordLimit: number) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
+  };
 
   if (!productData) {
     return null; // Si no hay datos del producto, retorna null o un spinner de carga
@@ -73,7 +80,7 @@ const ProductosList2x1KFC = ({ idProducto }: { idProducto: string }) => {
               </span>
             </div>
             <div className="text-[12px] font-extralight text-Gris_paloma">
-              {productData.ingredientes}
+              {truncateText(productData.ingredientes, 6)}
             </div>
             <div className="text-[12px] font-normal text-Cian_oscuro">
               Compra 1, llevate 1 extra.
@@ -92,4 +99,4 @@ const ProductosList2x1KFC = ({ idProducto }: { idProducto: string }) => {
   );
 };
 
-export default ProductosList2x1KFC;
+export default ProductosList2x1Caesars;

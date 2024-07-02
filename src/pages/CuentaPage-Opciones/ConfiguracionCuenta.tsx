@@ -64,14 +64,17 @@ const ConfiguracionCuenta: React.FC = () => {
       <IonContent>
         <div className="flex flex-col justify-center items-center mt-4 pb-6 border-b-2 border-b-Gris_muy_claro">
           <img
-            className="rounded-full h-full w-[90px]"
-            src={user?.photoURL || UserPlaceholder}
+            className="rounded-full h-full w-[90px] px-1 py-1"
+            src={userData?.imagenUrl || UserPlaceholder}
             alt="User profile"
           />
           <div className="font-font-family-light leading-6 py-2">
             {userData ? userData.name : "Cargando..."}
           </div>
-          <button onClick={handleEditar} className="text-Cian_oscuro font-font-family-light font-medium text-[15px]">
+          <button
+            onClick={handleEditar}
+            className="text-Cian_oscuro font-font-family-light font-medium text-[15px]"
+          >
             EDITA LA CUENTA
           </button>
         </div>

@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+
 import "swiper/css";
 import "swiper/css/pagination";
-import { getProductCaesarsFromFirestore } from "../../../firebase/firebase-functions";
+import { getProductMcDonaldsFromFirestore } from "../../../firebase/firebase-functions";
 import { IonToast } from "@ionic/react";
-import { IoTrophyOutline } from "react-icons/io5";
-import { auth } from "../../../firebase/firebase-config";
 import { FaCircle } from "react-icons/fa";
 
-const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
+const ProductosList2x1McDonalds = ({ idProducto }: { idProducto: string }) => {
   const [productData, setProductData] = useState<any>(null);
   const [showAddToast, setShowAddToast] = useState(false);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
@@ -17,7 +15,7 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
   useEffect(() => {
     const fetchProductoData = async () => {
       try {
-        const data = await getProductCaesarsFromFirestore(idProducto);
+        const data = await getProductMcDonaldsFromFirestore(idProducto);
         setProductData(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -65,7 +63,7 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
 
       <div className=" mb-4 mt-3">
         <div className="flex justify-end font-font-family-light">
-          <div className="flex-1 flex-col pr-5">
+          <div className="flex-1 flex-col justify-start pr-5">
             <div className="leading-5 mb-1">
               <div className="text-[16px] font-semibold">
                 {productData.nombre}
@@ -81,8 +79,11 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
                 ({productData.cantidadReview})
               </span>
             </div>
-            <div className="text-[12px] font-extralight text-Gris_paloma ">
-              {truncateText(productData.ingredientes, 10)}
+            <div className="text-[12px] font-extralight text-Gris_paloma">
+              {truncateText(productData.ingredientes, 6)}
+            </div>
+            <div className="text-[12px] font-normal text-Cian_oscuro">
+              Compra 1, llevate 1 extra.
             </div>
           </div>
           <div className="order-last">
@@ -98,4 +99,4 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
   );
 };
 
-export default ProductosListCaesars;
+export default ProductosList2x1McDonalds;

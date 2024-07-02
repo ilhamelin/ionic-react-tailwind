@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { getProductCaesarsFromFirestore } from "../../../firebase/firebase-functions";
+import { getProductMcDonaldsFromFirestore } from "../../../firebase/firebase-functions";
 import { IonToast } from "@ionic/react";
 import { IoTrophyOutline } from "react-icons/io5";
 import { auth } from "../../../firebase/firebase-config";
 import { FaCircle } from "react-icons/fa";
 
-const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
+const ProductosListMcDonalds = ({ idProducto }: { idProducto: string }) => {
   const [productData, setProductData] = useState<any>(null);
   const [showAddToast, setShowAddToast] = useState(false);
   const [showRemoveToast, setShowRemoveToast] = useState(false);
@@ -17,7 +17,7 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
   useEffect(() => {
     const fetchProductoData = async () => {
       try {
-        const data = await getProductCaesarsFromFirestore(idProducto);
+        const data = await getProductMcDonaldsFromFirestore(idProducto);
         setProductData(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -68,7 +68,7 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
           <div className="flex-1 flex-col pr-5">
             <div className="leading-5 mb-1">
               <div className="text-[16px] font-semibold">
-                {productData.nombre}
+                {truncateText(productData.nombre, 8)}
               </div>
             </div>
             <div className="flex items-center font-light">
@@ -87,7 +87,7 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
           </div>
           <div className="order-last">
             <img
-              className="object-cover h-[100px] w-[115px] rounded-lg "
+              className="object-cover shadow-lg h-[100px] w-[115px] rounded-lg "
               src={productData.imagenUrl}
               alt={`${productData.nombre} image`}
             />
@@ -98,4 +98,4 @@ const ProductosListCaesars = ({ idProducto }: { idProducto: string }) => {
   );
 };
 
-export default ProductosListCaesars;
+export default ProductosListMcDonalds;

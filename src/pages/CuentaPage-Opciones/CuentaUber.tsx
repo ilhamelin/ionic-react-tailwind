@@ -1,20 +1,22 @@
 import { IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
-import React, { useEffect, useState } from "react";
-
-import { FaArrowLeft } from "react-icons/fa6";
-import { FaUserAlt, FaLock, FaShieldAlt } from "react-icons/fa";
-import { BsGoogle } from "react-icons/bs";
+import React, { useEffect, useState, useRef } from "react";
+import { FaArrowLeft, FaCamera } from "react-icons/fa";
 import UserPlaceholder from "../../img/Perfil_User.png";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../../firebase/firebase-config";
-import { doc, getDoc } from "firebase/firestore";
+import { auth, db, storage } from "../../firebase/firebase-config";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Webcam from "react-webcam";
+import { BsGoogle } from "react-icons/bs";
 
 const Cuenta: React.FC = () => {
   const [user] = useAuthState(auth);
   const [userData, setUserData] = useState<any>(null);
-  const [passwordVisible, setPasswordVisible] = useState(false); // Estado para controlar la visibilidad de la contraseña
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [activeTab, setActiveTab] = useState("informacion");
+  const [showOptions, setShowOptions] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const webcamRef = useRef<Webcam>(null);
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
@@ -23,7 +25,7 @@ const Cuenta: React.FC = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
-        console.log("Authenticated user ID:", user.uid); // Verifica el UID del usuario
+        console.log("Authenticated user ID:", user.uid);
         const userDocRef = doc(db, "Usuarios", user.uid);
         try {
           const userDoc = await getDoc(userDocRef);
@@ -40,6 +42,50 @@ const Cuenta: React.FC = () => {
 
     fetchUserData();
   }, [user]);
+
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (user && event.target.files && event.target.files[0]) {
+      const selectedImage = event.target.files[0];
+      const imageRef = ref(storage, `profilePictures/${user.uid}`);
+      try {
+        await uploadBytes(imageRef, selectedImage);
+        const imageUrl = await getDownloadURL(imageRef);
+        const userDocRef = doc(db, "Usuarios", user.uid);
+        await updateDoc(userDocRef, { imagenUrl: imageUrl });
+        setUserData((prevData: any) => ({ ...prevData, imagenUrl: imageUrl }));
+        console.log("Imagen subida y URL actualizada en Firestore");
+      } catch (error) {
+        console.error("Error subiendo la imagen:", error);
+      }
+    }
+  };
+
+  const captureImageFromCamera = async () => {
+    if (webcamRef.current && user) {
+      const imageSrc = webcamRef.current.getScreenshot();
+      if (imageSrc) {
+        const response = await fetch(imageSrc);
+        const blob = await response.blob();
+        const imageRef = ref(storage, `profilePictures/${user.uid}`);
+        try {
+          await uploadBytes(imageRef, blob);
+          const imageUrl = await getDownloadURL(imageRef);
+          const userDocRef = doc(db, "Usuarios", user.uid);
+          await updateDoc(userDocRef, { imagenUrl: imageUrl });
+          setUserData((prevData: any) => ({
+            ...prevData,
+            imagenUrl: imageUrl,
+          }));
+          console.log("Imagen capturada y URL actualizada en Firestore");
+          setIsCameraOpen(false);
+        } catch (error) {
+          console.error("Error subiendo la imagen:", error);
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -106,12 +152,15 @@ const Cuenta: React.FC = () => {
                 <div className="text-[30px] font-semibold w-[280px]">
                   Informacion de la Cuenta
                 </div>
-                <div className="mt-3">
+                <div className="mt-3 relative">
                   <img
                     className="rounded-full h-full w-[90px] px-1 py-1"
-                    src={user?.photoURL || UserPlaceholder}
+                    src={userData?.imagenUrl || UserPlaceholder}
                     alt="User profile"
                   />
+                  <div className="absolute bottom-0 right-[280px] bg-Gris_muy_claro rounded-full p-1 cursor-pointer">
+                    <FaCamera onClick={() => setShowOptions(true)} />
+                  </div>
                 </div>
                 <div className="flex flex-col mt-4">
                   <div className="text-[20px] font-semibold">
@@ -154,29 +203,31 @@ const Cuenta: React.FC = () => {
           >
             {activeTab === "seguridad" && (
               <div className="flex flex-col mx-4 mt-4 font-font-family-light ">
-                <div>
-                  <div className="text-[30px] font-semibold w-[280px]">
-                    Seguridad
-                  </div>
-                  <div className="mt-8 text-[20px] font-medium">
-                    Iniciar sesion en Uber
-                  </div>
-                  <div className="flex flex-col my-5 text-[16px] border-b-Gris_muy_claro border-b-2 pb-3">
+                <div className="text-[30px] font-semibold w-[250px]">
+                  Seguridad
+                </div>
+                <div className="flex flex-col mt-4">
+                  <div className="text-[20px] font-semibold">Acceso</div>
+                  <div className="flex flex-col text-[16px] mt-4">
                     Contraseña
-                    <span className="text-[15px] font-medium my-1">
-                      {passwordVisible ? "password" : "••••••••••"}
-                      <button
-                        className="ml-2 text-Gris_paloma"
+                    <span className="text-Gris_paloma text-[15px] font-normal my-0.5">
+                      Cambia tu contraseña
+                    </span>
+                    <div className="relative">
+                      <input
+                        className="border border-Gris_muy_claro w-full py-2 px-3"
+                        type={passwordVisible ? "text" : "password"}
+                        defaultValue="********"
+                      />
+                      <span
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                         onClick={() => setPasswordVisible(!passwordVisible)}
                       >
                         {passwordVisible ? "Ocultar" : "Mostrar"}
-                      </button>
-                    </span>
-                    <span className="text-Gris_paloma text-[15px] font-normal leading-7">
-                      Ultima modificacion
-                    </span>
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col text-[16px] border-b-Gris_muy_claro border-b-2 pb-3">
+                  <div className="flex flex-col text-[16px] border-b-Gris_muy_claro border-b-2 pb-3 mt-5">
                     Claves de acceso
                     <span className="text-Gris_paloma text-[15px] font-normal my-0.5">
                       Las claves de acceso son mas faciles y
@@ -209,12 +260,13 @@ const Cuenta: React.FC = () => {
                       permitiste que estas apps sociales inicien sesion en tu
                       cuenta uber
                     </span>
-                    <div className="fle mt-6">
-                      <BsGoogle />
+                    <div className="flex items-center mt-6">
+                      <BsGoogle className="mr-2" />
                       <div>Google</div>
                     </div>
                   </div>
                 </div>
+                <div className="mb-24"></div>
               </div>
             )}
           </div>
@@ -258,6 +310,71 @@ const Cuenta: React.FC = () => {
             )}
           </div>
         </div>
+        {showOptions && (
+          <div className="fixed inset-0 bg-Negro font-font-family-light bg-opacity-50 flex items-center justify-center  z-50">
+            <div className="bg-Blanco rounded-lg   p-4 w-80">
+              <div className="text-lg font-semibold mb-4 text-center">
+                Selecciona una opción
+              </div>
+              <div>
+                <button
+                  className=" w-full bg-blue-500 bg-Gris_muy_claro text-Negro py-2 px-4 rounded-lg mb-2"
+                  onClick={() => {
+                    setShowOptions(false);
+                    setIsCameraOpen(true);
+                  }}
+                >
+                  Usar cámara
+                </button>
+              </div>
+              <div className="my-2 bg-Gris_muy_claro text-Negro text-center py-1 px-4 rounded-lg">
+                <label className="w-full  text-white   cursor-pointer mb-2  ">
+                  Seleccionar imagen
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      handleImageChange(e);
+                      setShowOptions(false);
+                    }}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+              <button
+                className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg"
+                onClick={() => setShowOptions(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+        {isCameraOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-4 w-80 flex flex-col items-center">
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                width={300}
+                height={300}
+              />
+              <button
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg mt-4"
+                onClick={captureImageFromCamera}
+              >
+                Capturar y subir imagen
+              </button>
+              <button
+                className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg mt-2"
+                onClick={() => setIsCameraOpen(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
       </IonContent>
     </>
   );

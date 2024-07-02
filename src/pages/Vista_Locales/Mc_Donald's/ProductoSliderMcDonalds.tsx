@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { getProductFromFirestore } from "../../../firebase/firebase-functions"; // Importamos la función addToCart
+import { getProductMcDonaldsFromFirestore } from "../../../firebase/firebase-functions";
 import { IonToast } from "@ionic/react";
 import { IoTrophyOutline } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
+
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const ProductosSliderLosBajones = ({
+const ProductosSliderMcDonalds = ({
   idProducto,
   idTienda,
   userId,
@@ -26,10 +27,11 @@ const ProductosSliderLosBajones = ({
   const [showCounter, setShowCounter] = useState(false);
   const [quantity, setQuantity] = useState(1); // Estado para la cantidad
 
+
   useEffect(() => {
     const fetchProductoData = async () => {
       try {
-        const data = await getProductFromFirestore(idProducto);
+        const data = await getProductMcDonaldsFromFirestore(idProducto);
         setProductData(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -40,6 +42,7 @@ const ProductosSliderLosBajones = ({
 
     fetchProductoData();
   }, [idProducto]);
+
 
   const handleIncrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -116,7 +119,10 @@ const ProductosSliderLosBajones = ({
                     </div>
                   )}
                   <div className="my-1">
-                    <button className="text-[12px] bg-Gris_muy_claro shadow-md rounded-full py-1 px-1">
+                    <button
+                      className="text-[12px] bg-Gris_muy_claro shadow-md rounded-full py-1 px-1"
+              
+                    >
                       <AiOutlinePlus className="text-[15px]" />
                     </button>
                   </div>
@@ -134,12 +140,6 @@ const ProductosSliderLosBajones = ({
                 <FaCircle className="mx-[4px] text-[2.7px] " />
               </div>
             </div>
-            <div className="flex font-light">
-              <div className="mr-2 text-[13px]">{productData.popularidad}</div>
-              <span className="text-[13px]">
-                ({productData.cantidadReview})
-              </span>
-            </div>
           </div>
         </div>
       </Swiper>
@@ -147,4 +147,4 @@ const ProductosSliderLosBajones = ({
   );
 };
 
-export default ProductosSliderLosBajones;
+export default ProductosSliderMcDonalds;
